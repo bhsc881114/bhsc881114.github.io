@@ -20,9 +20,9 @@
 
 
 
-	<meta name="keywords" content="我," />
+	<meta name="keywords" content="devicePixelRatio,viewport," />
 
-  <title> 新的开始 // 灰主流创业者 </title>
+  <title> 响应式站点-技术基础 // 灰主流创业者 </title>
 </head>
 
 <body>
@@ -111,7 +111,7 @@
           
           
             
-              新的开始
+              响应式站点-技术基础
             
           
         </h1>
@@ -120,7 +120,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2015-03-29
+            发表于 2015-05-11
           
         </span>
 
@@ -129,7 +129,15 @@
             <span class="post-category">
               &nbsp; | &nbsp; 分类于
               
-                <a href="/categories/我/">我</a>
+                <a href="/categories/前端/">前端</a>
+
+                
+                
+                  ， 
+                
+
+              
+                <a href="/categories/前端/响应式/">响应式</a>
 
                 
                 
@@ -143,8 +151,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/03/29/新的开始/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/29/新的开始/"></span>
+            <a href="/2015/05/12/响应式站点-技术基础/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/12/响应式站点-技术基础/"></span>
             </a>
           </span>
           
@@ -157,11 +165,38 @@
 
         
         
+          <div class="post-gallery">
+            
+              <a class="post-gallery-img fancybox" href="http://7xijc0.com1.z0.glb.clouddn.com/responsive-web-design.jpg"
+                 rel="gallery_ci9k4pn0s000jsxi6e3nyse3x">
+                <img src="http://7xijc0.com1.z0.glb.clouddn.com/responsive-web-design.jpg" />
+              </a>
+            
+          </div>
+        
 
         
-          <p><img src="http://img02.taobaocdn.com/imgextra/i2/86965659/TB2a6n7cXXXXXahXpXXXXXXXXXX-86965659.jpg" alt="i am back"></p>
-<p>大学的时候在iteye、网易、csdn、360DOC、百度空间都写过博客，工作以后基本就断了,去年年底计划重新开始写，今天终于搭起来了，计划每个月写2到3篇，这样一年也有40篇以上了，每篇都尽量保证质量</p>
-<p>这个博客基本都是技术相关，java、nodejs、前端、大数据等。花了半天时间了解jekyll、octopress、hexo等，最终选择hexo而不是jekyll，主要是考虑想在nodejs方面深入一点，计划搞个自己的模板，再加上有很多前端的小工具想试试，让我更需要搭建这个博客来做试验 :)。 </p>
+          <p>响应式开发背后的技术基础，主要是viewport、设备密度<br><a id="more"></a></p>
+<hr>
+<p>响应式能够让网站在不同分辨率、不同大小的设备下，能够是实现比较好的体验，背后的基础在于区分不同设备的尺寸、密度</p>
+<h1 id="1-设备尺寸和分辨率">1.设备尺寸和分辨率</h1><p>PC时代，设备尺寸基本可以认为固定，操作区域一般控制在1024，基本不考虑用户主动改变浏览器大小的情况。诺基亚时代，也有小尺寸设备访问网站的需求，那时设备上网本来就不方便，网络条件差，整体体验都不好，网页都是按照PC渲染，再局部放大将就着看。</p>
+<p>iphone刚出现时，也是通过先加载全部网页再放大局部浏览，不过他的快速流行出现了为iphone量身定制的网站，直接设置宽度为320。safari最先引入了meta viewport来允许用户修改视窗的大小，来达到最好的效果。</p>
+<p><strong> 可以在这里直观的感受下：<a href="http://andreasbovens.github.io/understanding-viewport/" target="_blank" rel="external">http://andreasbovens.github.io/understanding-viewport/</a> </strong></p>
+  <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/resp-viewport1.png" alt="img">（不设置viewport）</center>
+
+  <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/resp-viewport2.png" alt="img">（设置了width=device-width之后）</center>
+
+<h1 id="设备密度">设备密度</h1><p>iphone3和4都是3.5寸，前者分辨率是320*480，后者是640何960，这和设备密度有关</p>
+<p><strong> devic pixel：</strong> 物理像素(长宽单位为1)。在屏幕上，元素其实是通过硬件的物理点（RGB）来展示的。1个大设备上的点比小设备上的点要大(很容易理解)，只是因为我们看的距离不同（看电视会坐的比较远，看手机会拿的很近），所以对我们来说看着都比较清晰</p>
+<p><strong> css pixel：</strong> css像素，假设有个div宽20px; 如果以绝对的1:1物理点来显示的话，必然大屏幕的20px会比小屏的px大（想象一下设置一个宽度，在电脑和手机上表现不一样，这就太坑爹了）。 我们实际web开发的时候没遇到这样的问题，因为css px是一个中间层，在高密度设备商一个css pixel点以2个（和密度有关）device pixel来展示</p>
+<center><img src="http://7xijc0.com1.z0.glb.clouddn.com/pixratio.png" alt="img"></center>
+
+<p><strong> devicePixelRatio：</strong> 设备像素比，就是指多少个物理像素来显示一个逻辑像素，现在比较多的是2，3也有,可以同通过window.devicePixelRatio获得</p>
+<p><strong> device width：</strong> 设备宽度，指逻辑像素下的款宽度（就是上面的css pixel），比如iphone的device width就是320*480。这里可以查看各种设备的物理像素和逻辑像素</p>
+<h2 id="文字">文字</h2><p>对文字来说，其实不存在不同密度下显示方面的的问题，font-size:12px;在不同设备上看着都是一样得，因为可以自动的以多个物理点来显示一个逻辑点。但是图片就没这么容易了，一个200<em>200px的图片在2倍密度的设备上，实际对应的是400</em>400的物理点，多出来的点智只能以临近的值来填充，所以就会显得模糊。</p>
+<h2 id="图片">图片</h2><p>图片的响应式确实是一个比较棘手的问题，除了视觉上，还有性能上的问题要考虑，上面200<em>200px像素的问题，简单的做法就是提供一张400</em>400的图片，以200*200展示</p>
+<hr>
+<h1 id="深入viewport">深入viewport</h1><p>todo</p>
 
         
       </div>
@@ -172,8 +207,12 @@
         
           <div class="post-tags">
             
-              <a href="/tags/我/">
-                #我
+              <a href="/tags/devicePixelRatio/">
+                #devicePixelRatio
+              </a>
+            
+              <a href="/tags/viewport/">
+                #viewport
               </a>
             
           </div>
@@ -183,11 +222,11 @@
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2015/04/19/一次linux内存问题排查-slab/">一次linux内存问题排查-slab</a>
-              
             </div>
 
             <div class="post-nav-next post-nav-item">
+              
+                <a href="/2015/04/19/一次linux内存问题排查-slab/">一次linux内存问题排查-slab</a>
               
             </div>
           </div>
@@ -204,8 +243,8 @@
   
     <div class="comments" id="comments">
       
-        <div class="ds-thread" data-thread-key="2015/03/29/新的开始/"
-             data-title="新的开始" data-url="http://bhsc881114.github.io/2015/03/29/新的开始/">
+        <div class="ds-thread" data-thread-key="2015/05/12/响应式站点-技术基础/"
+             data-title="响应式站点-技术基础" data-url="http://bhsc881114.github.io/2015/05/12/响应式站点-技术基础/">
         </div>
 
       
@@ -303,7 +342,7 @@
         <div class="post-toc">
           
           
-            <p class="post-toc-empty">此文章未包含目录</p>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-设备尺寸和分辨率"><span class="nav-number">1.</span> <span class="nav-text">1.设备尺寸和分辨率</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#设备密度"><span class="nav-number">2.</span> <span class="nav-text">设备密度</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#文字"><span class="nav-number">2.1.</span> <span class="nav-text">文字</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#图片"><span class="nav-number">2.2.</span> <span class="nav-text">图片</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#深入viewport"><span class="nav-number">3.</span> <span class="nav-text">深入viewport</span></a></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
