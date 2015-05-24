@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://bhsc881114.github.io/"/>
-  <updated>2015-05-13T16:10:56.000Z</updated>
+  <updated>2015-05-24T04:11:10.000Z</updated>
   <id>http://bhsc881114.github.io/</id>
   
   <author>
@@ -15,38 +15,57 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[技术人员在不同阶段公司工作的几种常态]]></title>
-    <link href="http://bhsc881114.github.io/2015/05/13/%E6%8A%80%E6%9C%AF%E4%BA%BA%E5%91%98%E5%9C%A8%E4%B8%8D%E5%90%8C%E9%98%B6%E6%AE%B5%E5%85%AC%E5%8F%B8%E5%B7%A5%E4%BD%9C%E7%9A%84%E5%87%A0%E7%A7%8D%E5%B8%B8%E6%80%81/"/>
-    <id>http://bhsc881114.github.io/2015/05/13/技术人员在不同阶段公司工作的几种常态/</id>
-    <published>2015-05-13T15:56:45.000Z</published>
-    <updated>2015-05-13T16:10:56.000Z</updated>
-    <content type="html"><![CDATA[<p>工作中遇到一些问题，识别出是常态还是非常态是很重要的，以免出现轻重不分的情况<br><a id="more"></a><br>周末的时候一个以前的同事从北京过来聊，总共4个人，2个在创业，一个在小公司，一个在大公司，聊完了有点感想。这些年在大公司呆过，创业过一个小公司—-挂了，目前在一个小公司“打工”（当然也可以认为比打工稍微高级一点点），积累了一些经验，写点东西和创业的朋友们交流交流</p>
-<p>创业是一件想象中美好的事情：创造社会价值，建立可持续发展的事业，并获得财务自由。实际过程中会发现各种各样的问题，比想象中艰苦、纠结的多</p>
-<p>前几天看到Fenng的一篇文章，说了一些创业公司的常态问题，深以为然。其实工作中遇到一些问题，识别出是常态还是非常态是很重要的，以免出现轻重不分的情况。</p>
+    <title><![CDATA[响应式站点2-viewport和media-query]]></title>
+    <link href="http://bhsc881114.github.io/2015/05/22/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%AB%99%E7%82%B92-viewport%E5%92%8Cmedia-query/"/>
+    <id>http://bhsc881114.github.io/2015/05/22/响应式站点2-viewport和media-query/</id>
+    <published>2015-05-22T00:58:34.000Z</published>
+    <updated>2015-05-24T04:11:10.000Z</updated>
+    <content type="html"><![CDATA[<ul>
+<li><a href="http://bhsc881114.github.io/2015/05/12/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%AB%99%E7%82%B9-%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/" target="_blank" rel="external">响应式站点1-技术基础</a></li>
+<li>响应式站点2-viewport和media-query</li>
+<li>响应式站点3-skills(预告)</li>
+</ul>
+<p>以前做一个在手机上的网站，一开始显示的内容都偏小，需要双击缩放才能显示。后来发现加上viewport就可以了，瞬间觉得高大上….扒一扒他的原理<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta <span class="variable">name=</span><span class="string">"viewport"</span> <span class="variable">content=</span><span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span><br></pre></td></tr></table></figure> </p>
+<p><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-2.png" alt="viewport-index"><br><a id="more"></a></p>
 <hr>
-<p>下面简单列下我所知道的一些公司常态：</p>
-<h2 id="大公司1">大公司1</h2><p>偏边缘业务部门：这样的地方一般<strong>搞清楚方向、让别人知道你做了什么或者准备做什么是第一位</strong>。当然快速变化的时代，有谁又能想的一清二楚呢，所以这时候常常会有很多内耗（僧多肉少），很多的ppt会议，趋势分析等。我想这对很多人来说是很纠结的，当然也有人能混的如鱼得水，想清楚自己是否适合</p>
-<h2 id="大公司2">大公司2</h2><p>核心技术部门：大公司核心部门的技术含量还是非常高的，如果你对技术有兴趣，足够热爱，那么就只有想不到，没有做不到，多看看国外公司的一些新技术。唯一的问题就是会让<strong>爱折腾的你觉得有点单调</strong></p>
-<h2 id="初创公司">初创公司</h2><p>公司刚刚成立，基本也就几个合伙人干活，这时<strong>最容易出现问题的是方向和重点的问题</strong>。运营和产品可能经常会因为揪住某个看起来很简单的细节或者冒个新想法而占用大量的开发时间，开发可能觉得应该把精力投入更重要的事情，而运营和产品又会觉得进度太慢。。。这时候<strong>最重要得是相互理解，妥协也是一种进步，总之，这种问题会随着公司盈利而基本消失或者公司倒闭</strong></p>
-<h2 id="技术型小公司">技术型小公司</h2><p>这样的公司基本是技术+销售，对技术来说比价自由，有充分的主动权，整天会和一线的客户打交道，改进问题，改进研发工具。可能的问题是一堆技术人做的过于细节，而很难把事情做大</p>
-<h2 id="产品型小公司">产品型小公司</h2><p>这样的小公司一般已经过了没有收入阶段，但是渴望做的更大。随着公司慢慢变大，有技术+设计师+产品+运营+市场，当然可能会一人兼多职。做好一个产品牵涉的细节太多，必然需要不断讨论、确认，一开始可能大家会在一起讨论，结果最后会发现还是术业有专攻，技术和产品还是会分开。对技术来说，可能又部分回到了大公司螺丝钉的状态，不过优点是一群人在一起可能够做一款牛B的产品。<br>另外因为人力有限，必须专注于所有资源在1，2个项目，这可能和你的创业方向不同</p>
-<center><img src="http://7xijc0.com1.z0.glb.clouddn.com/AAA.Png" alt="img"></center>
-
-
-<h2 id="我(们)能做什么？">我(们)能做什么？</h2><p>如果你在上面的这些环境，刚好常态的问题又是你不喜欢的，该怎么做？想清楚所在部门或者行业的趋势比较重要，毕竟沉没成本不是成本，机会成本才算成本 ：）</p>
+<h1 id="3种viewport">3种viewport</h1><p>以前PC端的网站一般宽度在1000px以上,这种大尺寸的页面如何在手机上展示?答案就是：缩放，所以早期看到的网站都很小，需要双击放大某一部分区域才能浏览。</p>
+<h2 id="visual_viewport">visual viewport</h2><p>visuall viewport,显示的屏幕窗口,可以把他理解为放大镜,距离可以拉近一点拉远一点,显示的内容可以缩小可以放大,大致就是下面这个样子：<br>  <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport33.png" alt="viewport">  </center></p>
+<p>比如一个1024px宽的页面，要在320px的手机上显示，可以拉远距离(缩放)全局浏览，也可以拉近只看一部分,并且移动visual viewport来查看网页的不同部分</p>
+<h2 id="layout_viewport">layout viewport</h2><p>另外一个PC端的网页是怎么在320px的手机上渲染的？这里有个隐藏的概念,就是layout viewport。当我们设置一个width=20%时,他必须知道父级的width是多少,最终必须找到一个设置绝对值的顶层的元素(body)</p>
+<p>早期没有专门为移动端做的页面,所以手机浏览器默认的layout viewport都是接近pc的宽度，这样可以确保PC的网页展示都没问题。<a href="http://www.quirksmode.org/mobile/metaviewport/" target="_blank" rel="external">这里</a>里有每个手机浏览器的默认layot viewport，附个图：</p>
+<p><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-4.png" alt="layout"></p>
+<h2 id="修改layout_viewport">修改layout viewport</h2><p>layout viewport+visual viewport，我们的PC端网页已经可以在手机上展示了，不过显然还不够完美：能不能不要缩放，不要双击放大以后再拖动来看网页? 手机端320px的宽度，那就做个宽度只有320px的页面：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">body</span> <span class="attribute">style</span>=<span class="value">"width:320px"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"contianer"</span>&gt;</span></span><br><span class="line">      hello everyone</span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure><br> <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-6.png" alt="pc viewport"> </center><br>可以看到因为默认的layout viewport是按PC设置的，就算设置一个320px，也会按照PC的效果来展示</p>
+<p>ios最早提供了<a href="https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/UsingtheViewport/UsingtheViewport.html" target="_blank" rel="external">修改layout viewport</a>的能力，我们给上面的页面设置下layout viewport，并且visual viewport不缩放，这样就完美了：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta <span class="variable">name=</span><span class="string">"viewport"</span> <span class="variable">content=</span><span class="string">"width=320px, initial-scale=1.0"</span>&gt;</span><br></pre></td></tr></table></figure><br>  <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-7.png" alt="pc viewport"> </center></p>
+<h2 id="ideal_viewport">ideal viewport</h2><p>因为移动端的设备太多,宽度不一,所以上面写死的width=320px是非常不好的。还好设备都有一个ideal viewport，也就是最佳的尺寸，把layout viewport设置成idela viewport，并且visual viewport不要缩放就能达到最好的效果（可能有点绕）：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta <span class="variable">name=</span><span class="string">"viewport"</span> <span class="variable">content=</span><span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span><br></pre></td></tr></table></figure> width和initial-scale 设置其他值的效果，可以在这里查看：<a href="http://andreasbovens.github.io/understanding-viewpor" target="_blank" rel="external">understanding-viewport</a></p>
+<h2 id="小结">小结</h2><p>设置恰当的viewport，并且设置body的宽度为100%，这样在不同的设备上就能100%的展示，没有缩放，这为我们的响应式设计提供了基础</p>
+<hr>
+<h1 id="media_query">media query</h1><p>为不同的设备设置了网页的布局总宽度之后，需要进行区分，以便为不同的宽度设置不同的布局，media query提供了这种能力，它有非常多的属性，不过我们最常用的就是width<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@media</span> (max-<span class="string">width:</span> <span class="number">480</span>px) &#123; </span><br><span class="line">    <span class="comment">// 隐藏某些元素</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="annotation">@media</span> (max-<span class="string">width:</span> <span class="number">768</span>px) &#123;  &#125;</span><br><span class="line"><span class="annotation">@media</span> (min-<span class="string">width:</span> <span class="number">1200</span>px) &#123;</span><br><span class="line">  <span class="comment">// 显示某些元素 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 恰当的断点很重要，根据<a href="http://reports.quickleft.com/css" target="_blank" rel="external">2014 css报告</a>,设置最多的是480，768，990，1200，当然可能和bootstrap用的最多有关</p>
+<h2 id="device_width和width">device width和width</h2><p>另外可以再看看device width和width这两个值，大部分时候他们实现的效果是一样的，但是还是有一些细小的差别:</p>
+<ul>
+<li>device-wdith 指的是设备的宽度，在pc上你改变拖动浏览器窗口的大小并不会改变这个值</li>
+<li>width:指的是浏览器的宽度</li>
+</ul>
+<p>所以使用width会更好，并且在某些android设备上，使用device-width可能会变成device pixel</p>
+<h1 id="总结">总结</h1><p>设置不同的布局宽度、不同宽度设置不同的样式是实现响应式站点的基础。实际使用中，还是有很多细节，比如文字、表格布局、retina 下的图片处理等，下篇继续</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[<p>工作中遇到一些问题，识别出是常态还是非常态是很重要的，以免出现轻重不分的情况<br>]]>
+    <![CDATA[<ul>
+<li><a href="http://bhsc881114.github.io/2015/05/12/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%AB%99%E7%82%B9-%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/">响应式站点1-技术基础</a></li>
+<li>响应式站点2-viewport和media-query</li>
+<li>响应式站点3-skills(预告)</li>
+</ul>
+<p>以前做一个在手机上的网站，一开始显示的内容都偏小，需要双击缩放才能显示。后来发现加上viewport就可以了，瞬间觉得高大上….扒一扒他的原理<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta <span class="variable">name=</span><span class="string">"viewport"</span> <span class="variable">content=</span><span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span><br></pre></td></tr></table></figure> </p>
+<p><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-2.png" alt="viewport-index"><br>]]>
     
     </summary>
     
-      <category term="创业" scheme="http://bhsc881114.github.io/tags/%E5%88%9B%E4%B8%9A/"/>
+      <category term="media-query" scheme="http://bhsc881114.github.io/tags/media-query/"/>
     
-      <category term="我" scheme="http://bhsc881114.github.io/tags/%E6%88%91/"/>
+      <category term="viewport" scheme="http://bhsc881114.github.io/tags/viewport/"/>
     
-      <category term="我" scheme="http://bhsc881114.github.io/categories/%E6%88%91/"/>
+      <category term="前端" scheme="http://bhsc881114.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
     
-      <category term="搬砖ing" scheme="http://bhsc881114.github.io/categories/%E6%88%91/%E6%90%AC%E7%A0%96ing/"/>
+      <category term="响应式" scheme="http://bhsc881114.github.io/categories/%E5%89%8D%E7%AB%AF/%E5%93%8D%E5%BA%94%E5%BC%8F/"/>
     
   </entry>
   
