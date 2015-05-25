@@ -392,7 +392,9 @@
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-      $(".fancybox").fancybox();
+      if($(".fancybox").length>0){
+         $(".fancybox").fancybox();
+      }
     });
   </script>
 

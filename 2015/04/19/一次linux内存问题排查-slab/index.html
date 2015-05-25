@@ -168,7 +168,7 @@
           <div class="post-gallery">
             
               <a class="post-gallery-img fancybox" href="http://7xijc0.com1.z0.glb.clouddn.com/xxxx.png"
-                 rel="gallery_cia1yjlbf000vji9iq49x3vux">
+                 rel="gallery_cia3hev0a000vgdirjavurfgt">
                 <img src="http://7xijc0.com1.z0.glb.clouddn.com/xxxx.png" />
               </a>
             
@@ -402,7 +402,9 @@
   <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
   <script type="text/javascript">
     $(document).ready(function() {
-      $(".fancybox").fancybox();
+      if($(".fancybox").length>0){
+         $(".fancybox").fancybox();
+      }
     });
   </script>
 
