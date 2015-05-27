@@ -74,7 +74,7 @@
     <link href="http://bhsc881114.github.io/2015/05/12/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%AB%99%E7%82%B9-%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/"/>
     <id>http://bhsc881114.github.io/2015/05/12/响应式站点-技术基础/</id>
     <published>2015-05-11T16:36:10.000Z</published>
-    <updated>2015-05-24T04:19:55.000Z</updated>
+    <updated>2015-05-27T01:28:49.000Z</updated>
     <content type="html"><![CDATA[<p>响应式开发背后的技术基础，主要是设备尺寸、设备密度</p>
 <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/responsive-web-design.jpg" alt="viewport-index"></center>
 
@@ -90,7 +90,7 @@
 
 <h1 id="设备密度">设备密度</h1><p>iphone3和4都是3.5寸，前者分辨率是320*480，后者是640何960，这和设备密度有关</p>
 <p><strong> devic pixel：</strong> 物理像素(长宽单位为1)。在屏幕上，元素其实是通过硬件的物理点（RGB）来展示的。1个大设备上的点比小设备上的点要大(很容易理解)，只是因为我们看的距离不同（看电视会坐的比较远，看手机会拿的很近），所以对我们来说看着都比较清晰</p>
-<p><strong> css pixel：</strong> css像素，假设有个div宽20px; 如果以绝对的1:1物理点来显示的话，必然大屏幕的20px会比小屏的px大（想象一下设置一个宽度，在电脑和手机上表现不一样，这就太坑爹了）。 我们实际web开发的时候没遇到这样的问题，因为css px是一个中间层，在高密度设备商一个css pixel点以2个（和密度有关）device pixel来展示</p>
+<p><strong> css pixel：</strong> css像素，假设有个div宽20px; 如果以绝对的1:1物理点来显示的话，必然大屏幕的20px会比小屏的px大（想象一下设置一个宽度，在电脑和手机上表现不一样，这就太坑爹了）。 我们实际web开发的时候没遇到这样的问题，因为css px是一个中间层，在retina屏上1X1的css pixel点以4(2X2)个device pixel来展示</p>
 <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/pixratio.png" alt="img"></center>
 
 <p><strong> devicePixelRatio：</strong> 设备像素比，就是指多少个物理像素来显示一个逻辑像素，现在比较多的是2，3也有,可以同通过window.devicePixelRatio获得</p>
