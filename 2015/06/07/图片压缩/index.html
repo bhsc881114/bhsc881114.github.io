@@ -20,9 +20,9 @@
 
 
 
-	<meta name="keywords" content="media-query,viewport," />
+	<meta name="keywords" content="图像处理," />
 
-  <title> 响应式站点2-viewport和media-query // 灰主流创业者 </title>
+  <title> 图片压缩 // 灰主流创业者 </title>
 </head>
 
 <body>
@@ -111,7 +111,7 @@
           
           
             
-              响应式站点2-viewport和media-query
+              图片压缩
             
           
         </h1>
@@ -120,7 +120,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2015-05-22
+            发表于 2015-06-07
           
         </span>
 
@@ -137,7 +137,7 @@
                 
 
               
-                <a href="/categories/前端/响应式/">响应式</a>
+                <a href="/categories/前端/图像处理/">图像处理</a>
 
                 
                 
@@ -151,8 +151,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/05/22/响应式站点2-viewport和media-query/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/22/响应式站点2-viewport和media-query/"></span>
+            <a href="/2015/06/07/图片压缩/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/07/图片压缩/"></span>
             </a>
           </span>
           
@@ -167,33 +167,37 @@
         
 
         
-          <ul>
-<li><a href="http://bhsc881114.github.io/2015/05/12/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%AB%99%E7%82%B9-%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/" target="_blank" rel="external">响应式站点1-技术基础</a></li>
-<li>响应式站点2-viewport和media-query</li>
-<li>响应式站点3-skills(预告)</li>
-</ul>
-<p>以前做一个在手机上的网站，一开始显示的内容都偏小，需要双击缩放才能显示。后来发现加上viewport就可以了，瞬间觉得高大上….扒一扒他的原理<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta <span class="variable">name=</span><span class="string">"viewport"</span> <span class="variable">content=</span><span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span><br></pre></td></tr></table></figure> </p>
-<p><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-2.png" alt="viewport-index"><br><a id="more"></a></p>
+          <p>图片占到了网站的大部分流量，图片压缩可以让图片体积更小，加载速度更快<br><a id="more"></a></p>
 <hr>
-<h1 id="3种viewport">3种viewport</h1><p>以前PC端的网站一般宽度在1000px以上,这种大尺寸的页面如何在手机上展示?答案就是：缩放，所以早期看到的网站都很小，需要双击放大某一部分区域才能浏览。</p>
-<h2 id="visual_viewport">visual viewport</h2><p>visuall viewport,显示的屏幕窗口,可以把他理解为放大镜,距离可以拉近一点拉远一点,显示的内容可以缩小可以放大,大致就是下面这个样子：<br>  <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport33.png" alt="viewport">  </center></p>
-<p>比如一个1024px宽的页面，要在320px的手机上显示，可以拉远距离(缩放)全局浏览，也可以拉近只看一部分,并且移动visual viewport来查看网页的不同部分</p>
-<h2 id="layout_viewport">layout viewport</h2><p>PC的网页怎么在320px的手机上渲染？这里有个隐藏的概念,就是layout viewport。当我们设置一个width=20%时,他必须知道父级的width是多少,最终必须找到一个设置绝对值的顶层的元素(body)</p>
-<p>早期没有专门为移动端做的页面,所以手机浏览器默认的layout viewport都是接近pc的宽度，这样可以确保PC的网页展示都没问题。<a href="http://www.quirksmode.org/mobile/metaviewport/" target="_blank" rel="external">这里</a>里有每个手机浏览器的默认layot viewport，附个图：</p>
-<p><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-4.png" alt="layout"></p>
-<h2 id="修改layout_viewport">修改layout viewport</h2><p>layout viewport+visual viewport，PC端网页已经可以在手机上展示了，不过显然还不够完美：<strong>能不能不要缩放，不要双击放大以后再拖动来看网页?</strong> 假设手机宽度是320px，那就做个宽度只有320px的页面：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">body</span> <span class="attribute">style</span>=<span class="value">"width:320px"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"contianer"</span>&gt;</span></span><br><span class="line">      hello everyone</span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure><br> <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-6.png" alt="pc viewport"> </center><br>可以看到因为默认的layout viewport是按PC设置的，就算设置一个320px，也会按照PC的效果来展示</p>
-<p>ios最早提供了<a href="https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/UsingtheViewport/UsingtheViewport.html" target="_blank" rel="external">修改layout viewport</a>的能力，我们给上面的页面设置下layout viewport，并且visual viewport不缩放，这样就完美了：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta <span class="variable">name=</span><span class="string">"viewport"</span> <span class="variable">content=</span><span class="string">"width=320px, initial-scale=1.0"</span>&gt;</span><br></pre></td></tr></table></figure><br>  <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-7.png" alt="pc viewport"> </center></p>
-<h2 id="ideal_viewport">ideal viewport</h2><p>因为移动端的设备太多,宽度不一,所以上面写死的width=320px是非常不好的。还好设备都有一个ideal viewport，也就是最佳的尺寸，把layout viewport设置成idela viewport，并且visual viewport不要缩放就能达到最好的效果（可能有点绕）：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta <span class="variable">name=</span><span class="string">"viewport"</span> <span class="variable">content=</span><span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span><br></pre></td></tr></table></figure> width和initial-scale 设置其他值的效果，可以在这里查看：<a href="http://andreasbovens.github.io/understanding-viewpor" target="_blank" rel="external">understanding-viewport</a></p>
-<h2 id="小结">小结</h2><p>设置恰当的viewport，并且设置body的宽度为100%，这样在不同的设备上就能100%的展示，没有缩放，这为我们的响应式设计提供了基础</p>
-<hr>
-<h1 id="media_query">media query</h1><p>为不同的设备设置了网页的布局总宽度之后，需要进行区分，以便为不同的宽度设置不同的布局，media query提供了这种能力，它有非常多的属性，不过我们最常用的就是width<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@media</span> (max-<span class="string">width:</span> <span class="number">480</span>px) &#123; </span><br><span class="line">    <span class="comment">// 隐藏某些元素</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="annotation">@media</span> (max-<span class="string">width:</span> <span class="number">768</span>px) &#123;  &#125;</span><br><span class="line"><span class="annotation">@media</span> (min-<span class="string">width:</span> <span class="number">1200</span>px) &#123;</span><br><span class="line">  <span class="comment">// 显示某些元素 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 恰当的断点很重要，根据<a href="http://reports.quickleft.com/css" target="_blank" rel="external">2014 css报告</a>,设置最多的是480，768，990，1200，当然可能和bootstrap用的最多有关</p>
-<h2 id="device_width和width">device width和width</h2><p>另外可以再看看device width和width这两个值，大部分时候他们实现的效果是一样的，但是还是有一些细小的差别:</p>
+<h1 id="1_有损压缩和无损压缩">1 有损压缩和无损压缩</h1><p>有损压缩，删除部分数据，代表的是jpg<br>无损压缩，压缩像素数据,代表是png</p>
+<h1 id="2_图片存储格式">2 图片存储格式</h1><h2 id="2-1_格式以及区别">2.1 格式以及区别</h2><center><img src="http://7xijc0.com1.z0.glb.clouddn.com/image-3.png" alt="2">  </center>
+
+<h2 id="2-2_jpg和png">2.2 jpg和png</h2><p>JPG在存储图像时会把图像分解成8<em>8像素的栅格，然后对每个栅格的数据进行压缩处理，当我们放大一幅图像的时候，就会发现这些8</em>8像素栅格中很多细节信息被去除，而通过一些特殊算法用附近的颜色进行填充。这也是为什么我们用JPG存储图像有时会产生块状模糊的原因</p>
+<p>PNG是我们最常见的一种采用无损压缩的图片格式。无损压缩在存储图像前会先判断图像上哪些地方是相同的哪些地方是不同的。<strong>它的压缩原理是通过索引图像上相同区域的颜色进行压缩和还原的，这就意味着只有在图像上出现的颜色数量小于我们可以保存的颜色数量时，我们才能真实的记录和还原图像，否则就会丢失一些图像信息</strong>。</p>
+<p>PNG8最多只能索引256种颜色，所以对于颜色较多的图像不能真实还原；PNG24则可以保存1600多万种颜色，基本能够真实还原我们人类肉眼所可以分别的所有颜色；PNG格式最多可以保存48位颜色通道</p>
+<h2 id="2-3_png8和png24">2.3 png8和png24</h2><p>PNG8和PNG24后面的数字则是代表这种PNG格式最多可以索引和存储的颜色值。”8″代表2的8次方也就是256色，而24则代表2的24次方大概有1600多万色。</p>
+<p>PNG8还支持1位的布尔透明通道，所谓布尔透明指的是要么完全透明要么完全不透明。而PNG24则支持8位（256阶）的alpha通道透明，也就是说可以存储从完全透明到完全不透明一共256个层级的透明度（即所谓的半透明）</p>
+<h1 id="3-webp">3.webp</h1><p>WebP is a new image format that provides lossless and lossy compression for images on the web. WebP lossless images are 26% smaller in size compared to PNGs. WebP lossy images are 25-34% smaller in size compared to JPEG images at equivalent SSIM index. </p>
+<p><a href="http://isux.tencent.com/introduction-of-webp.html" target="_blank" rel="external">WebP 探寻之路</a>提供了很多webp压缩的优化建议，可以参考:</p>
+<blockquote>
+<p>WebP 在解码时间与 PNG 有较明显差异（毫秒级别）之外，总体使用体验和 PNG 基本无差异。同时也需要明确，移动设备的发展迅猛，硬件升级快，上一年的表现也许在今年又有了明显的提升。所以，在 App 中使用 WebP 基本没有技术阻碍。</p>
+</blockquote>
+<h1 id="4-理想的压缩">4.理想的压缩</h1><p>理想的压缩模式个人认为能做到下面这样会达到比较好的效果：</p>
 <ul>
-<li>device-wdith 指的是设备的宽度，在pc上你改变拖动浏览器窗口的大小并不会改变这个值</li>
-<li>width:指的是浏览器的宽度</li>
+<li>1.用户上传的原图压缩</li>
+<li>2.其次通过图片各项属性的判断，程序认为PNG格式的图片更优，于是选择转换一张PNG格式的图片(或者从PNG转成JPEG)</li>
+<li>3.最后为所上传的图片生成一张WebP格式的图片</li>
 </ul>
-<p>所以使用width会更好，并且在某些android设备上，使用device-width可能会变成device pixel</p>
-<h1 id="总结">总结</h1><p>设置不同的布局宽度、不同宽度设置不同的样式是实现响应式站点的基础。实际使用中，还是有很多细节，比如文字、表格布局、retina 下的图片处理等，下篇继续</p>
+<p><strong>目前我们2，3都是没有做，只做了1。步骤2较复杂，和图片的色值、透明度、面积都有关，步骤3 webp的部分由图片提供商做了。目前我们针对所有的图片都做了压缩，没有提供用户选择压缩比(默认使用有损压缩，压缩系数0.5),所幸的是用户也没觉得糊了</strong></p>
+<hr>
+<p>参考：</p>
+<ul>
+<li>1.<a href="http://isux.tencent.com/introduction-of-webp.html" target="_blank" rel="external">WebP 探寻之路</a></li>
+<li>2.<a href="http://isux.tencent.com/zhitu.html" target="_blank" rel="external">智图—源于QQ空间图片WebP化的思考</a></li>
+<li>3.<a href="https://developers.google.com/speed/webp/" target="_blank" rel="external">A new image format for the Web</a></li>
+<li>4.<a href="http://zmx.im/blog?bname=webp" target="_blank" rel="external">美团在webp方面的实践（非常好的实践方案）</a></li>
+<li>5.<a href="https://developers.google.com/speed/webp/docs/compression" target="_blank" rel="external">Compression Techniques</a></li>
+</ul>
 
         
       </div>
@@ -204,12 +208,8 @@
         
           <div class="post-tags">
             
-              <a href="/tags/media-query/">
-                #media-query
-              </a>
-            
-              <a href="/tags/viewport/">
-                #viewport
+              <a href="/tags/图像处理/">
+                #图像处理
               </a>
             
           </div>
@@ -219,13 +219,11 @@
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2015/06/07/图片基础知识/">图片基础知识</a>
-              
             </div>
 
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2015/05/12/响应式站点-技术基础/">响应式站点1-技术基础</a>
+                <a href="/2015/06/07/图片基础知识/">图片基础知识</a>
               
             </div>
           </div>
@@ -242,8 +240,8 @@
   
     <div class="comments" id="comments">
       
-        <div class="ds-thread" data-thread-key="2015/05/22/响应式站点2-viewport和media-query/"
-             data-title="响应式站点2-viewport和media-query" data-url="http://bhsc881114.github.io/2015/05/22/响应式站点2-viewport和media-query/">
+        <div class="ds-thread" data-thread-key="2015/06/07/图片压缩/"
+             data-title="图片压缩" data-url="http://bhsc881114.github.io/2015/06/07/图片压缩/">
         </div>
 
       
@@ -341,7 +339,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3种viewport"><span class="nav-number">1.</span> <span class="nav-text">3种viewport</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#visual_viewport"><span class="nav-number">1.1.</span> <span class="nav-text">visual viewport</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#layout_viewport"><span class="nav-number">1.2.</span> <span class="nav-text">layout viewport</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改layout_viewport"><span class="nav-number">1.3.</span> <span class="nav-text">修改layout viewport</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ideal_viewport"><span class="nav-number">1.4.</span> <span class="nav-text">ideal viewport</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">1.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#media_query"><span class="nav-number">2.</span> <span class="nav-text">media query</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#device_width和width"><span class="nav-number">2.1.</span> <span class="nav-text">device width和width</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1_有损压缩和无损压缩"><span class="nav-number">1.</span> <span class="nav-text">1 有损压缩和无损压缩</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2_图片存储格式"><span class="nav-number">2.</span> <span class="nav-text">2 图片存储格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1_格式以及区别"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 格式以及区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2_jpg和png"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 jpg和png</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3_png8和png24"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 png8和png24</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-webp"><span class="nav-number">3.</span> <span class="nav-text">3.webp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-理想的压缩"><span class="nav-number">4.</span> <span class="nav-text">4.理想的压缩</span></a></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>

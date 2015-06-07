@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://bhsc881114.github.io/"/>
-  <updated>2015-05-25T06:01:43.000Z</updated>
+  <updated>2015-06-07T15:37:15.000Z</updated>
   <id>http://bhsc881114.github.io/</id>
   
   <author>
@@ -13,6 +13,97 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[图片压缩]]></title>
+    <link href="http://bhsc881114.github.io/2015/06/07/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/"/>
+    <id>http://bhsc881114.github.io/2015/06/07/图片压缩/</id>
+    <published>2015-06-07T14:46:53.000Z</published>
+    <updated>2015-06-07T15:37:15.000Z</updated>
+    <content type="html"><![CDATA[<p>图片占到了网站的大部分流量，图片压缩可以让图片体积更小，加载速度更快<br><a id="more"></a></p>
+<hr>
+<h1 id="1_有损压缩和无损压缩">1 有损压缩和无损压缩</h1><p>有损压缩，删除部分数据，代表的是jpg<br>无损压缩，压缩像素数据,代表是png</p>
+<h1 id="2_图片存储格式">2 图片存储格式</h1><h2 id="2-1_格式以及区别">2.1 格式以及区别</h2><center><img src="http://7xijc0.com1.z0.glb.clouddn.com/image-3.png" alt="2">  </center>
+
+<h2 id="2-2_jpg和png">2.2 jpg和png</h2><p>JPG在存储图像时会把图像分解成8<em>8像素的栅格，然后对每个栅格的数据进行压缩处理，当我们放大一幅图像的时候，就会发现这些8</em>8像素栅格中很多细节信息被去除，而通过一些特殊算法用附近的颜色进行填充。这也是为什么我们用JPG存储图像有时会产生块状模糊的原因</p>
+<p>PNG是我们最常见的一种采用无损压缩的图片格式。无损压缩在存储图像前会先判断图像上哪些地方是相同的哪些地方是不同的。<strong>它的压缩原理是通过索引图像上相同区域的颜色进行压缩和还原的，这就意味着只有在图像上出现的颜色数量小于我们可以保存的颜色数量时，我们才能真实的记录和还原图像，否则就会丢失一些图像信息</strong>。</p>
+<p>PNG8最多只能索引256种颜色，所以对于颜色较多的图像不能真实还原；PNG24则可以保存1600多万种颜色，基本能够真实还原我们人类肉眼所可以分别的所有颜色；PNG格式最多可以保存48位颜色通道</p>
+<h2 id="2-3_png8和png24">2.3 png8和png24</h2><p>PNG8和PNG24后面的数字则是代表这种PNG格式最多可以索引和存储的颜色值。”8″代表2的8次方也就是256色，而24则代表2的24次方大概有1600多万色。</p>
+<p>PNG8还支持1位的布尔透明通道，所谓布尔透明指的是要么完全透明要么完全不透明。而PNG24则支持8位（256阶）的alpha通道透明，也就是说可以存储从完全透明到完全不透明一共256个层级的透明度（即所谓的半透明）</p>
+<h1 id="3-webp">3.webp</h1><p>WebP is a new image format that provides lossless and lossy compression for images on the web. WebP lossless images are 26% smaller in size compared to PNGs. WebP lossy images are 25-34% smaller in size compared to JPEG images at equivalent SSIM index. </p>
+<p><a href="http://isux.tencent.com/introduction-of-webp.html" target="_blank" rel="external">WebP 探寻之路</a>提供了很多webp压缩的优化建议，可以参考:</p>
+<blockquote>
+<p>WebP 在解码时间与 PNG 有较明显差异（毫秒级别）之外，总体使用体验和 PNG 基本无差异。同时也需要明确，移动设备的发展迅猛，硬件升级快，上一年的表现也许在今年又有了明显的提升。所以，在 App 中使用 WebP 基本没有技术阻碍。</p>
+</blockquote>
+<h1 id="4-理想的压缩">4.理想的压缩</h1><p>理想的压缩模式个人认为能做到下面这样会达到比较好的效果：</p>
+<ul>
+<li>1.用户上传的原图压缩</li>
+<li>2.其次通过图片各项属性的判断，程序认为PNG格式的图片更优，于是选择转换一张PNG格式的图片(或者从PNG转成JPEG)</li>
+<li>3.最后为所上传的图片生成一张WebP格式的图片</li>
+</ul>
+<p><strong>目前我们2，3都是没有做，只做了1。步骤2较复杂，和图片的色值、透明度、面积都有关，步骤3 webp的部分由图片提供商做了。目前我们针对所有的图片都做了压缩，没有提供用户选择压缩比(默认使用有损压缩，压缩系数0.5),所幸的是用户也没觉得糊了</strong></p>
+<hr>
+<p>参考：</p>
+<ul>
+<li>1.<a href="http://isux.tencent.com/introduction-of-webp.html" target="_blank" rel="external">WebP 探寻之路</a></li>
+<li>2.<a href="http://isux.tencent.com/zhitu.html" target="_blank" rel="external">智图—源于QQ空间图片WebP化的思考</a></li>
+<li>3.<a href="https://developers.google.com/speed/webp/" target="_blank" rel="external">A new image format for the Web</a></li>
+<li>4.<a href="http://zmx.im/blog?bname=webp" target="_blank" rel="external">美团在webp方面的实践（非常好的实践方案）</a></li>
+<li>5.<a href="https://developers.google.com/speed/webp/docs/compression" target="_blank" rel="external">Compression Techniques</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>图片占到了网站的大部分流量，图片压缩可以让图片体积更小，加载速度更快<br>]]>
+    
+    </summary>
+    
+      <category term="图像处理" scheme="http://bhsc881114.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"/>
+    
+      <category term="前端" scheme="http://bhsc881114.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="图像处理" scheme="http://bhsc881114.github.io/categories/%E5%89%8D%E7%AB%AF/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[图片基础知识]]></title>
+    <link href="http://bhsc881114.github.io/2015/06/07/%E5%9B%BE%E7%89%87%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
+    <id>http://bhsc881114.github.io/2015/06/07/图片基础知识/</id>
+    <published>2015-06-07T14:30:31.000Z</published>
+    <updated>2015-06-07T14:47:07.000Z</updated>
+    <content type="html"><![CDATA[<h1 id="1-位图和矢量图">1.位图和矢量图</h1><h2 id="1-1_位图（记述性）">1.1 位图（记述性）</h2><p>位图的工作是基于方形像素点的,把图像分为若干个点(像素)，从而储存或再现整幅图像。由于像素数量的限制，所以点阵图像的大小是固定的。缩小或放大图像都会造成对图像的破坏，看下的例子：</p>
+  <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/image-post-1.png" alt="1">  </center>
+
+<p>A、B、C、D四个像素，要将2x2扩成3x3，那么就要多出5个像素。图中的标号是1、2、3、4、5。<br>如何确定这原先并不存在的像素的颜色呢？是将现有两个像素的颜色值取平均，去作为新像素的颜色。也就是说AB运算后得出1；AC运算后得出2；BD得出4；CD得出5；3则是由1245运算得出的。</p>
+<h2 id="1-2_矢量（描述性）">1.2 矢量（描述性）</h2><p>矢量图片，由对象组成。<strong>每个对象都是一个自成一体的实体，它具有颜色、形状、轮廓、大小和屏幕位置等属性。</strong>既然每个对象都是一个自成一体的实体，就可以在维持它原有清晰度和弯曲度的同时，多次移动和改变它的属性，而不会影响图例中的其他对象。矢量图像属于描述性，以线段和计算公式作为记录的对象</p>
+<h2 id="1-3_对比">1.3 对比</h2><p>想象一条直线，如果以点阵方式来记录，就是从左上角第一个点开始，到右下角最后一个点结束，记录所有像素的颜色。 记录这幅图像(200×50像素)就需要1万个信息。即使这条直线本身并没有那么多像素，但点阵方式也是完整的把整幅图的像素记录下来。如果用矢量来记录这条直线，只需要三个信息：直线起点坐标、直线终点坐标、直线的颜色</p>
+<p>从获取图像这个角度来说，矢量不适合记录色彩较为复杂的图像。所谓获取就是拍照、扫描这类，因为色彩太复杂，矢量格式就要为每个色彩的变化去计算坐标。 如果从创作图像的角度来说，矢量格式同样可以具有非常丰富的色彩</p>
+<p>另外显示器是点阵的，包括传统的CTR显示器、液晶显示器、等离子显示器等。 无论你在制作时候采用点阵还是矢量，在显示器上显示出来的话，最终还是以点阵方式展现的。</p>
+<h1 id="2-RGB">2.RGB</h1><p>电子设备上显示的数字图像颜色组成是RGB（红黄蓝),这是一种发光色彩。相对应的有CMYK反光色彩，用于印刷（C代表青色，M代表洋红色，Y代表黄色，K代表黑色）；</p>
+<h2 id="2-1_图像大小">2.1 图像大小</h2><p>每个像素存储’RGBA‘值：(R) 红色通道、(G) 绿色通道、(B) 蓝色通道和 (A) alpha（透明度）通道。在浏览器内部为每个通道分配 256 个值（色阶），转换为每个通道 8 位 (2 ^ 8 = 256)，每个像素 4 个字节。因此，如果知道图像尺寸，可以很容易计算文件大小：<br> 100 x 100 像素的图片 =  10,000 像素 x 4 个字节 = 40,000B  / 1024 = 39KB</p>
+<p>每个通道256的值，可以为我们提供1677W的颜色（256<em>256</em>256=16,777,216），这超过了一般人眼的分辨力，所以也称为真彩色</p>
+<h1 id="3_图像像素和显示密度">3 图像像素和显示密度</h1><h2 id="3-1_总像素">3.1 总像素</h2><center><img src="http://7xijc0.com1.z0.glb.clouddn.com/image-post-2.png" alt="2">  </center>
+
+<h2 id="3-2_显示密度_DPI/PPI">3.2 显示密度 DPI/PPI</h2><p>dpi是dot per inch，每英寸多少点，ppi是 Pixel per inch，每英寸像素数，针对显示器的设计时，dpi=ppi(下面都用PPI）。图片的总像素/PPI，就是图片在介质上显示的大小。同一张图片,PPI高的肯定会显示的小一点，这里有很多相关的概念，retina、android里的dp单位、android里的HDPI、MDPI、LDPI等。</p>
+<hr>
+<p>参考：</p>
+<ul>
+<li>1.<a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization" target="_blank" rel="external">图片优化</a></li>
+<li>2.<a href="http://blog.163.com/fan_cun_fu/blog/static/455609201141925812990/" target="_blank" rel="external">点阵格式图像介绍</a></li>
+<li>3.<a href="http://www.zhihu.com/question/21220154" target="_blank" rel="external">DPI、PPI、DP、PX 的详细计算方法及算法来源是什么？</a></li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<h1 id="1-位图和矢量图">1.位图和矢量图</h1><h2 id="1-1_位图（记述性）">1.1 位图（记述性）</h2><p>位图的工作是基于方形像素点的,把图像分为若干个点(像素)，从而储存或再现整幅图像。由于像素数量的限制，所以点阵图像的大小是固定的。缩小或放]]>
+    </summary>
+    
+      <category term="图像处理" scheme="http://bhsc881114.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"/>
+    
+      <category term="前端" scheme="http://bhsc881114.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
+    
+      <category term="图像处理" scheme="http://bhsc881114.github.io/categories/%E5%89%8D%E7%AB%AF/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[响应式站点2-viewport和media-query]]></title>

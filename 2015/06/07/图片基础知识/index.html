@@ -20,9 +20,9 @@
 
 
 
-	<meta name="keywords" content="media-query,viewport," />
+	<meta name="keywords" content="图像处理," />
 
-  <title> 响应式站点2-viewport和media-query // 灰主流创业者 </title>
+  <title> 图片基础知识 // 灰主流创业者 </title>
 </head>
 
 <body>
@@ -111,7 +111,7 @@
           
           
             
-              响应式站点2-viewport和media-query
+              图片基础知识
             
           
         </h1>
@@ -120,7 +120,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2015-05-22
+            发表于 2015-06-07
           
         </span>
 
@@ -137,7 +137,7 @@
                 
 
               
-                <a href="/categories/前端/响应式/">响应式</a>
+                <a href="/categories/前端/图像处理/">图像处理</a>
 
                 
                 
@@ -151,8 +151,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/05/22/响应式站点2-viewport和media-query/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/05/22/响应式站点2-viewport和media-query/"></span>
+            <a href="/2015/06/07/图片基础知识/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/07/图片基础知识/"></span>
             </a>
           </span>
           
@@ -167,33 +167,27 @@
         
 
         
-          <ul>
-<li><a href="http://bhsc881114.github.io/2015/05/12/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%AB%99%E7%82%B9-%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/" target="_blank" rel="external">响应式站点1-技术基础</a></li>
-<li>响应式站点2-viewport和media-query</li>
-<li>响应式站点3-skills(预告)</li>
-</ul>
-<p>以前做一个在手机上的网站，一开始显示的内容都偏小，需要双击缩放才能显示。后来发现加上viewport就可以了，瞬间觉得高大上….扒一扒他的原理<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta <span class="variable">name=</span><span class="string">"viewport"</span> <span class="variable">content=</span><span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span><br></pre></td></tr></table></figure> </p>
-<p><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-2.png" alt="viewport-index"><br><a id="more"></a></p>
+          <h1 id="1-位图和矢量图">1.位图和矢量图</h1><h2 id="1-1_位图（记述性）">1.1 位图（记述性）</h2><p>位图的工作是基于方形像素点的,把图像分为若干个点(像素)，从而储存或再现整幅图像。由于像素数量的限制，所以点阵图像的大小是固定的。缩小或放大图像都会造成对图像的破坏，看下的例子：</p>
+  <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/image-post-1.png" alt="1">  </center>
+
+<p>A、B、C、D四个像素，要将2x2扩成3x3，那么就要多出5个像素。图中的标号是1、2、3、4、5。<br>如何确定这原先并不存在的像素的颜色呢？是将现有两个像素的颜色值取平均，去作为新像素的颜色。也就是说AB运算后得出1；AC运算后得出2；BD得出4；CD得出5；3则是由1245运算得出的。</p>
+<h2 id="1-2_矢量（描述性）">1.2 矢量（描述性）</h2><p>矢量图片，由对象组成。<strong>每个对象都是一个自成一体的实体，它具有颜色、形状、轮廓、大小和屏幕位置等属性。</strong>既然每个对象都是一个自成一体的实体，就可以在维持它原有清晰度和弯曲度的同时，多次移动和改变它的属性，而不会影响图例中的其他对象。矢量图像属于描述性，以线段和计算公式作为记录的对象</p>
+<h2 id="1-3_对比">1.3 对比</h2><p>想象一条直线，如果以点阵方式来记录，就是从左上角第一个点开始，到右下角最后一个点结束，记录所有像素的颜色。 记录这幅图像(200×50像素)就需要1万个信息。即使这条直线本身并没有那么多像素，但点阵方式也是完整的把整幅图的像素记录下来。如果用矢量来记录这条直线，只需要三个信息：直线起点坐标、直线终点坐标、直线的颜色</p>
+<p>从获取图像这个角度来说，矢量不适合记录色彩较为复杂的图像。所谓获取就是拍照、扫描这类，因为色彩太复杂，矢量格式就要为每个色彩的变化去计算坐标。 如果从创作图像的角度来说，矢量格式同样可以具有非常丰富的色彩</p>
+<p>另外显示器是点阵的，包括传统的CTR显示器、液晶显示器、等离子显示器等。 无论你在制作时候采用点阵还是矢量，在显示器上显示出来的话，最终还是以点阵方式展现的。</p>
+<h1 id="2-RGB">2.RGB</h1><p>电子设备上显示的数字图像颜色组成是RGB（红黄蓝),这是一种发光色彩。相对应的有CMYK反光色彩，用于印刷（C代表青色，M代表洋红色，Y代表黄色，K代表黑色）；</p>
+<h2 id="2-1_图像大小">2.1 图像大小</h2><p>每个像素存储’RGBA‘值：(R) 红色通道、(G) 绿色通道、(B) 蓝色通道和 (A) alpha（透明度）通道。在浏览器内部为每个通道分配 256 个值（色阶），转换为每个通道 8 位 (2 ^ 8 = 256)，每个像素 4 个字节。因此，如果知道图像尺寸，可以很容易计算文件大小：<br> 100 x 100 像素的图片 =  10,000 像素 x 4 个字节 = 40,000B  / 1024 = 39KB</p>
+<p>每个通道256的值，可以为我们提供1677W的颜色（256<em>256</em>256=16,777,216），这超过了一般人眼的分辨力，所以也称为真彩色</p>
+<h1 id="3_图像像素和显示密度">3 图像像素和显示密度</h1><h2 id="3-1_总像素">3.1 总像素</h2><center><img src="http://7xijc0.com1.z0.glb.clouddn.com/image-post-2.png" alt="2">  </center>
+
+<h2 id="3-2_显示密度_DPI/PPI">3.2 显示密度 DPI/PPI</h2><p>dpi是dot per inch，每英寸多少点，ppi是 Pixel per inch，每英寸像素数，针对显示器的设计时，dpi=ppi(下面都用PPI）。图片的总像素/PPI，就是图片在介质上显示的大小。同一张图片,PPI高的肯定会显示的小一点，这里有很多相关的概念，retina、android里的dp单位、android里的HDPI、MDPI、LDPI等。</p>
 <hr>
-<h1 id="3种viewport">3种viewport</h1><p>以前PC端的网站一般宽度在1000px以上,这种大尺寸的页面如何在手机上展示?答案就是：缩放，所以早期看到的网站都很小，需要双击放大某一部分区域才能浏览。</p>
-<h2 id="visual_viewport">visual viewport</h2><p>visuall viewport,显示的屏幕窗口,可以把他理解为放大镜,距离可以拉近一点拉远一点,显示的内容可以缩小可以放大,大致就是下面这个样子：<br>  <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport33.png" alt="viewport">  </center></p>
-<p>比如一个1024px宽的页面，要在320px的手机上显示，可以拉远距离(缩放)全局浏览，也可以拉近只看一部分,并且移动visual viewport来查看网页的不同部分</p>
-<h2 id="layout_viewport">layout viewport</h2><p>PC的网页怎么在320px的手机上渲染？这里有个隐藏的概念,就是layout viewport。当我们设置一个width=20%时,他必须知道父级的width是多少,最终必须找到一个设置绝对值的顶层的元素(body)</p>
-<p>早期没有专门为移动端做的页面,所以手机浏览器默认的layout viewport都是接近pc的宽度，这样可以确保PC的网页展示都没问题。<a href="http://www.quirksmode.org/mobile/metaviewport/" target="_blank" rel="external">这里</a>里有每个手机浏览器的默认layot viewport，附个图：</p>
-<p><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-4.png" alt="layout"></p>
-<h2 id="修改layout_viewport">修改layout viewport</h2><p>layout viewport+visual viewport，PC端网页已经可以在手机上展示了，不过显然还不够完美：<strong>能不能不要缩放，不要双击放大以后再拖动来看网页?</strong> 假设手机宽度是320px，那就做个宽度只有320px的页面：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">body</span> <span class="attribute">style</span>=<span class="value">"width:320px"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"contianer"</span>&gt;</span></span><br><span class="line">      hello everyone</span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure><br> <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-6.png" alt="pc viewport"> </center><br>可以看到因为默认的layout viewport是按PC设置的，就算设置一个320px，也会按照PC的效果来展示</p>
-<p>ios最早提供了<a href="https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/UsingtheViewport/UsingtheViewport.html" target="_blank" rel="external">修改layout viewport</a>的能力，我们给上面的页面设置下layout viewport，并且visual viewport不缩放，这样就完美了：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta <span class="variable">name=</span><span class="string">"viewport"</span> <span class="variable">content=</span><span class="string">"width=320px, initial-scale=1.0"</span>&gt;</span><br></pre></td></tr></table></figure><br>  <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-7.png" alt="pc viewport"> </center></p>
-<h2 id="ideal_viewport">ideal viewport</h2><p>因为移动端的设备太多,宽度不一,所以上面写死的width=320px是非常不好的。还好设备都有一个ideal viewport，也就是最佳的尺寸，把layout viewport设置成idela viewport，并且visual viewport不要缩放就能达到最好的效果（可能有点绕）：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta <span class="variable">name=</span><span class="string">"viewport"</span> <span class="variable">content=</span><span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span><br></pre></td></tr></table></figure> width和initial-scale 设置其他值的效果，可以在这里查看：<a href="http://andreasbovens.github.io/understanding-viewpor" target="_blank" rel="external">understanding-viewport</a></p>
-<h2 id="小结">小结</h2><p>设置恰当的viewport，并且设置body的宽度为100%，这样在不同的设备上就能100%的展示，没有缩放，这为我们的响应式设计提供了基础</p>
-<hr>
-<h1 id="media_query">media query</h1><p>为不同的设备设置了网页的布局总宽度之后，需要进行区分，以便为不同的宽度设置不同的布局，media query提供了这种能力，它有非常多的属性，不过我们最常用的就是width<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@media</span> (max-<span class="string">width:</span> <span class="number">480</span>px) &#123; </span><br><span class="line">    <span class="comment">// 隐藏某些元素</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="annotation">@media</span> (max-<span class="string">width:</span> <span class="number">768</span>px) &#123;  &#125;</span><br><span class="line"><span class="annotation">@media</span> (min-<span class="string">width:</span> <span class="number">1200</span>px) &#123;</span><br><span class="line">  <span class="comment">// 显示某些元素 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 恰当的断点很重要，根据<a href="http://reports.quickleft.com/css" target="_blank" rel="external">2014 css报告</a>,设置最多的是480，768，990，1200，当然可能和bootstrap用的最多有关</p>
-<h2 id="device_width和width">device width和width</h2><p>另外可以再看看device width和width这两个值，大部分时候他们实现的效果是一样的，但是还是有一些细小的差别:</p>
+<p>参考：</p>
 <ul>
-<li>device-wdith 指的是设备的宽度，在pc上你改变拖动浏览器窗口的大小并不会改变这个值</li>
-<li>width:指的是浏览器的宽度</li>
+<li>1.<a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization" target="_blank" rel="external">图片优化</a></li>
+<li>2.<a href="http://blog.163.com/fan_cun_fu/blog/static/455609201141925812990/" target="_blank" rel="external">点阵格式图像介绍</a></li>
+<li>3.<a href="http://www.zhihu.com/question/21220154" target="_blank" rel="external">DPI、PPI、DP、PX 的详细计算方法及算法来源是什么？</a></li>
 </ul>
-<p>所以使用width会更好，并且在某些android设备上，使用device-width可能会变成device pixel</p>
-<h1 id="总结">总结</h1><p>设置不同的布局宽度、不同宽度设置不同的样式是实现响应式站点的基础。实际使用中，还是有很多细节，比如文字、表格布局、retina 下的图片处理等，下篇继续</p>
 
         
       </div>
@@ -204,12 +198,8 @@
         
           <div class="post-tags">
             
-              <a href="/tags/media-query/">
-                #media-query
-              </a>
-            
-              <a href="/tags/viewport/">
-                #viewport
+              <a href="/tags/图像处理/">
+                #图像处理
               </a>
             
           </div>
@@ -219,13 +209,13 @@
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2015/06/07/图片基础知识/">图片基础知识</a>
+                <a href="/2015/06/07/图片压缩/">图片压缩</a>
               
             </div>
 
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2015/05/12/响应式站点-技术基础/">响应式站点1-技术基础</a>
+                <a href="/2015/05/22/响应式站点2-viewport和media-query/">响应式站点2-viewport和media-query</a>
               
             </div>
           </div>
@@ -242,8 +232,8 @@
   
     <div class="comments" id="comments">
       
-        <div class="ds-thread" data-thread-key="2015/05/22/响应式站点2-viewport和media-query/"
-             data-title="响应式站点2-viewport和media-query" data-url="http://bhsc881114.github.io/2015/05/22/响应式站点2-viewport和media-query/">
+        <div class="ds-thread" data-thread-key="2015/06/07/图片基础知识/"
+             data-title="图片基础知识" data-url="http://bhsc881114.github.io/2015/06/07/图片基础知识/">
         </div>
 
       
@@ -341,7 +331,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3种viewport"><span class="nav-number">1.</span> <span class="nav-text">3种viewport</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#visual_viewport"><span class="nav-number">1.1.</span> <span class="nav-text">visual viewport</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#layout_viewport"><span class="nav-number">1.2.</span> <span class="nav-text">layout viewport</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改layout_viewport"><span class="nav-number">1.3.</span> <span class="nav-text">修改layout viewport</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ideal_viewport"><span class="nav-number">1.4.</span> <span class="nav-text">ideal viewport</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">1.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#media_query"><span class="nav-number">2.</span> <span class="nav-text">media query</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#device_width和width"><span class="nav-number">2.1.</span> <span class="nav-text">device width和width</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-位图和矢量图"><span class="nav-number">1.</span> <span class="nav-text">1.位图和矢量图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1_位图（记述性）"><span class="nav-number">1.1.</span> <span class="nav-text">1.1 位图（记述性）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2_矢量（描述性）"><span class="nav-number">1.2.</span> <span class="nav-text">1.2 矢量（描述性）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-3_对比"><span class="nav-number">1.3.</span> <span class="nav-text">1.3 对比</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-RGB"><span class="nav-number">2.</span> <span class="nav-text">2.RGB</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1_图像大小"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 图像大小</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3_图像像素和显示密度"><span class="nav-number">3.</span> <span class="nav-text">3 图像像素和显示密度</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1_总像素"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 总像素</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2_显示密度_DPI/PPI"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 显示密度 DPI/PPI</span></a></li></ol></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
