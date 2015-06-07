@@ -4,7 +4,7 @@
   
   <link href="/atom.xml" rel="self"/>
   <link href="http://bhsc881114.github.io/"/>
-  <updated>2015-06-07T15:37:15.000Z</updated>
+  <updated>2015-06-07T15:45:05.000Z</updated>
   <id>http://bhsc881114.github.io/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://bhsc881114.github.io/2015/06/07/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/"/>
     <id>http://bhsc881114.github.io/2015/06/07/图片压缩/</id>
     <published>2015-06-07T14:46:53.000Z</published>
-    <updated>2015-06-07T15:37:15.000Z</updated>
+    <updated>2015-06-07T15:45:05.000Z</updated>
     <content type="html"><![CDATA[<p>图片占到了网站的大部分流量，图片压缩可以让图片体积更小，加载速度更快<br><a id="more"></a></p>
 <hr>
 <h1 id="1_有损压缩和无损压缩">1 有损压缩和无损压缩</h1><p>有损压缩，删除部分数据，代表的是jpg<br>无损压缩，压缩像素数据,代表是png</p>
@@ -61,8 +61,6 @@
     
       <category term="前端" scheme="http://bhsc881114.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
     
-      <category term="图像处理" scheme="http://bhsc881114.github.io/categories/%E5%89%8D%E7%AB%AF/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"/>
-    
   </entry>
   
   <entry>
@@ -70,7 +68,7 @@
     <link href="http://bhsc881114.github.io/2015/06/07/%E5%9B%BE%E7%89%87%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
     <id>http://bhsc881114.github.io/2015/06/07/图片基础知识/</id>
     <published>2015-06-07T14:30:31.000Z</published>
-    <updated>2015-06-07T14:47:07.000Z</updated>
+    <updated>2015-06-07T15:45:13.000Z</updated>
     <content type="html"><![CDATA[<h1 id="1-位图和矢量图">1.位图和矢量图</h1><h2 id="1-1_位图（记述性）">1.1 位图（记述性）</h2><p>位图的工作是基于方形像素点的,把图像分为若干个点(像素)，从而储存或再现整幅图像。由于像素数量的限制，所以点阵图像的大小是固定的。缩小或放大图像都会造成对图像的破坏，看下的例子：</p>
   <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/image-post-1.png" alt="1">  </center>
 
@@ -101,8 +99,6 @@
     
       <category term="前端" scheme="http://bhsc881114.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
     
-      <category term="图像处理" scheme="http://bhsc881114.github.io/categories/%E5%89%8D%E7%AB%AF/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"/>
-    
   </entry>
   
   <entry>
@@ -110,7 +106,7 @@
     <link href="http://bhsc881114.github.io/2015/05/22/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%AB%99%E7%82%B92-viewport%E5%92%8Cmedia-query/"/>
     <id>http://bhsc881114.github.io/2015/05/22/响应式站点2-viewport和media-query/</id>
     <published>2015-05-22T00:58:34.000Z</published>
-    <updated>2015-05-25T06:01:43.000Z</updated>
+    <updated>2015-06-07T15:45:36.000Z</updated>
     <content type="html"><![CDATA[<ul>
 <li><a href="http://bhsc881114.github.io/2015/05/12/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%AB%99%E7%82%B9-%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/" target="_blank" rel="external">响应式站点1-技术基础</a></li>
 <li>响应式站点2-viewport和media-query</li>
@@ -154,9 +150,9 @@
     
       <category term="viewport" scheme="http://bhsc881114.github.io/tags/viewport/"/>
     
-      <category term="前端" scheme="http://bhsc881114.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
+      <category term="响应式" scheme="http://bhsc881114.github.io/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/"/>
     
-      <category term="响应式" scheme="http://bhsc881114.github.io/categories/%E5%89%8D%E7%AB%AF/%E5%93%8D%E5%BA%94%E5%BC%8F/"/>
+      <category term="前端" scheme="http://bhsc881114.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
     
   </entry>
   
@@ -165,7 +161,7 @@
     <link href="http://bhsc881114.github.io/2015/05/12/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%AB%99%E7%82%B9-%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/"/>
     <id>http://bhsc881114.github.io/2015/05/12/响应式站点-技术基础/</id>
     <published>2015-05-11T16:36:10.000Z</published>
-    <updated>2015-05-27T01:28:49.000Z</updated>
+    <updated>2015-06-07T15:45:28.000Z</updated>
     <content type="html"><![CDATA[<p>响应式开发背后的技术基础，主要是设备尺寸、设备密度</p>
 <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/responsive-web-design.jpg" alt="viewport-index"></center>
 
@@ -201,9 +197,9 @@
     
       <category term="viewport" scheme="http://bhsc881114.github.io/tags/viewport/"/>
     
-      <category term="前端" scheme="http://bhsc881114.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
+      <category term="响应式" scheme="http://bhsc881114.github.io/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/"/>
     
-      <category term="响应式" scheme="http://bhsc881114.github.io/categories/%E5%89%8D%E7%AB%AF/%E5%93%8D%E5%BA%94%E5%BC%8F/"/>
+      <category term="前端" scheme="http://bhsc881114.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
     
   </entry>
   
@@ -212,7 +208,7 @@
     <link href="http://bhsc881114.github.io/2015/04/19/%E4%B8%80%E6%AC%A1linux%E5%86%85%E5%AD%98%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5-slab/"/>
     <id>http://bhsc881114.github.io/2015/04/19/一次linux内存问题排查-slab/</id>
     <published>2015-04-19T00:08:47.000Z</published>
-    <updated>2015-04-28T15:36:20.000Z</updated>
+    <updated>2015-06-07T15:46:05.000Z</updated>
     <content type="html"><![CDATA[<p>一次内存告警的排查过程，linux内存占用分析<br><a id="more"></a></p>
 <h1 id="问题">问题</h1><p>有一台机器内存不足的告警，机器内存总共8G，top看了下:<br><img src="http://7xijc0.com1.z0.glb.clouddn.com/A1.png" alt="img"></p>
 <p>已经使用有7G，进程实际占用的物理内存是RES，目测实际应该只占了3G不到，数据对不上，什么鬼</p>
@@ -240,15 +236,13 @@
     
     </summary>
     
-      <category term="linux" scheme="http://bhsc881114.github.io/tags/linux/"/>
-    
       <category term="pagecache" scheme="http://bhsc881114.github.io/tags/pagecache/"/>
+    
+      <category term="slab" scheme="http://bhsc881114.github.io/tags/slab/"/>
     
       <category term="内存" scheme="http://bhsc881114.github.io/tags/%E5%86%85%E5%AD%98/"/>
     
-      <category term="slab" scheme="http://bhsc881114.github.io/categories/slab/"/>
-    
-      <category term="pagecache" scheme="http://bhsc881114.github.io/categories/slab/pagecache/"/>
+      <category term="linux内存" scheme="http://bhsc881114.github.io/categories/linux%E5%86%85%E5%AD%98/"/>
     
   </entry>
   
