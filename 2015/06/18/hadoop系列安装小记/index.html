@@ -1,26 +1,165 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-  <title><![CDATA[灰主流创业者]]></title>
+<!doctype html>
+<html class="theme-next use-motion theme-next-next">
+<head>
   
-  <link href="/atom.xml" rel="self"/>
-  <link href="http://bhsc881114.github.io/"/>
-  <updated>2015-06-20T15:10:17.000Z</updated>
-  <id>http://bhsc881114.github.io/</id>
+
+<meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+  <link rel="stylesheet" type="text/css" href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5"/>
+
+
+<link rel="stylesheet" type="text/css" href="/css/main.css?v=0.4.0"/>
+
+
+    <meta name="description" content="学习总结 思考感悟" />
+
+
+
+	<meta name="keywords" content="hadoop安装," />
+
+  <title> hadoop系列安装小记 // 灰主流创业者 </title>
+</head>
+
+<body>
+  <div class="container one-column page-post-detail">
+    <div class="headband"></div>
+
+    <div id="header" class="header">
+      <div class="header-inner">
+        <h1 class="site-meta">
+  <span class="logo-line-before"><i></i></span>
+  <a href="/" class="brand">
+      <span class="logo">
+        <i class="icon-logo"></i>
+      </span>
+      <span class="site-title">灰主流创业者</span>
+  </a>
+  <span class="logo-line-after"><i></i></span>
+</h1>
+
+
+  <ul id="menu" class="menu">
+    
+      
+      <li class="menu-item menu-item-home">
+        <a href="/">
+          <i class="menu-item-icon icon-home"></i> <br />
+          首页
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-categories">
+        <a href="/categories">
+          <i class="menu-item-icon icon-categories"></i> <br />
+          分类
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-archives">
+        <a href="/archives">
+          <i class="menu-item-icon icon-archives"></i> <br />
+          归档
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-tags">
+        <a href="/tags">
+          <i class="menu-item-icon icon-tags"></i> <br />
+          标签
+        </a>
+      </li>
+    
+      
+      <li class="menu-item menu-item-about">
+        <a href="/about">
+          <i class="menu-item-icon icon-about"></i> <br />
+          关于
+        </a>
+      </li>
+    
+  </ul>
+
+
+      </div>
+    </div>
+
+    <div id="main" class="main">
+      <div class="main-inner">
+        <div id="content" class="content">
+          
+            
+          
+
+          <div id="posts" class="posts-expand">
+            
   
-  <author>
-    <name><![CDATA[chentao]]></name>
-    <email><![CDATA[bhsc.happy@gmail.com]]></email>
-  </author>
-  
-  <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title><![CDATA[hadoop系列安装小记]]></title>
-    <link href="http://bhsc881114.github.io/2015/06/18/hadoop%E7%B3%BB%E5%88%97%E5%AE%89%E8%A3%85%E5%B0%8F%E8%AE%B0/"/>
-    <id>http://bhsc881114.github.io/2015/06/18/hadoop系列安装小记/</id>
-    <published>2015-06-18T15:41:26.000Z</published>
-    <updated>2015-06-20T15:10:17.000Z</updated>
-    <content type="html"><![CDATA[<p><center><img src="http://7xijc0.com1.z0.glb.clouddn.com/img-myhadoop-bigger4.jpg" alt="viewport-index"></center><br>最近需要维护hadoop集群，把以前的安装文档翻出来，理了理，记录在此<br><a id="more"></a></p>
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
+              hadoop系列安装小记
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2015-06-18
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/hadoop/">hadoop</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/06/18/hadoop系列安装小记/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/18/hadoop系列安装小记/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          <p><center><img src="http://7xijc0.com1.z0.glb.clouddn.com/img-myhadoop-bigger4.jpg" alt="viewport-index"></center><br>最近需要维护hadoop集群，把以前的安装文档翻出来，理了理，记录在此<br><a id="more"></a></p>
 <h1 id="cdh">cdh</h1><p>当时装的是5.1.0，现在最新的版本是<a href="http://www.cloudera.com/content/cloudera/en/documentation/core/latest/topics/cdh_vd_cdh_package_tarball.html" target="_blank" rel="external">5.4.2</a>，因为有在线业务使用，所以暂时不升级。独立下载hadoop各个组件再安装比较繁琐(hdfs+yarn+hbsae+zk+hive)，没有选好版本可能会冲突，CDH的版本都是选定好的，安装和升级文档齐全,非常方便</p>
 <ul>
 <li><a href="http://www.cloudera.com/content/cloudera/en/documentation/core/latest/topics/cdh_vd_cdh_package_previous.html?scroll=topic_7#concept_rjt_wjx_dp_unique_2" target="_blank" rel="external">5.1.0各版本信息</a></li>
@@ -124,269 +263,723 @@
 <li><a href="http://hadooper.blogspot.jp/2010/11/platform-base-hdfs-mr.html" target="_blank" rel="external">Platform base: HDFS + MR</a></li>
 <li><a href="http://blog.fens.me/hadoop-hive-intro/" target="_blank" rel="external">hive搭建&amp;测试</a></li>
 </ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p><center><img src="http://7xijc0.com1.z0.glb.clouddn.com/img-myhadoop-bigger4.jpg" alt="viewport-index"></center><br>最近需要维护hadoop集群，把以前的安装文档翻出来，理了理，记录在此<br>]]>
-    
-    </summary>
-    
-      <category term="hadoop安装" scheme="http://bhsc881114.github.io/tags/hadoop%E5%AE%89%E8%A3%85/"/>
-    
-      <category term="hadoop" scheme="http://bhsc881114.github.io/categories/hadoop/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[图片压缩]]></title>
-    <link href="http://bhsc881114.github.io/2015/06/07/%E5%9B%BE%E7%89%87%E5%8E%8B%E7%BC%A9/"/>
-    <id>http://bhsc881114.github.io/2015/06/07/图片压缩/</id>
-    <published>2015-06-07T14:46:53.000Z</published>
-    <updated>2015-06-07T15:45:05.000Z</updated>
-    <content type="html"><![CDATA[<p>图片占到了网站的大部分流量，图片压缩可以让图片体积更小，加载速度更快<br><a id="more"></a></p>
-<hr>
-<h1 id="1_有损压缩和无损压缩">1 有损压缩和无损压缩</h1><p>有损压缩，删除部分数据，代表的是jpg<br>无损压缩，压缩像素数据,代表是png</p>
-<h1 id="2_图片存储格式">2 图片存储格式</h1><h2 id="2-1_格式以及区别">2.1 格式以及区别</h2><center><img src="http://7xijc0.com1.z0.glb.clouddn.com/image-3.png" alt="2">  </center>
 
-<h2 id="2-2_jpg和png">2.2 jpg和png</h2><p>JPG在存储图像时会把图像分解成8<em>8像素的栅格，然后对每个栅格的数据进行压缩处理，当我们放大一幅图像的时候，就会发现这些8</em>8像素栅格中很多细节信息被去除，而通过一些特殊算法用附近的颜色进行填充。这也是为什么我们用JPG存储图像有时会产生块状模糊的原因</p>
-<p>PNG是我们最常见的一种采用无损压缩的图片格式。无损压缩在存储图像前会先判断图像上哪些地方是相同的哪些地方是不同的。<strong>它的压缩原理是通过索引图像上相同区域的颜色进行压缩和还原的，这就意味着只有在图像上出现的颜色数量小于我们可以保存的颜色数量时，我们才能真实的记录和还原图像，否则就会丢失一些图像信息</strong>。</p>
-<p>PNG8最多只能索引256种颜色，所以对于颜色较多的图像不能真实还原；PNG24则可以保存1600多万种颜色，基本能够真实还原我们人类肉眼所可以分别的所有颜色；PNG格式最多可以保存48位颜色通道</p>
-<h2 id="2-3_png8和png24">2.3 png8和png24</h2><p>PNG8和PNG24后面的数字则是代表这种PNG格式最多可以索引和存储的颜色值。”8″代表2的8次方也就是256色，而24则代表2的24次方大概有1600多万色。</p>
-<p>PNG8还支持1位的布尔透明通道，所谓布尔透明指的是要么完全透明要么完全不透明。而PNG24则支持8位（256阶）的alpha通道透明，也就是说可以存储从完全透明到完全不透明一共256个层级的透明度（即所谓的半透明）</p>
-<h1 id="3-webp">3.webp</h1><p>WebP is a new image format that provides lossless and lossy compression for images on the web. WebP lossless images are 26% smaller in size compared to PNGs. WebP lossy images are 25-34% smaller in size compared to JPEG images at equivalent SSIM index. </p>
-<p><a href="http://isux.tencent.com/introduction-of-webp.html" target="_blank" rel="external">WebP 探寻之路</a>提供了很多webp压缩的优化建议，可以参考:</p>
-<blockquote>
-<p>WebP 在解码时间与 PNG 有较明显差异（毫秒级别）之外，总体使用体验和 PNG 基本无差异。同时也需要明确，移动设备的发展迅猛，硬件升级快，上一年的表现也许在今年又有了明显的提升。所以，在 App 中使用 WebP 基本没有技术阻碍。</p>
-</blockquote>
-<h1 id="4-理想的压缩">4.理想的压缩</h1><p>理想的压缩模式个人认为能做到下面这样会达到比较好的效果：</p>
-<ul>
-<li>1.用户上传的原图压缩</li>
-<li>2.其次通过图片各项属性的判断，程序认为PNG格式的图片更优，于是选择转换一张PNG格式的图片(或者从PNG转成JPEG)</li>
-<li>3.最后为所上传的图片生成一张WebP格式的图片</li>
-</ul>
-<p><strong>目前我们2，3都是没有做，只做了1。步骤2较复杂，和图片的色值、透明度、面积都有关，步骤3 webp的部分由图片提供商做了。目前我们针对所有的图片都做了压缩，没有提供用户选择压缩比(默认使用有损压缩，压缩系数0.5),所幸的是用户也没觉得糊了</strong></p>
-<hr>
-<p>参考：</p>
-<ul>
-<li>1.<a href="http://isux.tencent.com/introduction-of-webp.html" target="_blank" rel="external">WebP 探寻之路</a></li>
-<li>2.<a href="http://isux.tencent.com/zhitu.html" target="_blank" rel="external">智图—源于QQ空间图片WebP化的思考</a></li>
-<li>3.<a href="https://developers.google.com/speed/webp/" target="_blank" rel="external">A new image format for the Web</a></li>
-<li>4.<a href="http://zmx.im/blog?bname=webp" target="_blank" rel="external">美团在webp方面的实践（非常好的实践方案）</a></li>
-<li>5.<a href="https://developers.google.com/speed/webp/docs/compression" target="_blank" rel="external">Compression Techniques</a></li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>图片占到了网站的大部分流量，图片压缩可以让图片体积更小，加载速度更快<br>]]>
+        
+      </div>
     
-    </summary>
-    
-      <category term="图像处理" scheme="http://bhsc881114.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"/>
-    
-      <category term="前端" scheme="http://bhsc881114.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[图片基础知识]]></title>
-    <link href="http://bhsc881114.github.io/2015/06/07/%E5%9B%BE%E7%89%87%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/"/>
-    <id>http://bhsc881114.github.io/2015/06/07/图片基础知识/</id>
-    <published>2015-06-07T14:30:31.000Z</published>
-    <updated>2015-06-07T15:45:13.000Z</updated>
-    <content type="html"><![CDATA[<h1 id="1-位图和矢量图">1.位图和矢量图</h1><h2 id="1-1_位图（记述性）">1.1 位图（记述性）</h2><p>位图的工作是基于方形像素点的,把图像分为若干个点(像素)，从而储存或再现整幅图像。由于像素数量的限制，所以点阵图像的大小是固定的。缩小或放大图像都会造成对图像的破坏，看下的例子：</p>
-  <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/image-post-1.png" alt="1">  </center>
 
-<p>A、B、C、D四个像素，要将2x2扩成3x3，那么就要多出5个像素。图中的标号是1、2、3、4、5。<br>如何确定这原先并不存在的像素的颜色呢？是将现有两个像素的颜色值取平均，去作为新像素的颜色。也就是说AB运算后得出1；AC运算后得出2；BD得出4；CD得出5；3则是由1245运算得出的。</p>
-<h2 id="1-2_矢量（描述性）">1.2 矢量（描述性）</h2><p>矢量图片，由对象组成。<strong>每个对象都是一个自成一体的实体，它具有颜色、形状、轮廓、大小和屏幕位置等属性。</strong>既然每个对象都是一个自成一体的实体，就可以在维持它原有清晰度和弯曲度的同时，多次移动和改变它的属性，而不会影响图例中的其他对象。矢量图像属于描述性，以线段和计算公式作为记录的对象</p>
-<h2 id="1-3_对比">1.3 对比</h2><p>想象一条直线，如果以点阵方式来记录，就是从左上角第一个点开始，到右下角最后一个点结束，记录所有像素的颜色。 记录这幅图像(200×50像素)就需要1万个信息。即使这条直线本身并没有那么多像素，但点阵方式也是完整的把整幅图的像素记录下来。如果用矢量来记录这条直线，只需要三个信息：直线起点坐标、直线终点坐标、直线的颜色</p>
-<p>从获取图像这个角度来说，矢量不适合记录色彩较为复杂的图像。所谓获取就是拍照、扫描这类，因为色彩太复杂，矢量格式就要为每个色彩的变化去计算坐标。 如果从创作图像的角度来说，矢量格式同样可以具有非常丰富的色彩</p>
-<p>另外显示器是点阵的，包括传统的CTR显示器、液晶显示器、等离子显示器等。 无论你在制作时候采用点阵还是矢量，在显示器上显示出来的话，最终还是以点阵方式展现的。</p>
-<h1 id="2-RGB">2.RGB</h1><p>电子设备上显示的数字图像颜色组成是RGB（红黄蓝),这是一种发光色彩。相对应的有CMYK反光色彩，用于印刷（C代表青色，M代表洋红色，Y代表黄色，K代表黑色）；</p>
-<h2 id="2-1_图像大小">2.1 图像大小</h2><p>每个像素存储’RGBA‘值：(R) 红色通道、(G) 绿色通道、(B) 蓝色通道和 (A) alpha（透明度）通道。在浏览器内部为每个通道分配 256 个值（色阶），转换为每个通道 8 位 (2 ^ 8 = 256)，每个像素 4 个字节。因此，如果知道图像尺寸，可以很容易计算文件大小：<br> 100 x 100 像素的图片 =  10,000 像素 x 4 个字节 = 40,000B  / 1024 = 39KB</p>
-<p>每个通道256的值，可以为我们提供1677W的颜色（256<em>256</em>256=16,777,216），这超过了一般人眼的分辨力，所以也称为真彩色</p>
-<h1 id="3_图像像素和显示密度">3 图像像素和显示密度</h1><h2 id="3-1_总像素">3.1 总像素</h2><center><img src="http://7xijc0.com1.z0.glb.clouddn.com/image-post-2.png" alt="2">  </center>
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/hadoop安装/">
+                #hadoop安装
+              </a>
+            
+          </div>
+        
 
-<h2 id="3-2_显示密度_DPI/PPI">3.2 显示密度 DPI/PPI</h2><p>dpi是dot per inch，每英寸多少点，ppi是 Pixel per inch，每英寸像素数，针对显示器的设计时，dpi=ppi(下面都用PPI）。图片的总像素/PPI，就是图片在介质上显示的大小。同一张图片,PPI高的肯定会显示的小一点，这里有很多相关的概念，retina、android里的dp单位、android里的HDPI、MDPI、LDPI等。</p>
-<hr>
-<p>参考：</p>
-<ul>
-<li>1.<a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization" target="_blank" rel="external">图片优化</a></li>
-<li>2.<a href="http://blog.163.com/fan_cun_fu/blog/static/455609201141925812990/" target="_blank" rel="external">点阵格式图像介绍</a></li>
-<li>3.<a href="http://www.zhihu.com/question/21220154" target="_blank" rel="external">DPI、PPI、DP、PX 的详细计算方法及算法来源是什么？</a></li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<h1 id="1-位图和矢量图">1.位图和矢量图</h1><h2 id="1-1_位图（记述性）">1.1 位图（记述性）</h2><p>位图的工作是基于方形像素点的,把图像分为若干个点(像素)，从而储存或再现整幅图像。由于像素数量的限制，所以点阵图像的大小是固定的。缩小或放]]>
-    </summary>
-    
-      <category term="图像处理" scheme="http://bhsc881114.github.io/tags/%E5%9B%BE%E5%83%8F%E5%A4%84%E7%90%86/"/>
-    
-      <category term="前端" scheme="http://bhsc881114.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[响应式站点2-viewport和media-query]]></title>
-    <link href="http://bhsc881114.github.io/2015/05/22/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%AB%99%E7%82%B92-viewport%E5%92%8Cmedia-query/"/>
-    <id>http://bhsc881114.github.io/2015/05/22/响应式站点2-viewport和media-query/</id>
-    <published>2015-05-22T00:58:34.000Z</published>
-    <updated>2015-06-07T15:45:36.000Z</updated>
-    <content type="html"><![CDATA[<ul>
-<li><a href="http://bhsc881114.github.io/2015/05/12/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%AB%99%E7%82%B9-%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/" target="_blank" rel="external">响应式站点1-技术基础</a></li>
-<li>响应式站点2-viewport和media-query</li>
-<li>响应式站点3-skills(预告)</li>
-</ul>
-<p>以前做一个在手机上的网站，一开始显示的内容都偏小，需要双击缩放才能显示。后来发现加上viewport就可以了，瞬间觉得高大上….扒一扒他的原理<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta <span class="variable">name=</span><span class="string">"viewport"</span> <span class="variable">content=</span><span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span><br></pre></td></tr></table></figure> </p>
-<p><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-2.png" alt="viewport-index"><br><a id="more"></a></p>
-<hr>
-<h1 id="3种viewport">3种viewport</h1><p>以前PC端的网站一般宽度在1000px以上,这种大尺寸的页面如何在手机上展示?答案就是：缩放，所以早期看到的网站都很小，需要双击放大某一部分区域才能浏览。</p>
-<h2 id="visual_viewport">visual viewport</h2><p>visuall viewport,显示的屏幕窗口,可以把他理解为放大镜,距离可以拉近一点拉远一点,显示的内容可以缩小可以放大,大致就是下面这个样子：<br>  <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport33.png" alt="viewport">  </center></p>
-<p>比如一个1024px宽的页面，要在320px的手机上显示，可以拉远距离(缩放)全局浏览，也可以拉近只看一部分,并且移动visual viewport来查看网页的不同部分</p>
-<h2 id="layout_viewport">layout viewport</h2><p>PC的网页怎么在320px的手机上渲染？这里有个隐藏的概念,就是layout viewport。当我们设置一个width=20%时,他必须知道父级的width是多少,最终必须找到一个设置绝对值的顶层的元素(body)</p>
-<p>早期没有专门为移动端做的页面,所以手机浏览器默认的layout viewport都是接近pc的宽度，这样可以确保PC的网页展示都没问题。<a href="http://www.quirksmode.org/mobile/metaviewport/" target="_blank" rel="external">这里</a>里有每个手机浏览器的默认layot viewport，附个图：</p>
-<p><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-4.png" alt="layout"></p>
-<h2 id="修改layout_viewport">修改layout viewport</h2><p>layout viewport+visual viewport，PC端网页已经可以在手机上展示了，不过显然还不够完美：<strong>能不能不要缩放，不要双击放大以后再拖动来看网页?</strong> 假设手机宽度是320px，那就做个宽度只有320px的页面：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">body</span> <span class="attribute">style</span>=<span class="value">"width:320px"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"contianer"</span>&gt;</span></span><br><span class="line">      hello everyone</span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure><br> <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-6.png" alt="pc viewport"> </center><br>可以看到因为默认的layout viewport是按PC设置的，就算设置一个320px，也会按照PC的效果来展示</p>
-<p>ios最早提供了<a href="https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/UsingtheViewport/UsingtheViewport.html" target="_blank" rel="external">修改layout viewport</a>的能力，我们给上面的页面设置下layout viewport，并且visual viewport不缩放，这样就完美了：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta <span class="variable">name=</span><span class="string">"viewport"</span> <span class="variable">content=</span><span class="string">"width=320px, initial-scale=1.0"</span>&gt;</span><br></pre></td></tr></table></figure><br>  <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-7.png" alt="pc viewport"> </center></p>
-<h2 id="ideal_viewport">ideal viewport</h2><p>因为移动端的设备太多,宽度不一,所以上面写死的width=320px是非常不好的。还好设备都有一个ideal viewport，也就是最佳的尺寸，把layout viewport设置成idela viewport，并且visual viewport不要缩放就能达到最好的效果（可能有点绕）：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta <span class="variable">name=</span><span class="string">"viewport"</span> <span class="variable">content=</span><span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span><br></pre></td></tr></table></figure> width和initial-scale 设置其他值的效果，可以在这里查看：<a href="http://andreasbovens.github.io/understanding-viewpor" target="_blank" rel="external">understanding-viewport</a></p>
-<h2 id="小结">小结</h2><p>设置恰当的viewport，并且设置body的宽度为100%，这样在不同的设备上就能100%的展示，没有缩放，这为我们的响应式设计提供了基础</p>
-<hr>
-<h1 id="media_query">media query</h1><p>为不同的设备设置了网页的布局总宽度之后，需要进行区分，以便为不同的宽度设置不同的布局，media query提供了这种能力，它有非常多的属性，不过我们最常用的就是width<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@media</span> (max-<span class="string">width:</span> <span class="number">480</span>px) &#123; </span><br><span class="line">    <span class="comment">// 隐藏某些元素</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="annotation">@media</span> (max-<span class="string">width:</span> <span class="number">768</span>px) &#123;  &#125;</span><br><span class="line"><span class="annotation">@media</span> (min-<span class="string">width:</span> <span class="number">1200</span>px) &#123;</span><br><span class="line">  <span class="comment">// 显示某些元素 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 恰当的断点很重要，根据<a href="http://reports.quickleft.com/css" target="_blank" rel="external">2014 css报告</a>,设置最多的是480，768，990，1200，当然可能和bootstrap用的最多有关</p>
-<h2 id="device_width和width">device width和width</h2><p>另外可以再看看device width和width这两个值，大部分时候他们实现的效果是一样的，但是还是有一些细小的差别:</p>
-<ul>
-<li>device-wdith 指的是设备的宽度，在pc上你改变拖动浏览器窗口的大小并不会改变这个值</li>
-<li>width:指的是浏览器的宽度</li>
-</ul>
-<p>所以使用width会更好，并且在某些android设备上，使用device-width可能会变成device pixel</p>
-<h1 id="总结">总结</h1><p>设置不同的布局宽度、不同宽度设置不同的样式是实现响应式站点的基础。实际使用中，还是有很多细节，比如文字、表格布局、retina 下的图片处理等，下篇继续</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<ul>
-<li><a href="http://bhsc881114.github.io/2015/05/12/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%AB%99%E7%82%B9-%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/">响应式站点1-技术基础</a></li>
-<li>响应式站点2-viewport和media-query</li>
-<li>响应式站点3-skills(预告)</li>
-</ul>
-<p>以前做一个在手机上的网站，一开始显示的内容都偏小，需要双击缩放才能显示。后来发现加上viewport就可以了，瞬间觉得高大上….扒一扒他的原理<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta <span class="variable">name=</span><span class="string">"viewport"</span> <span class="variable">content=</span><span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span><br></pre></td></tr></table></figure> </p>
-<p><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-2.png" alt="viewport-index"><br>]]>
-    
-    </summary>
-    
-      <category term="media-query" scheme="http://bhsc881114.github.io/tags/media-query/"/>
-    
-      <category term="viewport" scheme="http://bhsc881114.github.io/tags/viewport/"/>
-    
-      <category term="响应式" scheme="http://bhsc881114.github.io/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/"/>
-    
-      <category term="前端" scheme="http://bhsc881114.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[响应式站点1-技术基础]]></title>
-    <link href="http://bhsc881114.github.io/2015/05/12/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%AB%99%E7%82%B9-%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/"/>
-    <id>http://bhsc881114.github.io/2015/05/12/响应式站点-技术基础/</id>
-    <published>2015-05-11T16:36:10.000Z</published>
-    <updated>2015-06-07T15:45:28.000Z</updated>
-    <content type="html"><![CDATA[<p>响应式开发背后的技术基础，主要是设备尺寸、设备密度</p>
-<center><img src="http://7xijc0.com1.z0.glb.clouddn.com/responsive-web-design.jpg" alt="viewport-index"></center>
+        
+          <div class="post-nav">
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
 
-<a id="more"></a>
-<hr>
-<p>响应式是指网站在不同分辨率、不同大小的设备下，实现比较好的体验，背后的技术基础在于区分不同设备的尺寸、密度</p>
-<h1 id="1-设备尺寸和分辨率">1.设备尺寸和分辨率</h1><p>PC时代，设备尺寸一般控制在1024px，基本不考虑用户主动改变浏览器大小的情况。诺基亚时代，已经可以小尺寸设备访问网站，那时候网路差，上网本来就不方便，整体体验都不好，网页都是按照PC渲染，再局部放大将就着看。</p>
-<p>iphone刚出现时，也是通过先加载全部网页再放大局部浏览，后面出现了为iphone量身定制的网站，直接设置宽度为320px。ios最先引入了meta viewport来允许用户修改视窗的大小，来达到最好的效果。</p>
-<p><strong> 可以在这里直观的感受下：<a href="http://andreasbovens.github.io/understanding-viewport/" target="_blank" rel="external">http://andreasbovens.github.io/understanding-viewport/</a> </strong></p>
-  <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/resp-viewport1.png" alt="img">（不设置viewport）</center>
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2015/06/07/图片压缩/">图片压缩</a>
+              
+            </div>
+          </div>
+        
 
-  <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/resp-viewport2.png" alt="img">（设置了width=device-width之后）</center>
+        
+        
+      </div>
+    
+  </div>
 
-<h1 id="设备密度">设备密度</h1><p>iphone3和4都是3.5寸，前者分辨率是320*480，后者是640何960，这和设备密度有关</p>
-<p><strong> devic pixel：</strong> 物理像素(长宽单位为1)。在屏幕上，元素其实是通过硬件的物理点（RGB）来展示的。1个大设备上的点比小设备上的点要大(很容易理解)，只是因为我们看的距离不同（看电视会坐的比较远，看手机会拿的很近），所以对我们来说看着都比较清晰</p>
-<p><strong> css pixel：</strong> css像素，假设有个div宽20px; 如果以绝对的1:1物理点来显示的话，必然大屏幕的20px会比小屏的px大（想象一下设置一个宽度，在电脑和手机上表现不一样，这就太坑爹了）。 我们实际web开发的时候没遇到这样的问题，因为css px是一个中间层，在retina屏上1X1的css pixel点以4(2X2)个device pixel来展示</p>
-<center><img src="http://7xijc0.com1.z0.glb.clouddn.com/pixratio.png" alt="img"></center>
 
-<p><strong> devicePixelRatio：</strong> 设备像素比，就是指多少个物理像素来显示一个逻辑像素，现在比较多的是2，3也有,可以同通过window.devicePixelRatio获得</p>
-<p><strong> device width：</strong> 设备宽度，指逻辑像素下的款宽度（就是上面的css pixel），比如iphone的device width就是320*480。这里可以查看各种设备的物理像素和逻辑像素</p>
-<h2 id="文字">文字</h2><p>对文字来说，其实不存在不同密度下显示的的问题，font-size:12px;在不同设备上看着都是一样得，因为可以自动的以多个物理点来显示一个逻辑点。但是图片就没这么容易了，一个200<em>200px的图片在2倍密度的设备上，实际对应的是400</em>400的物理点，多出来的点只能以临近的值来填充，所以就会显得模糊。</p>
-<h2 id="图片">图片</h2><p>图片的响应式确实是一个比较棘手的问题，除了视觉上，还有性能上的问题要考虑，上面200<em>200px像素的问题，简单的做法就是提供一张400</em>400的图片，以200*200展示</p>
-<hr>
-<h1 id="深入viewport">深入viewport</h1><p><a href="http://bhsc881114.github.io/2015/05/22/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%AB%99%E7%82%B92-viewport%E5%92%8Cmedia-query/" target="_blank" rel="external">响应式站点2-viewport和media-query</a></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>响应式开发背后的技术基础，主要是设备尺寸、设备密度</p>
-<center><img src="http://7xijc0.com1.z0.glb.clouddn.com/responsive-web-design.jpg" alt="viewport-index"></center>]]>
-    
-    </summary>
-    
-      <category term="devicePixelRatio" scheme="http://bhsc881114.github.io/tags/devicePixelRatio/"/>
-    
-      <category term="viewport" scheme="http://bhsc881114.github.io/tags/viewport/"/>
-    
-      <category term="响应式" scheme="http://bhsc881114.github.io/tags/%E5%93%8D%E5%BA%94%E5%BC%8F/"/>
-    
-      <category term="前端" scheme="http://bhsc881114.github.io/categories/%E5%89%8D%E7%AB%AF/"/>
-    
-  </entry>
+
   
-  <entry>
-    <title><![CDATA[一次linux内存问题排查-slab]]></title>
-    <link href="http://bhsc881114.github.io/2015/04/19/%E4%B8%80%E6%AC%A1linux%E5%86%85%E5%AD%98%E9%97%AE%E9%A2%98%E6%8E%92%E6%9F%A5-slab/"/>
-    <id>http://bhsc881114.github.io/2015/04/19/一次linux内存问题排查-slab/</id>
-    <published>2015-04-19T00:08:47.000Z</published>
-    <updated>2015-06-07T15:46:05.000Z</updated>
-    <content type="html"><![CDATA[<p>一次内存告警的排查过程，linux内存占用分析<br><a id="more"></a></p>
-<h1 id="问题">问题</h1><p>有一台机器内存不足的告警，机器内存总共8G，top看了下:<br><img src="http://7xijc0.com1.z0.glb.clouddn.com/A1.png" alt="img"></p>
-<p>已经使用有7G，进程实际占用的物理内存是RES，目测实际应该只占了3G不到，数据对不上，什么鬼</p>
-<h1 id="内存占用分析">内存占用分析</h1><p>搜到了霸业的文章，<a href="http://blog.yufeng.info/archives/2456" target="_blank" rel="external">Linux Used内存到底哪里去了</a>，收获了很多，分享下</p>
-<h2 id="nmon、slabtop等工具">nmon、slabtop等工具</h2><p>先装了nmon，他能够比较直观的现实内存占用情况:<br><img src="http://7xijc0.com1.z0.glb.clouddn.com/A2.png" alt="img"><br>通过meminfo也可以看，就是数据有点多，容易忽略<br><img src="http://7xijc0.com1.z0.glb.clouddn.com/A3.png" alt="img"><br>发现slab特别大，应该是这个原因(slabtop)<br><img src="http://7xijc0.com1.z0.glb.clouddn.com/A4.png" alt="img"></p>
-<h2 id="分析slab占用情况">分析slab占用情况</h2><p>把slab占用比较大的打出来,<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat /<span class="keyword">proc</span>/slabinfo |awk '&#123;<span class="keyword">if</span>($<span class="number">3</span>*$<span class="number">4</span>/<span class="number">1024</span>/<span class="number">1024</span> &gt; <span class="number">100</span>)&#123;print $<span class="number">1</span>,$<span class="number">3</span>*$<span class="number">4</span>/<span class="number">1024</span>/<span class="number">1024</span>&#125; &#125;' </span><br><span class="line"></span><br><span class="line"> ext3_inode_cache <span class="number">282</span>.<span class="number">575</span></span><br><span class="line"> proc_inode_cache <span class="number">2154</span>.<span class="number">03</span></span><br><span class="line"> dentry_cache <span class="number">868</span>.<span class="number">075</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>发现proc_inode这个占了2G多，当然dentry也不小，proc文件系统的文件是挺多，但是这么多肯定不正常</strong></p>
-<hr>
-<h1 id="解决,释放缓存">解决,释放缓存</h1><p>不知道为啥proc会占这么大，怀疑是阿里云的问题（只是怀疑，最后没查到原因就好了），如果想主动释放缓存缓存：</p>
-<p>To free pagecache:</p>
-<ul>
-<li>echo 1 &gt; /proc/sys/vm/drop_caches<br>To free dentries and inodes:</li>
-<li>echo 2 &gt; /proc/sys/vm/drop_caches<br>To free pagecache, dentries and inodes:</li>
-<li>echo 3 &gt; /proc/sys/vm/drop_caches</li>
-</ul>
-<h1 id="内存使用计算">内存使用计算</h1><p>linux的内存管理挺复杂，其实牵涉到内存的都挺复杂，比如java gc大家都想更好、更快、更简单的利用内存。<br>linux中有进程的内存管理、伙伴分配算法、slab、page table、MNU，page cache等等，每一项都值得展开，这里先只关心怎么计算内存使用，<br>霸爷给出的内存占用计算方式挺靠谱：slab+page table+res</p>
-<h2 id="slab">slab</h2><p>个人解就是一个内存池，因为一个page太大了放一些小对象不经济，所以就搞了个对象池，用于分配这些小对象，可以看下<br><a href="http://stackoverflow.com/questions/15470560/what-to-choose-between-slab-and-slub-allocator-in-linux-kernel" target="_blank" rel="external">slab、slub、slob</a>，<br>slub更适应现代高性能服务器大量进程的情况，代码也更简单</p>
-<h2 id="RES">RES</h2><p>进程实际占用的内存（resident resident set size），man top给出的算法是 RES = CODE + DATA.<br>实际中我发现很多进程对不上，whatever，暂时还不知道靠谱的计算方法</p>
-<h2 id="page_table">page table</h2><p>linux的内存分page来管理（一般是4K），所有有个page table做描述信息也很好理解<br><img src="http://7xijc0.com1.z0.glb.clouddn.com/page-table.png" alt="img"></p>
-<h2 id="buffer、cache">buffer、cache</h2><p>buffer和cache是已经使用的内存，但是其实是可以释放的。page cahe，他和文件系统关系比较大，后续分享rocketmq时再细讲吧</p>
-<p>距上一篇博客快一月了,憋了好久，哎，执行力太差</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>一次内存告警的排查过程，linux内存占用分析<br>]]>
-    
-    </summary>
-    
-      <category term="pagecache" scheme="http://bhsc881114.github.io/tags/pagecache/"/>
-    
-      <category term="slab" scheme="http://bhsc881114.github.io/tags/slab/"/>
-    
-      <category term="内存" scheme="http://bhsc881114.github.io/tags/%E5%86%85%E5%AD%98/"/>
-    
-      <category term="linux内存" scheme="http://bhsc881114.github.io/categories/linux%E5%86%85%E5%AD%98/"/>
-    
-  </entry>
+    <div class="comments" id="comments">
+      
+        <div class="ds-thread" data-thread-key="2015/06/18/hadoop系列安装小记/"
+             data-title="hadoop系列安装小记" data-url="http://bhsc881114.github.io/2015/06/18/hadoop系列安装小记/">
+        </div>
+
+      
+    </div>
   
-  <entry>
-    <title><![CDATA[新的开始]]></title>
-    <link href="http://bhsc881114.github.io/2015/03/29/%E6%96%B0%E7%9A%84%E5%BC%80%E5%A7%8B/"/>
-    <id>http://bhsc881114.github.io/2015/03/29/新的开始/</id>
-    <published>2015-03-29T09:56:06.000Z</published>
-    <updated>2015-04-28T15:09:30.000Z</updated>
-    <content type="html"><![CDATA[<p><img src="http://img02.taobaocdn.com/imgextra/i2/86965659/TB2a6n7cXXXXXahXpXXXXXXXXXX-86965659.jpg" alt="i am back"></p>
-<p>大学的时候在iteye、网易、csdn、360DOC、百度空间都写过博客，工作以后基本就断了,去年年底计划重新开始写，今天终于搭起来了，计划每个月写2到3篇，这样一年也有40篇以上了，每篇都尽量保证质量</p>
-<p>这个博客基本都是技术相关，java、nodejs、前端、大数据等。花了半天时间了解jekyll、octopress、hexo等，最终选择hexo而不是jekyll，主要是考虑想在nodejs方面深入一点，计划搞个自己的模板，再加上有很多前端的小工具想试试，让我更需要搭建这个博客来做试验 :)。 </p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p><img src="http://img02.taobaocdn.com/imgextra/i2/86965659/TB2a6n7cXXXXXahXpXXXXXXXXXX-86965659.jpg" alt="i am back"></p>
-<p>大学的时候在iteye、网]]>
-    </summary>
+
+          </div>
+
+          
+        </div>
+
+        
+<div class="sidebar-toggle">
+  <div class="sidebar-toggle-line-wrap">
+    <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+    <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+  </div>
+</div>
+
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-inner">
+
     
-      <category term="我" scheme="http://bhsc881114.github.io/tags/%E6%88%91/"/>
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview" data-target="site-overview">
+          站点概览
+        </li>
+      </ul>
     
-      <category term="我" scheme="http://bhsc881114.github.io/categories/%E6%88%91/"/>
+
+    <div class="site-overview">
+      <div class="site-author motion-element">
+        <img class="site-author-image" src="/images/default_avatar.jpg" alt="chentao" />
+        <p class="site-author-name">chentao</p>
+      </div>
+      <p class="site-description motion-element">学习总结 思考感悟</p>
+      <div class="site-state motion-element">
+        <div class="site-state-item site-state-posts">
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </div>
+        <div class="site-state-item site-state-tags">
+            <span class="site-state-item-count">11</span>
+            <span class="site-state-item-name">标签</span>
+        </div>
+        <div class="site-state-item site-state-pages">
+            <span class="site-state-item-count">3</span>
+            <span class="site-state-item-name">页面</span>
+        </div>
+      </div>
+
+      
+        <div class="feed-link motion-element">
+          <a href="/atom.xml">
+            <i class="menu-item-icon icon-feed"></i>
+            RSS
+          </a>
+        </div>
+      
+
+      <div class="links-of-author motion-element">
+        
+          
+            <span class="links-of-author-item">
+              <a href="https://github.com/bhsc881114">github</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="https://twitter.com/bhsc881114">twitter</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.weibo.com/u/1747810310">weibo</a>
+            </span>
+          
+            <span class="links-of-author-item">
+              <a href="http://www.zhihu.com/people/chen-tao-97-49">zhihu</a>
+            </span>
+          
+        
+      </div>
+
+      
+      
+
+    </div>
+
     
-  </entry>
+      <div class="post-toc-wrap sidebar-panel-active">
+        <div class="post-toc-indicator-top post-toc-indicator"></div>
+        <div class="post-toc">
+          
+          
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#cdh"><span class="nav-number">1.</span> <span class="nav-text">cdh</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#安装前配置"><span class="nav-number">2.</span> <span class="nav-text">安装前配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#配置yum源"><span class="nav-number">2.1.</span> <span class="nav-text">配置yum源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装jdk"><span class="nav-number">2.2.</span> <span class="nav-text">安装jdk</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HDFS"><span class="nav-number">3.</span> <span class="nav-text">HDFS</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装和配置"><span class="nav-number">3.1.</span> <span class="nav-text">安装和配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动"><span class="nav-number">3.2.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试"><span class="nav-number">3.3.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#YARN"><span class="nav-number">4.</span> <span class="nav-text">YARN</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装和配置-1"><span class="nav-number">4.1.</span> <span class="nav-text">安装和配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动-1"><span class="nav-number">4.2.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试-1"><span class="nav-number">4.3.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ZK"><span class="nav-number">5.</span> <span class="nav-text">ZK</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装和配置-2"><span class="nav-number">5.1.</span> <span class="nav-text">安装和配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动-2"><span class="nav-number">5.2.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试-2"><span class="nav-number">5.3.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HBase"><span class="nav-number">6.</span> <span class="nav-text">HBase</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装和配置-3"><span class="nav-number">6.1.</span> <span class="nav-text">安装和配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动-3"><span class="nav-number">6.2.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试-3"><span class="nav-number">6.3.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Hive"><span class="nav-number">7.</span> <span class="nav-text">Hive</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装和配置-4"><span class="nav-number">7.1.</span> <span class="nav-text">安装和配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#启动-4"><span class="nav-number">7.2.</span> <span class="nav-text">启动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试-4"><span class="nav-number">7.3.</span> <span class="nav-text">测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li></ol></div>
+          
+        </div>
+        <div class="post-toc-indicator-bottom post-toc-indicator"></div>
+      </div>
+    
+
+  </div>
+</div>
+
+
+      </div>
+    </div>
+
+    <div id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">
   
-</feed>
+  &copy; &nbsp; 
+  2015
+  <span class="with-love">
+    <i class="icon-heart"></i>
+  </span>
+  <span class="author">chentao</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </div>
+
+    <div class="back-to-top"></div>
+  </div>
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      if($(".fancybox").length>0){
+         $(".fancybox").fancybox();
+      }
+    });
+  </script>
+
+  <script type="text/javascript">
+  function hasMobileUA () {
+    var nav = window.navigator;
+    var ua = nav.userAgent;
+    var pa = /iPad|iPhone|Android|Opera Mini|BlackBerry|webOS|UCWEB|Blazer|PSP|IEMobile|Symbian/g;
+
+    return pa.test(ua);
+  }
+
+  function isDesktop () {
+    return screen.width > 991 && !hasMobileUA();
+  }
+
+  function isTablet () {
+    return screen.width < 992 && screen.width > 767 && hasMobileUA();
+  }
+
+  function isMobile () {
+    return screen.width < 767 && hasMobileUA();
+  }
+
+  function escapeSelector (selector) {
+    return selector.replace(/[!"$%&'()*+,.\/:;<=>?@[\\\]^`{|}~]/g, "\\$&")
+  }
+</script>
+
+  
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" id="motion.global">
+  $(document).ready(function () {
+    var body = $('body');
+    var isSidebarVisible = false;
+    var sidebarToggle = $('.sidebar-toggle');
+    var sidebarToggleLine1st = $('.sidebar-toggle-line-first')
+    var sidebarToggleLine2nd = $('.sidebar-toggle-line-middle');
+    var sidebarToggleLine3rd = $('.sidebar-toggle-line-last');
+    var sidebar = $('.sidebar');
+
+    var SIDEBAR_WIDTH = '320px';
+    var SIDEBAR_DISPLAY_DURATION = 300;
+
+    var sidebarToogleLineStatusInit = {width: '100%', opacity: 1, left: 0, rotateZ: 0, top: 0};
+
+    var sidebarToggleLine1stStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine1stStatusArrow = {width: '50%', rotateZ: '-45deg', top: '2px'};
+    var sidebarToogleLine1stStatusClose = {width: '100%', rotateZ: '-45deg', top: '5px'};
+
+    var sidebarToggleLine2ndStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine2ndStatusArrow = {width: '90%'};
+    var sidebarToogleLine2ndStatusClose = {opacity: 0};
+
+    var sidebarToggleLine3rdStatusInit = sidebarToogleLineStatusInit;
+    var sidebarToggleLine3rdStatusArrow = {width: '50%', rotateZ: '45deg', top: '-2px'};
+    var sidebarToogleLine3rdStatusClose = {width: '100%', rotateZ: '45deg', top: '-5px'};
+
+    LogoAndMenuMotion();
+    sidebatToggleMotion();
+    postsListMotion();
+    backToTopMotion();
+
+
+    $(document)
+      .on('sidebar.isShowing', function () {
+        isDesktop() && body.velocity(
+          {paddingRight: SIDEBAR_WIDTH},
+          SIDEBAR_DISPLAY_DURATION
+        );
+        sidebarContentMotion();
+      })
+      .on('sidebar.isHiding', function () {});
+
+    function LogoAndMenuMotion() {
+      $.Velocity.RunSequence([
+        { e: $('.brand'), p: { opacity: 1 }, o: { duration: 100 } },
+        { e: $('.logo'), p: { opacity: 1, top: 0 }, o: { duration: 50} },
+        
+        { e: $('.logo-line-before i'), p: { translateX: "100%" }, o: { duration: 500, sequenceQueue: false } },
+        { e: $('.logo-line-after i'), p: { translateX: "-100%" }, o: { duration: 500, sequenceQueue: false } },
+        
+        { e: $('.site-title'), p: { opacity: 1, top: 0 }, o: { duration: 200 } }
+      ]);
+      $('.menu-item').velocity('transition.slideDownIn', {display: null});
+    }
+
+
+    function backToTopMotion () {
+      var b2top = $('.back-to-top');
+      b2top.on('click', function () {
+        body.velocity('scroll');
+      });
+    }
+
+    function sidebarShowMotion () {
+
+      sidebarToggleLine1st.velocity(sidebarToogleLine1stStatusClose);
+      sidebarToggleLine2nd.velocity(sidebarToogleLine2ndStatusClose);
+      sidebarToggleLine3rd.velocity(sidebarToogleLine3rdStatusClose);
+
+      sidebar.velocity({width: SIDEBAR_WIDTH}, {
+        display: 'block',
+        duration: SIDEBAR_DISPLAY_DURATION,
+        complete: function () {
+          sidebar.addClass('sidebar-active');
+          sidebar.trigger('sidebar.didShow');
+        }
+      });
+      sidebar.trigger('sidebar.isShowing');
+    }
+
+    function sidebarHideMotion () {
+      isDesktop() && body.velocity({paddingRight: 0});
+      sidebar.velocity('reverse');
+
+      sidebarToggleLine1st.velocity(sidebarToggleLine1stStatusInit);
+      sidebarToggleLine2nd.velocity(sidebarToggleLine2ndStatusInit);
+      sidebarToggleLine3rd.velocity(sidebarToggleLine3rdStatusInit);
+
+      sidebar.removeClass('sidebar-active');
+      sidebar.trigger('sidebar.isHiding');
+    };
+
+    function sidebarContentMotion () {
+      $('.sidebar .motion-element').velocity(
+        'transition.slideRightIn',
+        {stagger: 50, drag: true}
+      );
+    }
+
+    function postsListMotion () {
+      var postMotionOptions = window.postMotionOptions || {stagger: 300, drag: true};
+      $('.post').velocity('transition.slideDownIn', postMotionOptions);
+    }
+
+    function sidebatToggleMotion () {
+      sidebarToggle.on('click', function () {
+        isSidebarVisible ? sidebarHideMotion() : sidebarShowMotion();
+        isSidebarVisible = !isSidebarVisible;
+      });
+
+      sidebarToggle.hover(function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusArrow);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusArrow);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusArrow);
+      }, function () {
+        if (isSidebarVisible) {return}
+        sidebarToggleLine1st.velocity('stop').velocity(sidebarToggleLine1stStatusInit);
+        sidebarToggleLine2nd.velocity('stop').velocity(sidebarToggleLine2ndStatusInit);
+        sidebarToggleLine3rd.velocity('stop').velocity(sidebarToggleLine3rdStatusInit);
+      });
+    }
+  });
+
+</script>
+
+
+
+
+
+  
+  
+<script type="text/javascript" id="bootstrap.scrollspy.custom">
+  /* ========================================================================
+  * Bootstrap: scrollspy.js v3.3.2
+  * http://getbootstrap.com/javascript/#scrollspy
+  * ========================================================================
+  * Copyright 2011-2015 Twitter, Inc.
+  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+  * ======================================================================== */
+
+  /**
+   * Custom by iissnan
+   *
+   * - Add a `clear.bs.scrollspy` event.
+   * - Esacpe targets selector.
+   */
+
+
+  +function ($) {
+    'use strict';
+
+    // SCROLLSPY CLASS DEFINITION
+    // ==========================
+
+    function ScrollSpy(element, options) {
+      this.$body          = $(document.body)
+      this.$scrollElement = $(element).is(document.body) ? $(window) : $(element)
+      this.options        = $.extend({}, ScrollSpy.DEFAULTS, options)
+      this.selector       = (this.options.target || '') + ' .nav li > a'
+      this.offsets        = []
+      this.targets        = []
+      this.activeTarget   = null
+      this.scrollHeight   = 0
+
+      this.$scrollElement.on('scroll.bs.scrollspy', $.proxy(this.process, this))
+      this.refresh()
+      this.process()
+    }
+
+    ScrollSpy.VERSION  = '3.3.2'
+
+    ScrollSpy.DEFAULTS = {
+      offset: 10
+    }
+
+    ScrollSpy.prototype.getScrollHeight = function () {
+      return this.$scrollElement[0].scrollHeight || Math.max(this.$body[0].scrollHeight, document.documentElement.scrollHeight)
+    }
+
+    ScrollSpy.prototype.refresh = function () {
+      var that          = this
+      var offsetMethod  = 'offset'
+      var offsetBase    = 0
+
+      this.offsets      = []
+      this.targets      = []
+      this.scrollHeight = this.getScrollHeight()
+
+      if (!$.isWindow(this.$scrollElement[0])) {
+        offsetMethod = 'position'
+        offsetBase   = this.$scrollElement.scrollTop()
+      }
+
+      this.$body
+        .find(this.selector)
+        .map(function () {
+          var $el   = $(this)
+          var href  = $el.data('target') || $el.attr('href')
+          var $href = /^#./.test(href) && $(escapeSelector(href)) // Need to escape selector.
+
+          return ($href
+            && $href.length
+            && $href.is(':visible')
+            && [[$href[offsetMethod]().top + offsetBase, href]]) || null
+        })
+        .sort(function (a, b) { return a[0] - b[0] })
+        .each(function () {
+          that.offsets.push(this[0])
+          that.targets.push(this[1])
+        })
+
+
+    }
+
+    ScrollSpy.prototype.process = function () {
+      var scrollTop    = this.$scrollElement.scrollTop() + this.options.offset
+      var scrollHeight = this.getScrollHeight()
+      var maxScroll    = this.options.offset + scrollHeight - this.$scrollElement.height()
+      var offsets      = this.offsets
+      var targets      = this.targets
+      var activeTarget = this.activeTarget
+      var i
+
+      if (this.scrollHeight != scrollHeight) {
+        this.refresh()
+      }
+
+      if (scrollTop >= maxScroll) {
+        return activeTarget != (i = targets[targets.length - 1]) && this.activate(i)
+      }
+
+      if (activeTarget && scrollTop < offsets[0]) {
+        $(this.selector).trigger('clear.bs.scrollspy')  // Add a custom event.
+        this.activeTarget = null
+        return this.clear()
+      }
+
+      for (i = offsets.length; i--;) {
+        activeTarget != targets[i]
+          && scrollTop >= offsets[i]
+          && (!offsets[i + 1] || scrollTop <= offsets[i + 1])
+          && this.activate(targets[i])
+      }
+    }
+
+    ScrollSpy.prototype.activate = function (target) {
+      this.activeTarget = target
+
+      this.clear()
+
+      var selector = this.selector +
+        '[data-target="' + target + '"],' +
+        this.selector + '[href="' + target + '"]'
+
+      var active = $(selector)
+        .parents('li')
+        .addClass('active')
+
+      if (active.parent('.dropdown-menu').length) {
+        active = active
+          .closest('li.dropdown')
+          .addClass('active')
+      }
+
+      active.trigger('activate.bs.scrollspy')
+    }
+
+    ScrollSpy.prototype.clear = function () {
+      $(this.selector)
+        .parentsUntil(this.options.target, '.active')
+        .removeClass('active')
+    }
+
+
+    // SCROLLSPY PLUGIN DEFINITION
+    // ===========================
+
+    function Plugin(option) {
+      return this.each(function () {
+        var $this   = $(this)
+        var data    = $this.data('bs.scrollspy')
+        var options = typeof option == 'object' && option
+
+        if (!data) $this.data('bs.scrollspy', (data = new ScrollSpy(this, options)))
+        if (typeof option == 'string') data[option]()
+      })
+    }
+
+    var old = $.fn.scrollspy
+
+    $.fn.scrollspy             = Plugin
+    $.fn.scrollspy.Constructor = ScrollSpy
+
+
+    // SCROLLSPY NO CONFLICT
+    // =====================
+
+    $.fn.scrollspy.noConflict = function () {
+      $.fn.scrollspy = old
+      return this
+    }
+
+
+    // SCROLLSPY DATA-API
+    // ==================
+
+    $(window).on('load.bs.scrollspy.data-api', function () {
+      $('[data-spy="scroll"]').each(function () {
+        var $spy = $(this)
+        Plugin.call($spy, $spy.data())
+      })
+    })
+
+  }(jQuery);
+</script>
+
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var $sidebarInner = $('.sidebar-inner');
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.didShow', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+          var self = this;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      $(indicator).velocity('stop').velocity({
+        opacity: action === 'show' ? 0.4 : 0
+      }, { duration: 100 });
+    }
+
+  });
+</script>
+
+
+  <script type="text/javascript" id="sidebar.nav">
+    $(document).ready(function () {
+      var html = $('html');
+
+      $('.sidebar-nav li').on('click', function () {
+        var item = $(this);
+        var activeTabClassName = 'sidebar-nav-active';
+        var activePanelClassName = 'sidebar-panel-active';
+        if (item.hasClass(activeTabClassName)) {
+          return;
+        }
+
+        var currentTarget = $('.' + activePanelClassName);
+        var target = $('.' + item.data('target'));
+
+        currentTarget.velocity('transition.slideUpOut', 200, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', 200)
+            .addClass(activePanelClassName);
+        });
+
+        item.siblings().removeClass(activeTabClassName);
+        item.addClass(activeTabClassName);
+      });
+
+      $('.post-toc a').on('click', function (e) {
+        e.preventDefault();
+        var offset = $(escapeSelector(this.getAttribute('href'))).offset().top;
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        });
+      });
+
+      // Expand sidebar on post detail page by default, when post has a toc.
+      var $tocContent = $('.post-toc-content');
+      if ($tocContent.length > 0 && $tocContent.html().trim().length > 0 && isDesktop()) {
+        setTimeout(function () {
+          $('.sidebar-toggle').trigger('click');
+        }, 800);
+      }
+    });
+  </script>
+
+
+
+
+  
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"bhsc881114"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+  
+  <script type="text/javascript">
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+        function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='//www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+    ga('create','UA-61553578-1');ga('send','pageview');
+  </script>
+
+</body>
+</html>
