@@ -126,6 +126,116 @@
           
           
             
+              <a class="post-title-link" href="/2015/06/23/HTTP请求之TCP性能瓶颈分析/">
+                HTTP请求的TCP瓶颈分析
+              </a>
+            
+          
+        </h1>
+      
+
+      <div class="post-meta">
+        <span class="post-time">
+          
+            发表于 2015-06-23
+          
+        </span>
+
+        
+          
+            <span class="post-category">
+              &nbsp; | &nbsp; 分类于
+              
+                <a href="/categories/HTTP性能/">HTTP性能</a>
+
+                
+                
+                  ， 
+                
+
+              
+                <a href="/categories/HTTP性能/TCP性能/">TCP性能</a>
+
+                
+                
+
+              
+            </span>
+          
+        
+
+        
+          
+            <span class="post-comments-count">
+            &nbsp; | &nbsp;
+            <a href="/2015/06/23/HTTP请求之TCP性能瓶颈分析/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/23/HTTP请求之TCP性能瓶颈分析/"></span>
+            </a>
+          </span>
+          
+        
+      </div>
+    </div>
+
+    
+      <div class="post-body">
+
+        
+        
+
+        
+          
+            <p><img src="http://7xijc0.com1.z0.glb.clouddn.com/TCP-Stack.png" alt="tcp-stack"></p>
+<p>三次握手、流量控制（接收窗口）、慢启动（cwnd，拥塞窗口）、队首阻塞 等因素是对HTTP影响的关键</p>
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2015/06/23/HTTP请求之TCP性能瓶颈分析/#more">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        
+      </div>
+    
+
+    
+      <div class="post-footer">
+        
+          <div class="post-tags">
+            
+              <a href="/tags/HTTP/">
+                #HTTP
+              </a>
+            
+              <a href="/tags/TCP/">
+                #TCP
+              </a>
+            
+          </div>
+        
+
+        
+
+        
+        
+          <div class="post-eof"></div>
+        
+      </div>
+    
+  </div>
+
+
+  
+    
+
+  <div class="post post-type-normal ">
+    <div class="post-header">
+
+      
+      
+        <h1 class="post-title">
+          
+          
+            
               <a class="post-title-link" href="/2015/06/18/hadoop系列安装小记/">
                 hadoop系列安装小记
               </a>
@@ -371,28 +481,12 @@
 
         
           
-            <h1 id="1-位图和矢量图">1.位图和矢量图</h1><h2 id="1-1_位图（记述性）">1.1 位图（记述性）</h2><p>位图的工作是基于方形像素点的,把图像分为若干个点(像素)，从而储存或再现整幅图像。由于像素数量的限制，所以点阵图像的大小是固定的。缩小或放大图像都会造成对图像的破坏，看下的例子：</p>
-  <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/image-post-1.png" alt="1">  </center>
-
-<p>A、B、C、D四个像素，要将2x2扩成3x3，那么就要多出5个像素。图中的标号是1、2、3、4、5。<br>如何确定这原先并不存在的像素的颜色呢？是将现有两个像素的颜色值取平均，去作为新像素的颜色。也就是说AB运算后得出1；AC运算后得出2；BD得出4；CD得出5；3则是由1245运算得出的。</p>
-<h2 id="1-2_矢量（描述性）">1.2 矢量（描述性）</h2><p>矢量图片，由对象组成。<strong>每个对象都是一个自成一体的实体，它具有颜色、形状、轮廓、大小和屏幕位置等属性。</strong>既然每个对象都是一个自成一体的实体，就可以在维持它原有清晰度和弯曲度的同时，多次移动和改变它的属性，而不会影响图例中的其他对象。矢量图像属于描述性，以线段和计算公式作为记录的对象</p>
-<h2 id="1-3_对比">1.3 对比</h2><p>想象一条直线，如果以点阵方式来记录，就是从左上角第一个点开始，到右下角最后一个点结束，记录所有像素的颜色。 记录这幅图像(200×50像素)就需要1万个信息。即使这条直线本身并没有那么多像素，但点阵方式也是完整的把整幅图的像素记录下来。如果用矢量来记录这条直线，只需要三个信息：直线起点坐标、直线终点坐标、直线的颜色</p>
-<p>从获取图像这个角度来说，矢量不适合记录色彩较为复杂的图像。所谓获取就是拍照、扫描这类，因为色彩太复杂，矢量格式就要为每个色彩的变化去计算坐标。 如果从创作图像的角度来说，矢量格式同样可以具有非常丰富的色彩</p>
-<p>另外显示器是点阵的，包括传统的CTR显示器、液晶显示器、等离子显示器等。 无论你在制作时候采用点阵还是矢量，在显示器上显示出来的话，最终还是以点阵方式展现的。</p>
-<h1 id="2-RGB">2.RGB</h1><p>电子设备上显示的数字图像颜色组成是RGB（红黄蓝),这是一种发光色彩。相对应的有CMYK反光色彩，用于印刷（C代表青色，M代表洋红色，Y代表黄色，K代表黑色）；</p>
-<h2 id="2-1_图像大小">2.1 图像大小</h2><p>每个像素存储’RGBA‘值：(R) 红色通道、(G) 绿色通道、(B) 蓝色通道和 (A) alpha（透明度）通道。在浏览器内部为每个通道分配 256 个值（色阶），转换为每个通道 8 位 (2 ^ 8 = 256)，每个像素 4 个字节。因此，如果知道图像尺寸，可以很容易计算文件大小：<br> 100 x 100 像素的图片 =  10,000 像素 x 4 个字节 = 40,000B  / 1024 = 39KB</p>
-<p>每个通道256的值，可以为我们提供1677W的颜色（256<em>256</em>256=16,777,216），这超过了一般人眼的分辨力，所以也称为真彩色</p>
-<h1 id="3_图像像素和显示密度">3 图像像素和显示密度</h1><h2 id="3-1_总像素">3.1 总像素</h2><center><img src="http://7xijc0.com1.z0.glb.clouddn.com/image-post-2.png" alt="2">  </center>
-
-<h2 id="3-2_显示密度_DPI/PPI">3.2 显示密度 DPI/PPI</h2><p>dpi是dot per inch，每英寸多少点，ppi是 Pixel per inch，每英寸像素数，针对显示器的设计时，dpi=ppi(下面都用PPI）。图片的总像素/PPI，就是图片在介质上显示的大小。同一张图片,PPI高的肯定会显示的小一点，这里有很多相关的概念，retina、android里的dp单位、android里的HDPI、MDPI、LDPI等。</p>
-<hr>
-<p>参考：</p>
-<ul>
-<li>1.<a href="https://developers.google.com/web/fundamentals/performance/optimizing-content-efficiency/image-optimization" target="_blank" rel="external">图片优化</a></li>
-<li>2.<a href="http://blog.163.com/fan_cun_fu/blog/static/455609201141925812990/" target="_blank" rel="external">点阵格式图像介绍</a></li>
-<li>3.<a href="http://www.zhihu.com/question/21220154" target="_blank" rel="external">DPI、PPI、DP、PX 的详细计算方法及算法来源是什么？</a></li>
-</ul>
-
+            <p>位图/矢量图；图像像素和显示密度<br>
+            <div class="post-more-link text-center">
+              <a class="btn" href="/2015/06/07/图片基础知识/#more">
+                阅读全文 &raquo;
+              </a>
+            </div>
           
         
       </div>
@@ -701,7 +795,7 @@
           <div class="post-gallery">
             
               <a class="post-gallery-img fancybox" href="http://7xijc0.com1.z0.glb.clouddn.com/xxxx.png"
-                 rel="gallery_cib56nvev00110fgpii2t9s9f">
+                 rel="gallery_cib9fpfuv0011migpo3tvev8k">
                 <img src="http://7xijc0.com1.z0.glb.clouddn.com/xxxx.png" />
               </a>
             
@@ -876,11 +970,11 @@
       <p class="site-description motion-element">学习总结 思考感悟</p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-count">8</span>
           <span class="site-state-item-name">日志</span>
         </div>
         <div class="site-state-item site-state-tags">
-            <span class="site-state-item-count">11</span>
+            <span class="site-state-item-count">13</span>
             <span class="site-state-item-name">标签</span>
         </div>
         <div class="site-state-item site-state-pages">
