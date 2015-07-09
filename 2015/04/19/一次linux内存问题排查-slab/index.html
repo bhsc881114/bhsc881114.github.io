@@ -160,7 +160,7 @@
           <div class="post-gallery">
             
               <a class="post-gallery-img fancybox" href="http://7xijc0.com1.z0.glb.clouddn.com/xxxx.png"
-                 rel="gallery_cib9gp35t00117n9iafrljrtb">
+                 rel="gallery_cibvhsp5800117qgvhad0k7zu">
                 <img src="http://7xijc0.com1.z0.glb.clouddn.com/xxxx.png" />
               </a>
             
@@ -171,24 +171,24 @@
           <p>一次内存告警的排查过程，linux内存占用分析<br><a id="more"></a></p>
 <h1 id="问题">问题</h1><p>有一台机器内存不足的告警，机器内存总共8G，top看了下:<br><img src="http://7xijc0.com1.z0.glb.clouddn.com/A1.png" alt="img"></p>
 <p>已经使用有7G，进程实际占用的物理内存是RES，目测实际应该只占了3G不到，数据对不上，什么鬼</p>
-<h1 id="内存占用分析">内存占用分析</h1><p>搜到了霸业的文章，<a href="http://blog.yufeng.info/archives/2456" target="_blank" rel="external">Linux Used内存到底哪里去了</a>，收获了很多，分享下</p>
+<h1 id="内存占用分析">内存占用分析</h1><p>主要参考了<a href="http://blog.yufeng.info/archives/2456" target="_blank" rel="external">Linux Used内存到底哪里去了</a>，收获挺大，分享下</p>
 <h2 id="nmon、slabtop等工具">nmon、slabtop等工具</h2><p>先装了nmon，他能够比较直观的现实内存占用情况:<br><img src="http://7xijc0.com1.z0.glb.clouddn.com/A2.png" alt="img"><br>通过meminfo也可以看，就是数据有点多，容易忽略<br><img src="http://7xijc0.com1.z0.glb.clouddn.com/A3.png" alt="img"><br>发现slab特别大，应该是这个原因(slabtop)<br><img src="http://7xijc0.com1.z0.glb.clouddn.com/A4.png" alt="img"></p>
-<h2 id="分析slab占用情况">分析slab占用情况</h2><p>把slab占用比较大的打出来,<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat /<span class="keyword">proc</span>/slabinfo |awk '&#123;<span class="keyword">if</span>($<span class="number">3</span>*$<span class="number">4</span>/<span class="number">1024</span>/<span class="number">1024</span> &gt; <span class="number">100</span>)&#123;print $<span class="number">1</span>,$<span class="number">3</span>*$<span class="number">4</span>/<span class="number">1024</span>/<span class="number">1024</span>&#125; &#125;' </span><br><span class="line"></span><br><span class="line"> ext3_inode_cache <span class="number">282</span>.<span class="number">575</span></span><br><span class="line"> proc_inode_cache <span class="number">2154</span>.<span class="number">03</span></span><br><span class="line"> dentry_cache <span class="number">868</span>.<span class="number">075</span></span><br></pre></td></tr></table></figure></p>
-<p><strong>发现proc_inode这个占了2G多，当然dentry也不小，proc文件系统的文件是挺多，但是这么多肯定不正常</strong></p>
+<h2 id="分析slab占用情况">分析slab占用情况</h2><p>把slab占用比较大的打出来,<br><figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cat /<span class="keyword">proc</span>/slabinfo |awk '&#123;<span class="keyword">if</span>($<span class="number">3</span>*$<span class="number">4</span>/<span class="number">1024</span>/<span class="number">1024</span> &gt; <span class="number">100</span>)&#123;print $<span class="number">1</span>,$<span class="number">3</span>*$<span class="number">4</span>/<span class="number">1024</span>/<span class="number">1024</span>&#125; &#125;'</span><br><span class="line"></span><br><span class="line"> ext3_inode_cache <span class="number">282</span>.<span class="number">575</span></span><br><span class="line"> proc_inode_cache <span class="number">2154</span>.<span class="number">03</span></span><br><span class="line"> dentry_cache <span class="number">868</span>.<span class="number">075</span></span><br></pre></td></tr></table></figure></p>
+<p><strong>发现proc_inode这个占了2G多，当然dentry也不小，proc的文件是挺多，但是这么多肯定不正常</strong></p>
 <hr>
-<h1 id="解决,释放缓存">解决,释放缓存</h1><p>不知道为啥proc会占这么大，怀疑是阿里云的问题（只是怀疑，最后没查到原因就好了），如果想主动释放缓存缓存：</p>
+<h1 id="释放缓存">释放缓存</h1><p>不知道为啥proc会占这么大，怀疑是阿里云的问题（只是怀疑，最后没查到原因就好了），如果想主动释放inoed可以用下面的方法：</p>
 <p>To free pagecache:</p>
 <ul>
 <li>echo 1 &gt; /proc/sys/vm/drop_caches<br>To free dentries and inodes:</li>
 <li>echo 2 &gt; /proc/sys/vm/drop_caches<br>To free pagecache, dentries and inodes:</li>
 <li>echo 3 &gt; /proc/sys/vm/drop_caches</li>
 </ul>
-<h1 id="内存使用计算">内存使用计算</h1><p>linux的内存管理挺复杂，其实牵涉到内存的都挺复杂，比如java gc大家都想更好、更快、更简单的利用内存。<br>linux中有进程的内存管理、伙伴分配算法、slab、page table、MNU，page cache等等，每一项都值得展开，这里先只关心怎么计算内存使用，<br>霸爷给出的内存占用计算方式挺靠谱：slab+page table+res</p>
-<h2 id="slab">slab</h2><p>个人解就是一个内存池，因为一个page太大了放一些小对象不经济，所以就搞了个对象池，用于分配这些小对象，可以看下<br><a href="http://stackoverflow.com/questions/15470560/what-to-choose-between-slab-and-slub-allocator-in-linux-kernel" target="_blank" rel="external">slab、slub、slob</a>，<br>slub更适应现代高性能服务器大量进程的情况，代码也更简单</p>
+<h1 id="内存使用计算">内存使用计算</h1><p>linux中有进程的内存管理、伙伴分配算法、slab、page table、MNU，page cache等等，每一项都值得展开，这里先只<br>关心怎么计算内存使用，霸爷给出的计算方式挺靠谱：slab+page table+res</p>
+<h2 id="slab">slab</h2><p>个人解就是一个内存池，因为一个page太大了放一些小对象不经济，所以就搞了个对象池，用于分配这些小对象，可以看下<br><a href="http://stackoverflow.com/questions/15470560/what-to-choose-between-slab-and-slub-allocator-in-linux-kernel" target="_blank" rel="external">slab、slub、slob</a></p>
+<p>slub更适应现代高性能服务器大量进程的情况，代码也更简单</p>
 <h2 id="RES">RES</h2><p>进程实际占用的内存（resident resident set size），man top给出的算法是 RES = CODE + DATA.<br>实际中我发现很多进程对不上，whatever，暂时还不知道靠谱的计算方法</p>
 <h2 id="page_table">page table</h2><p>linux的内存分page来管理（一般是4K），所有有个page table做描述信息也很好理解<br><img src="http://7xijc0.com1.z0.glb.clouddn.com/page-table.png" alt="img"></p>
-<h2 id="buffer、cache">buffer、cache</h2><p>buffer和cache是已经使用的内存，但是其实是可以释放的。page cahe，他和文件系统关系比较大，后续分享rocketmq时再细讲吧</p>
-<p>距上一篇博客快一月了,憋了好久，哎，执行力太差</p>
+<h2 id="buffer、cache">buffer、cache</h2><p>buffer和cache是已经使用的内存，但是其实是可以释放的。page cahe，他和文件系统关系比较大，后续分享rocketmq时<br>再细讲吧</p>
 
         
       </div>
@@ -340,7 +340,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存占用分析"><span class="nav-number">2.</span> <span class="nav-text">内存占用分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#nmon、slabtop等工具"><span class="nav-number">2.1.</span> <span class="nav-text">nmon、slabtop等工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析slab占用情况"><span class="nav-number">2.2.</span> <span class="nav-text">分析slab占用情况</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解决,释放缓存"><span class="nav-number">3.</span> <span class="nav-text">解决,释放缓存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存使用计算"><span class="nav-number">4.</span> <span class="nav-text">内存使用计算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#slab"><span class="nav-number">4.1.</span> <span class="nav-text">slab</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RES"><span class="nav-number">4.2.</span> <span class="nav-text">RES</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#page_table"><span class="nav-number">4.3.</span> <span class="nav-text">page table</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#buffer、cache"><span class="nav-number">4.4.</span> <span class="nav-text">buffer、cache</span></a></li></ol></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存占用分析"><span class="nav-number">2.</span> <span class="nav-text">内存占用分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#nmon、slabtop等工具"><span class="nav-number">2.1.</span> <span class="nav-text">nmon、slabtop等工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分析slab占用情况"><span class="nav-number">2.2.</span> <span class="nav-text">分析slab占用情况</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#释放缓存"><span class="nav-number">3.</span> <span class="nav-text">释放缓存</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#内存使用计算"><span class="nav-number">4.</span> <span class="nav-text">内存使用计算</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#slab"><span class="nav-number">4.1.</span> <span class="nav-text">slab</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RES"><span class="nav-number">4.2.</span> <span class="nav-text">RES</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#page_table"><span class="nav-number">4.3.</span> <span class="nav-text">page table</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#buffer、cache"><span class="nav-number">4.4.</span> <span class="nav-text">buffer、cache</span></a></li></ol></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
