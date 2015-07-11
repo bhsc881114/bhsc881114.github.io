@@ -212,7 +212,7 @@
 <h2 id="rwnd的设置">rwnd的设置</h2><p>如果我们出于传输性能的考虑，当然这个值设置的越大越好,Linux中通过配置内核参数里接收缓冲的大小，进而可以控制接收窗口的大小：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">shell&gt; sysctl -a | grep mem</span><br><span class="line">net.ipv4.tcp_rmem = <span class="tag">&lt;<span class="title">MIN</span>&gt;</span> <span class="tag">&lt;<span class="title">DEFAULT</span>&gt;</span> <span class="tag">&lt;<span class="title">MAX</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>还有个问题,当大量请求同时到达时，内存会不会爆掉？通常不会，因为Linux本身有一个缓冲大小自动调优的机制，窗口的实际大小会自动在最小值和最大值之间浮动，以期找到性能和资源的平衡点。</p>
 <figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">通过如下方式可以确认缓冲大小自动调优机制的状态（<span class="number">0</span>：关闭、<span class="number">1</span>：开启）：</span><br><span class="line"><span class="built_in">shell</span>&gt; sysctl -<span class="operator">a</span> | grep tcp_moderate_rcvbuf</span><br></pre></td></tr></table></figure>
-<h1 id="慢启动（cwnd，拥塞窗口）">慢启动（cwnd，拥塞窗口）</h1><p>两端流量控制确实可以防止发送端向接收端过多发送数据,但却没有机制预防任何一端向潜在网络过多发送数据。换句话说,发送端和接收端在连接建立之初,谁也不知道可用带宽是多少,因此需要一个估算机制,<strong>然后根据网络中不断变化的条件 而动态改变速度:TCP能传输的最大数据 = MIN（rand,cwnd）</strong></p>
+<h1 id="慢启动（cwnd，拥塞窗口）">慢启动（cwnd，拥塞窗口）</h1><p>两端流量控制确实可以防止发送端向接收端过多发送数据,但却没有机制预防任何一端向潜在网络过多发送数据。换句话说,发送端和接收端在连接建立之初,谁也不知道可用带宽是多少,因此需要一个估算机制,<strong>然后根据网络中不断变化的条件 而动态改变速度:TCP能传输的最大数据 = MIN（rwnd,cwnd）</strong></p>
 <p>慢启动的算法如下(cwnd全称Congestion Window)：</p>
 <ul>
 <li>1）连接建好的开始先初始化cwnd = 1，表明可以传一个MSS大小的数据。</li>
