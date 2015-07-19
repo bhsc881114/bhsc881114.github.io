@@ -160,7 +160,7 @@
           <div class="post-gallery">
             
               <a class="post-gallery-img fancybox" href="http://7xijc0.com1.z0.glb.clouddn.com/xxxx.png"
-                 rel="gallery_cibznubxa0011srgvkgbo8zow">
+                 rel="gallery_cicaktzx600117xi4whkvclgb">
                 <img src="http://7xijc0.com1.z0.glb.clouddn.com/xxxx.png" />
               </a>
             
@@ -183,12 +183,11 @@
 <li>echo 2 &gt; /proc/sys/vm/drop_caches<br>To free pagecache, dentries and inodes:</li>
 <li>echo 3 &gt; /proc/sys/vm/drop_caches</li>
 </ul>
-<h1 id="内存使用计算">内存使用计算</h1><p>linux中有进程的内存管理、伙伴分配算法、slab、page table、MNU，page cache等等，每一项都值得展开，这里先只<br>关心怎么计算内存使用，霸爷给出的计算方式挺靠谱：slab+page table+res</p>
-<h2 id="slab">slab</h2><p>个人解就是一个内存池，因为一个page太大了放一些小对象不经济，所以就搞了个对象池，用于分配这些小对象，可以看下<br><a href="http://stackoverflow.com/questions/15470560/what-to-choose-between-slab-and-slub-allocator-in-linux-kernel" target="_blank" rel="external">slab、slub、slob</a></p>
-<p>slub更适应现代高性能服务器大量进程的情况，代码也更简单</p>
-<h2 id="RES">RES</h2><p>进程实际占用的内存（resident resident set size），man top给出的算法是 RES = CODE + DATA.<br>实际中我发现很多进程对不上，whatever，暂时还不知道靠谱的计算方法</p>
+<h1 id="内存使用计算">内存使用计算</h1><p>内存相关的有有进程的内存管理、伙伴分配算法、slab、page table、MNU，page cache等等，每一项都值得展开，这里先只看怎么计算内存使用，霸爷给出的计算方式挺靠谱：slab+page table+res</p>
+<h2 id="slab">slab</h2><p>slab 个人解就是一个内存池，因为一个page太大了放一些小对象不经济，所以就搞了个对象池，用于分配这些小对象，可以参考<br><a href="http://stackoverflow.com/questions/15470560/what-to-choose-between-slab-and-slub-allocator-in-linux-kernel" target="_blank" rel="external">slab、slub、slob</a>，另外还有slub更适应现代高性能服务器大量进程的情况，代码也更简单</p>
+<h2 id="RES">RES</h2><p>RES指进程实际占用的内存（resident resident set size），man top给出的算法是 RES = CODE + DATA.实际中我发现很多进程对不上，whatever</p>
 <h2 id="page_table">page table</h2><p>linux的内存分page来管理（一般是4K），所有有个page table做描述信息也很好理解<br><img src="http://7xijc0.com1.z0.glb.clouddn.com/page-table.png" alt="img"></p>
-<h2 id="buffer、cache">buffer、cache</h2><p>buffer和cache是已经使用的内存，但是其实是可以释放的。page cahe，他和文件系统关系比较大，后续分享rocketmq时<br>再细讲吧</p>
+<h2 id="buffer、cache">buffer、cache</h2><p>buffer和cache是已经使用的内存，可以释放。page cache，他和文件系统关系比较大，后续分享rocketmq时再细讲吧</p>
 
         
       </div>
@@ -285,11 +284,11 @@
       <p class="site-description motion-element">学习总结 思考感悟</p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">9</span>
           <span class="site-state-item-name">日志</span>
         </div>
         <div class="site-state-item site-state-tags">
-            <span class="site-state-item-count">13</span>
+            <span class="site-state-item-count">14</span>
             <span class="site-state-item-name">标签</span>
         </div>
         <div class="site-state-item site-state-pages">

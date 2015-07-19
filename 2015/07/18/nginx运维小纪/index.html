@@ -20,9 +20,9 @@
 
 
 
-	<meta name="keywords" content="图像处理," />
+	<meta name="keywords" content="nginx," />
 
-  <title> 图片压缩 // 灰主流创业者 </title>
+  <title> nginx运维小纪 // 灰主流创业者 </title>
 </head>
 
 <body>
@@ -111,7 +111,7 @@
           
           
             
-              图片压缩
+              nginx运维小纪
             
           
         </h1>
@@ -120,7 +120,7 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2015-06-07
+            发表于 2015-07-18
           
         </span>
 
@@ -129,7 +129,7 @@
             <span class="post-category">
               &nbsp; | &nbsp; 分类于
               
-                <a href="/categories/前端/">前端</a>
+                <a href="/categories/服务端运维/">服务端运维</a>
 
                 
                 
@@ -143,8 +143,8 @@
           
             <span class="post-comments-count">
             &nbsp; | &nbsp;
-            <a href="/2015/06/07/图片压缩/#comments" >
-              <span class="post-comments-count ds-thread-count" data-thread-key="2015/06/07/图片压缩/"></span>
+            <a href="/2015/07/18/nginx运维小纪/#comments" >
+              <span class="post-comments-count ds-thread-count" data-thread-key="2015/07/18/nginx运维小纪/"></span>
             </a>
           </span>
           
@@ -159,37 +159,34 @@
         
 
         
-          <p>图片占到了网站的大部分流量，图片压缩可以让图片体积更小，加载速度更快<br><a id="more"></a></p>
-<hr>
-<h1 id="1_有损压缩和无损压缩">1 有损压缩和无损压缩</h1><p>有损压缩，删除部分数据，代表的是jpg<br>无损压缩，压缩像素数据,代表是png</p>
-<h1 id="2_图片存储格式">2 图片存储格式</h1><h2 id="2-1_格式以及区别">2.1 格式以及区别</h2><center><img src="http://7xijc0.com1.z0.glb.clouddn.com/image-3.png" alt="2">  </center>
-
-<h2 id="2-2_jpg和png">2.2 jpg和png</h2><p>JPG在存储图像时会把图像分解成8<em>8像素的栅格，然后对每个栅格的数据进行压缩处理，当我们放大一幅图像的时候，就会发现这些8</em>8像素栅格中很多细节信息被去除，而通过一些特殊算法用附近的颜色进行填充。这也是为什么我们用JPG存储图像有时会产生块状模糊的原因</p>
-<p>PNG是我们最常见的一种采用无损压缩的图片格式。无损压缩在存储图像前会先判断图像上哪些地方是相同的哪些地方是不同的。<strong>它的压缩原理是通过索引图像上相同区域的颜色进行压缩和还原的，这就意味着只有在图像上出现的颜色数量小于我们可以保存的颜色数量时，我们才能真实的记录和还原图像，否则就会丢失一些图像信息</strong>。</p>
-<p>PNG8最多只能索引256种颜色，所以对于颜色较多的图像不能真实还原；PNG24则可以保存1600多万种颜色，基本能够真实还原我们人类肉眼所可以分别的所有颜色；PNG格式最多可以保存48位颜色通道</p>
-<h2 id="2-3_png8和png24">2.3 png8和png24</h2><p>PNG8和PNG24后面的数字则是代表这种PNG格式最多可以索引和存储的颜色值。”8″代表2的8次方也就是256色，而24则代表2的24次方大概有1600多万色。</p>
-<p>PNG8还支持1位的布尔透明通道，所谓布尔透明指的是要么完全透明要么完全不透明。而PNG24则支持8位（256阶）的alpha通道透明，也就是说可以存储从完全透明到完全不透明一共256个层级的透明度（即所谓的半透明）</p>
-<h1 id="3-webp">3.webp</h1><p>WebP is a new image format that provides lossless and lossy compression for images on the web. WebP lossless images are 26% smaller in size compared to PNGs. WebP lossy images are 25-34% smaller in size compared to JPEG images at equivalent SSIM index. </p>
-<p><a href="http://isux.tencent.com/introduction-of-webp.html" target="_blank" rel="external">WebP 探寻之路</a>提供了很多webp压缩的优化建议，可以参考:</p>
+          <p>最近搭了nginx作为日志服务器来做性能和操作分析，记录一下过程和遇到的一些问题<br><a id="more"></a></p>
+<h1 id="日志">日志</h1><h2 id="按天滚动">按天滚动</h2><p>按天滚动一开始配置了logrotate实现，执行时间配置为0点0分，但实际真正执行时间是0点1分，一开始怀疑是其他cron.daily的其他任务影响，毕竟cron.daily会处理很多东西<br><img src="http://7xijc0.com1.z0.glb.clouddn.com/nginx1.png" alt="cron.daily"></p>
+<p>在cron.daily其他脚本上加了个日志，统计开始时间和结束时间，确实发现logrotate因为freshclam的影响延迟了<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">start</span> <span class="tag">freshclam</span> 00<span class="pseudo">:01</span><span class="pseudo">:04</span></span><br><span class="line"><span class="tag">end</span> <span class="tag">freshclam</span> 00<span class="pseudo">:01</span><span class="pseudo">:16</span></span><br><span class="line"><span class="tag">start</span> <span class="tag">logrotate</span> 00<span class="pseudo">:01</span><span class="pseudo">:17</span></span><br></pre></td></tr></table></figure></p>
+<p>但是还是不能解释为什么不是0分开始，最后老老实实配置了一个独立的任务<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 0 <span class="keyword">*</span> <span class="keyword">*</span> <span class="keyword">*</span> ~/tengine/logrotate.sh</span><br></pre></td></tr></table></figure></p>
+<h2 id="分隔符">分隔符</h2><p>默认格式的分隔符比较混乱，因此采用了0x01，就是用vim编辑的时候要注意不是0x01，而是ctrl+v,ctrl+a </p>
+<h2 id="响应时间">响应时间</h2><p>日志里面和时间相关的变量主要是2个，$request_time和$upstream_response_time</p>
 <blockquote>
-<p>WebP 在解码时间与 PNG 有较明显差异（毫秒级别）之外，总体使用体验和 PNG 基本无差异。同时也需要明确，移动设备的发展迅猛，硬件升级快，上一年的表现也许在今年又有了明显的提升。所以，在 App 中使用 WebP 基本没有技术阻碍。</p>
+<p>$request_time就是从接请求的第一个字节到发送完响应数据的时间，即包括接收请求数据时间、程序响应时间、输出响应数据时间。<br>$upstream_response_time指从Nginx向后端建立连接开始到接受完数据然后关闭连接为止的时间。</p>
 </blockquote>
-<h1 id="4-理想的压缩">4.理想的压缩</h1><p>理想的压缩模式个人认为能做到下面这样会达到比较好的效果：</p>
-<ul>
-<li>1.用户上传的原图压缩</li>
-<li>2.其次通过图片各项属性的判断，程序认为PNG格式的图片更优，于是选择转换一张PNG格式的图片(或者从PNG转成JPEG)</li>
-<li>3.最后为所上传的图片生成一张WebP格式的图片</li>
-</ul>
-<p><strong>目前我们2，3都是没有做，只做了1。步骤2较复杂，和图片的色值、透明度、面积都有关，步骤3 webp的部分由图片提供商做了。目前我们针对所有的图片都做了压缩，没有提供用户选择压缩比(默认使用有损压缩，压缩系数0.5),所幸的是用户也没觉得糊了</strong></p>
+<p>$request_time肯定比$upstream_response_time值大，特别是使用POST方式传递参数时，因为Nginx会把request body缓存住，接受完毕后才会把数据一起发给后端。所以如果用户网络较差，或者传递数据较大时，$request_time会比$upstream_response_time大很多</p>
+<h2 id="日志分析">日志分析</h2><p>我们的模式是将日志定时同步到hadoop集群再进行分析，不过也发现goaccess这个工具，可以比较好的分析日志，唯一的缺点是日志比较大的时间cpu飙高。。所以要分析最好换一台机器<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">goaccess -f tengine/logs/a.<span class="keyword">log</span> -a --date-<span class="keyword">format</span>=<span class="variable">%F</span> --<span class="keyword">time</span>-<span class="keyword">format</span>=<span class="variable">%T</span> --<span class="keyword">log</span>-<span class="keyword">format</span>=<span class="string">"<span class="variable">%h</span> <span class="variable">%d</span> <span class="variable">%t</span> <span class="variable">%U</span> <span class="variable">%s</span> <span class="variable">%b</span> <span class="variable">%R</span> <span class="variable">%u</span> <span class="variable">%^</span> <span class="variable">%^</span> <span class="variable">%L</span>"</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="referer_CFNetwork">referer CFNetwork</h2><p>发现很多ua是 CFNetwork/672.X.X Darwin/14.X.X的没有referer，怀疑是某些网络环境下客户端不是webview而是用的CFNetwork库l来请求</p>
 <hr>
-<p>参考：</p>
-<ul>
-<li>1.<a href="http://isux.tencent.com/introduction-of-webp.html" target="_blank" rel="external">WebP 探寻之路</a></li>
-<li>2.<a href="http://isux.tencent.com/zhitu.html" target="_blank" rel="external">智图—源于QQ空间图片WebP化的思考</a></li>
-<li>3.<a href="https://developers.google.com/speed/webp/" target="_blank" rel="external">A new image format for the Web</a></li>
-<li>4.<a href="http://zmx.im/blog?bname=webp" target="_blank" rel="external">美团在webp方面的实践（非常好的实践方案）</a></li>
-<li>5.<a href="https://developers.google.com/speed/webp/docs/compression" target="_blank" rel="external">Compression Techniques</a></li>
-</ul>
+<h1 id="性能配置">性能配置</h1><h2 id="进程数和连接数配置">进程数和连接数配置</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">worker_processes</span>  <span class="number">3</span>;</span><br><span class="line"><span class="title">events</span> &#123;</span><br><span class="line">    <span class="title">use</span> <span class="built_in">epoll</span>;</span><br><span class="line">    <span class="title">multi_accept</span> <span class="built_in">on</span>;</span><br><span class="line">    <span class="title">worker_connections</span>  <span class="number">4024</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="长连接和超时">长连接和超时</h2><p>我们的服务简单，量还比较大，所以就把这个时间配置的尽量小，实际操作中发现基本维持在400来个连接，连接数基本是请求量的1/2<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">keepalive_timeout</span>  <span class="number">12</span>;</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>curl ‘<a href="http://127.0.0.1/nginx-status" target="_blank" rel="external">http://127.0.0.1/nginx-status</a>‘<br>Active connections: 418<br>server accepts  handled  requests request_time<br>        14168862 14168862 25943492 226096881<br>Reading: 1 Writing: 1 Waiting: 416 </p>
+</blockquote>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 下面的两个timeout一开始配置成10s，发现有部分http状态码是408的日志，就是因为10s超时，1分钟还是会有几条这样的错误，最重要的是错误了以后这个日志会打到根的access.log，后面把这个值调大到30</span></span><br><span class="line"><span class="title">client_header_timeout</span>  <span class="number">30</span>;</span><br><span class="line"><span class="title">client_body_timeout</span>    <span class="number">30</span>;</span><br></pre></td></tr></table></figure>
+<h2 id="sendfile、nopush、nodelay">sendfile、nopush、nodelay</h2><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sendfile        <span class="function_start"><span class="keyword">on</span></span>;</span><br><span class="line">tcp_nopush     <span class="function_start"><span class="keyword">on</span></span>;</span><br><span class="line">tcp_nodelay    <span class="function_start"><span class="keyword">on</span></span>;</span><br></pre></td></tr></table></figure>
+<p>TCP 传输的MSS有1460字节，为了提升网络利用率，避免拥塞，Nagle算法在发现要发送的数据太小的时候，会延时超过200ms再发送或者等数据超过MSS再发送，通过tcp_nodelay on可以关闭这个算法。当然这个选项是在长连接的情况下才有效的</p>
+<p>tcp_nopush实际上对应的是linux tcp栈的TCP_CORK选项，他会禁止小包的发送，直到超过MSS。在nginx他，他在sendfile on的情况下才有效。sendfile可以让静态数据在内核态直接发送数据，而不用上下文切换进入用户态再发送。</p>
+<p>tcp_nodelay和tcp_nopush结合的时候，首先tcp_nopush会堆积数据直到MSS才发送，之后移除tcp_nopush，剩下的最后1个包会因为tcp_nodelay马上发送。</p>
+<h2 id="其他">其他</h2><p>gzip压缩、文件缓存等，不过在我们场景下并没有启用</p>
+<h2 id="tcp协议栈">tcp协议栈</h2><p>协议栈主要是调整下滑动窗口大小，端口范围，backlog等<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># accept的队列长度</span></span><br><span class="line">net.core.somaxconn = <span class="number">3240000</span></span><br><span class="line"><span class="preprocessor"># 所有进程打开的文件总数</span></span><br><span class="line"><span class="preprocessor"># 设置echo  6553560 &gt; /proc/sys/fs/file-max</span></span><br><span class="line"><span class="preprocessor"># 或修改 /etc/sysctl.conf, 加入</span></span><br><span class="line"><span class="preprocessor"># fs.file-max = 6553560 重启生效</span></span><br><span class="line">sys.fs.file_max</span><br><span class="line"><span class="preprocessor">#向外连接的端口范围</span></span><br><span class="line">net.ipv4.ip_local_port_range = <span class="number">2000</span> <span class="number">65000</span> </span><br><span class="line"><span class="preprocessor"># 支持更大的TCP窗口. 如果TCP窗口最大超过65535(64KB), 必须设置该数值为1</span></span><br><span class="line">net.ipv4.tcp_window_scaling = <span class="number">1</span></span><br><span class="line"><span class="preprocessor"># 同时所处理的最大timewait数量</span></span><br><span class="line">net.ipv4.tcp_max_tw_buckets = <span class="number">6000</span></span><br><span class="line"><span class="preprocessor"># 接收缓冲区默认值</span></span><br><span class="line">net.core.rmem_default = <span class="number">8388608</span></span><br><span class="line"><span class="preprocessor"># 发送缓冲区默认值</span></span><br><span class="line">net.core.wmem_default = <span class="number">8388608</span></span><br><span class="line"><span class="preprocessor"># 接收缓冲区最大值</span></span><br><span class="line">net.core.rmem_max = <span class="number">16777216</span></span><br><span class="line"><span class="preprocessor"># 发送缓冲区最大值</span></span><br><span class="line">net.core.wmem_max = <span class="number">16777216</span></span><br><span class="line"><span class="preprocessor"># TCP接收缓冲区，min default max</span></span><br><span class="line">net.ipv4.tcp_rmem = <span class="number">4096</span> <span class="number">87380</span> <span class="number">16777216</span></span><br><span class="line">net.ipv4.tcp_wmem = <span class="number">4096</span> <span class="number">65536</span> <span class="number">16777216</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="ulimit">ulimit</h2><p>ulimit 设置当前shell以及由它启动的进程的资源限制，修改/etc/security/limits.conf<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>soft nofile 65535 </span><br><span class="line"><span class="bullet">* </span>hard nofile 65535</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h1 id="参考">参考</h1><p>1.<a href="http://huoding.com/2013/04/21/246" target="_blank" rel="external">被遗忘的Logrotate</a><br>2.<a href="http://blog.linezing.com/?p=950" target="_blank" rel="external">使用nginx记日志</a><br>3.<a href="https://www.nginx.com/blog/tuning-nginx/" target="_blank" rel="external">Tuning NGINX for Performance</a><br>4.<a href="http://jerrypeng.me/2013/08/mythical-40ms-delay-and-tcp-nodelay/" target="_blank" rel="external">神秘的40毫秒延迟与 TCP_NODELAY</a><br>5.<a href="http://imququ.com/post/my-nginx-conf-for-wpo.html" target="_blank" rel="external">Nginx 配置之性能篇</a><br>6.<a href="https://t37.net/nginx-optimization-understanding-sendfile-tcp_nodelay-and-tcp_nopush.html" target="_blank" rel="external">UNDERSTANDING SENDFILE, TCP_NODELAY AND TCP_NOPUSH</a><br>7.<a href="http://blog.jobbole.com/87531/" target="_blank" rel="external">为最佳性能调优 Nginx</a></p>
 
         
       </div>
@@ -200,8 +197,8 @@
         
           <div class="post-tags">
             
-              <a href="/tags/图像处理/">
-                #图像处理
+              <a href="/tags/nginx/">
+                #nginx
               </a>
             
           </div>
@@ -211,13 +208,11 @@
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
               
-                <a href="/2015/06/18/hadoop系列安装小记/">hadoop系列安装小记</a>
-              
             </div>
 
             <div class="post-nav-next post-nav-item">
               
-                <a href="/2015/06/07/图片基础知识/">图片基础知识</a>
+                <a href="/2015/06/23/HTTP请求的TCP瓶颈分析/">HTTP请求的TCP瓶颈分析</a>
               
             </div>
           </div>
@@ -234,8 +229,8 @@
   
     <div class="comments" id="comments">
       
-        <div class="ds-thread" data-thread-key="2015/06/07/图片压缩/"
-             data-title="图片压缩" data-url="http://bhsc881114.github.io/2015/06/07/图片压缩/">
+        <div class="ds-thread" data-thread-key="2015/07/18/nginx运维小纪/"
+             data-title="nginx运维小纪" data-url="http://bhsc881114.github.io/2015/07/18/nginx运维小纪/">
         </div>
 
       
@@ -333,7 +328,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1_有损压缩和无损压缩"><span class="nav-number">1.</span> <span class="nav-text">1 有损压缩和无损压缩</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2_图片存储格式"><span class="nav-number">2.</span> <span class="nav-text">2 图片存储格式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1_格式以及区别"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 格式以及区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2_jpg和png"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 jpg和png</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3_png8和png24"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 png8和png24</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-webp"><span class="nav-number">3.</span> <span class="nav-text">3.webp</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-理想的压缩"><span class="nav-number">4.</span> <span class="nav-text">4.理想的压缩</span></a></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#日志"><span class="nav-number">1.</span> <span class="nav-text">日志</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#按天滚动"><span class="nav-number">1.1.</span> <span class="nav-text">按天滚动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分隔符"><span class="nav-number">1.2.</span> <span class="nav-text">分隔符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#响应时间"><span class="nav-number">1.3.</span> <span class="nav-text">响应时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志分析"><span class="nav-number">1.4.</span> <span class="nav-text">日志分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#referer_CFNetwork"><span class="nav-number">1.5.</span> <span class="nav-text">referer CFNetwork</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能配置"><span class="nav-number">2.</span> <span class="nav-text">性能配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程数和连接数配置"><span class="nav-number">2.1.</span> <span class="nav-text">进程数和连接数配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#长连接和超时"><span class="nav-number">2.2.</span> <span class="nav-text">长连接和超时</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sendfile、nopush、nodelay"><span class="nav-number">2.3.</span> <span class="nav-text">sendfile、nopush、nodelay</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">2.4.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp协议栈"><span class="nav-number">2.5.</span> <span class="nav-text">tcp协议栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ulimit"><span class="nav-number">2.6.</span> <span class="nav-text">ulimit</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
