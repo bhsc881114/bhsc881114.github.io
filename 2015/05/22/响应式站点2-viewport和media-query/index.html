@@ -20,7 +20,7 @@
 
 
 
-	<meta name="keywords" content="media-query,viewport,响应式," />
+	<meta name="keywords" content="响应式,viewport,media-query," />
 
   <title> 响应式站点2-viewport和media-query // 灰主流创业者 </title>
 </head>
@@ -49,7 +49,7 @@
       <li class="menu-item menu-item-home">
         <a href="/">
           <i class="menu-item-icon icon-home"></i> <br />
-          首页
+          Home
         </a>
       </li>
     
@@ -57,7 +57,7 @@
       <li class="menu-item menu-item-categories">
         <a href="/categories">
           <i class="menu-item-icon icon-categories"></i> <br />
-          分类
+          Categories
         </a>
       </li>
     
@@ -65,7 +65,7 @@
       <li class="menu-item menu-item-archives">
         <a href="/archives">
           <i class="menu-item-icon icon-archives"></i> <br />
-          归档
+          Archives
         </a>
       </li>
     
@@ -73,7 +73,7 @@
       <li class="menu-item menu-item-tags">
         <a href="/tags">
           <i class="menu-item-icon icon-tags"></i> <br />
-          标签
+          Tags
         </a>
       </li>
     
@@ -81,7 +81,7 @@
       <li class="menu-item menu-item-about">
         <a href="/about">
           <i class="menu-item-icon icon-about"></i> <br />
-          关于
+          About
         </a>
       </li>
     
@@ -120,14 +120,14 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2015-05-22
+            Posted on 2015-05-22
           
         </span>
 
         
           
             <span class="post-category">
-              &nbsp; | &nbsp; 分类于
+              &nbsp; | &nbsp; In
               
                 <a href="/categories/前端/">前端</a>
 
@@ -160,32 +160,32 @@
 
         
           <ul>
-<li><a href="http://bhsc881114.github.io/2015/05/12/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%AB%99%E7%82%B9-%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/" target="_blank" rel="external">响应式站点1-技术基础</a></li>
+<li><a href="http://bhsc881114.github.io/2015/05/12/%E5%93%8D%E5%BA%94%E5%BC%8F%E7%AB%99%E7%82%B9-%E6%8A%80%E6%9C%AF%E5%9F%BA%E7%A1%80/">响应式站点1-技术基础</a></li>
 <li>响应式站点2-viewport和media-query</li>
 <li>响应式站点3-skills(预告)</li>
 </ul>
-<p>以前做一个在手机上的网站，一开始显示的内容都偏小，需要双击缩放才能显示。后来发现加上viewport就可以了，瞬间觉得高大上….扒一扒他的原理<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta <span class="variable">name=</span><span class="string">"viewport"</span> <span class="variable">content=</span><span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span><br></pre></td></tr></table></figure> </p>
+<p>以前做一个在手机上的网站，一开始显示的内容都偏小，需要双击缩放才能显示。后来发现加上viewport就可以了，瞬间觉得高大上….扒一扒他的原理<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br></pre></td></tr></table></figure> </p>
 <p><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-2.png" alt="viewport-index"><br><a id="more"></a></p>
 <hr>
-<h1 id="3种viewport">3种viewport</h1><p>以前PC端的网站一般宽度在1000px以上,这种大尺寸的页面如何在手机上展示?答案就是：缩放，所以早期看到的网站都很小，需要双击放大某一部分区域才能浏览。</p>
-<h2 id="visual_viewport">visual viewport</h2><p>visuall viewport,显示的屏幕窗口,可以把他理解为放大镜,距离可以拉近一点拉远一点,显示的内容可以缩小可以放大,大致就是下面这个样子：<br>  <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport33.png" alt="viewport">  </center></p>
+<h1 id="3种viewport"><a href="#3种viewport" class="headerlink" title="3种viewport"></a>3种viewport</h1><p>以前PC端的网站一般宽度在1000px以上,这种大尺寸的页面如何在手机上展示?答案就是：缩放，所以早期看到的网站都很小，需要双击放大某一部分区域才能浏览。</p>
+<h2 id="visual-viewport"><a href="#visual-viewport" class="headerlink" title="visual viewport"></a>visual viewport</h2><p>visuall viewport,显示的屏幕窗口,可以把他理解为放大镜,距离可以拉近一点拉远一点,显示的内容可以缩小可以放大,大致就是下面这个样子：<br>  <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport33.png" alt="viewport">  </center></p>
 <p>比如一个1024px宽的页面，要在320px的手机上显示，可以拉远距离(缩放)全局浏览，也可以拉近只看一部分,并且移动visual viewport来查看网页的不同部分</p>
-<h2 id="layout_viewport">layout viewport</h2><p>PC的网页怎么在320px的手机上渲染？这里有个隐藏的概念,就是layout viewport。当我们设置一个width=20%时,他必须知道父级的width是多少,最终必须找到一个设置绝对值的顶层的元素(body)</p>
-<p>早期没有专门为移动端做的页面,所以手机浏览器默认的layout viewport都是接近pc的宽度，这样可以确保PC的网页展示都没问题。<a href="http://www.quirksmode.org/mobile/metaviewport/" target="_blank" rel="external">这里</a>里有每个手机浏览器的默认layot viewport，附个图：</p>
+<h2 id="layout-viewport"><a href="#layout-viewport" class="headerlink" title="layout viewport"></a>layout viewport</h2><p>PC的网页怎么在320px的手机上渲染？这里有个隐藏的概念,就是layout viewport。当我们设置一个width=20%时,他必须知道父级的width是多少,最终必须找到一个设置绝对值的顶层的元素(body)</p>
+<p>早期没有专门为移动端做的页面,所以手机浏览器默认的layout viewport都是接近pc的宽度，这样可以确保PC的网页展示都没问题。<a href="http://www.quirksmode.org/mobile/metaviewport/" target="_blank" rel="noopener">这里</a>里有每个手机浏览器的默认layot viewport，附个图：</p>
 <p><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-4.png" alt="layout"></p>
-<h2 id="修改layout_viewport">修改layout viewport</h2><p>layout viewport+visual viewport，PC端网页已经可以在手机上展示了，不过显然还不够完美：<strong>能不能不要缩放，不要双击放大以后再拖动来看网页?</strong> 假设手机宽度是320px，那就做个宽度只有320px的页面：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">body</span> <span class="attribute">style</span>=<span class="value">"width:320px"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">div</span> <span class="attribute">class</span>=<span class="value">"contianer"</span>&gt;</span></span><br><span class="line">      hello everyone</span><br><span class="line">    <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure><br> <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-6.png" alt="pc viewport"> </center><br>可以看到因为默认的layout viewport是按PC设置的，就算设置一个320px，也会按照PC的效果来展示</p>
-<p>ios最早提供了<a href="https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/UsingtheViewport/UsingtheViewport.html" target="_blank" rel="external">修改layout viewport</a>的能力，我们给上面的页面设置下layout viewport，并且visual viewport不缩放，这样就完美了：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta <span class="variable">name=</span><span class="string">"viewport"</span> <span class="variable">content=</span><span class="string">"width=320px, initial-scale=1.0"</span>&gt;</span><br></pre></td></tr></table></figure><br>  <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-7.png" alt="pc viewport"> </center></p>
-<h2 id="ideal_viewport">ideal viewport</h2><p>因为移动端的设备太多,宽度不一,所以上面写死的width=320px是非常不好的。还好设备都有一个ideal viewport，也就是最佳的尺寸，把layout viewport设置成idela viewport，并且visual viewport不要缩放就能达到最好的效果（可能有点绕）：<br><figure class="highlight nix"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta <span class="variable">name=</span><span class="string">"viewport"</span> <span class="variable">content=</span><span class="string">"width=device-width, initial-scale=1.0"</span>&gt;</span><br></pre></td></tr></table></figure> width和initial-scale 设置其他值的效果，可以在这里查看：<a href="http://andreasbovens.github.io/understanding-viewpor" target="_blank" rel="external">understanding-viewport</a></p>
-<h2 id="小结">小结</h2><p>设置layout viewport为设备宽度，并且visual viewport不缩放，这样就能实现最好的效果，为我们的响应式设计提供了基础</p>
+<h2 id="修改layout-viewport"><a href="#修改layout-viewport" class="headerlink" title="修改layout viewport"></a>修改layout viewport</h2><p>layout viewport+visual viewport，PC端网页已经可以在手机上展示了，不过显然还不够完美：<strong>能不能不要缩放，不要双击放大以后再拖动来看网页?</strong> 假设手机宽度是320px，那就做个宽度只有320px的页面：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;</span><br><span class="line">  &lt;body style=&quot;width:320px&quot;&gt;</span><br><span class="line">    &lt;div class=&quot;contianer&quot;&gt;</span><br><span class="line">      hello everyone</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  &lt;/body&gt;</span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure><br> <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-6.png" alt="pc viewport"> </center><br>可以看到因为默认的layout viewport是按PC设置的，就算设置一个320px，也会按照PC的效果来展示</p>
+<p>ios最早提供了<a href="https://developer.apple.com/library/ios/documentation/AppleApplications/Reference/SafariWebContent/UsingtheViewport/UsingtheViewport.html" target="_blank" rel="noopener">修改layout viewport</a>的能力，我们给上面的页面设置下layout viewport，并且visual viewport不缩放，这样就完美了：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=320px, initial-scale=1.0&quot;&gt;</span><br></pre></td></tr></table></figure><br>  <center><img src="http://7xijc0.com1.z0.glb.clouddn.com/viewport-7.png" alt="pc viewport"> </center></p>
+<h2 id="ideal-viewport"><a href="#ideal-viewport" class="headerlink" title="ideal viewport"></a>ideal viewport</h2><p>因为移动端的设备太多,宽度不一,所以上面写死的width=320px是非常不好的。还好设备都有一个ideal viewport，也就是最佳的尺寸，把layout viewport设置成idela viewport，并且visual viewport不要缩放就能达到最好的效果（可能有点绕）：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;</span><br></pre></td></tr></table></figure> width和initial-scale 设置其他值的效果，可以在这里查看：<a href="http://andreasbovens.github.io/understanding-viewpor" target="_blank" rel="noopener">understanding-viewport</a></p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>设置layout viewport为设备宽度，并且visual viewport不缩放，这样就能实现最好的效果，为我们的响应式设计提供了基础</p>
 <hr>
-<h1 id="media_query">media query</h1><p>为不同的设备设置了网页的布局总宽度之后，需要进行区分，以便为不同的宽度设置不同的布局，mediaquery提供了这种能力，它有非常多的属性，不过我们最常用的就是width<br><figure class="highlight groovy"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@media</span> (max-<span class="string">width:</span> <span class="number">480</span>px) &#123; </span><br><span class="line">    <span class="comment">// 隐藏某些元素</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="annotation">@media</span> (max-<span class="string">width:</span> <span class="number">768</span>px) &#123;  &#125;</span><br><span class="line"><span class="annotation">@media</span> (min-<span class="string">width:</span> <span class="number">1200</span>px) &#123;</span><br><span class="line">  <span class="comment">// 显示某些元素 </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 恰当的断点很重要，根据<a href="http://reports.quickleft.com/css" target="_blank" rel="external">2014 css报告</a>,设置最多的是480，768，990，1200，当然可能和bootstrap用的最多有关</p>
-<h2 id="device_width和width">device width和width</h2><p>另外可以再看看device width和width这两个值，大部分时候他们实现的效果是一样的，但是还是有一些细小的差别:</p>
+<h1 id="media-query"><a href="#media-query" class="headerlink" title="media query"></a>media query</h1><p>为不同的设备设置了网页的布局总宽度之后，需要进行区分，以便为不同的宽度设置不同的布局，mediaquery提供了这种能力，它有非常多的属性，不过我们最常用的就是width<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@media (max-width: 480px) &#123; </span><br><span class="line">    // 隐藏某些元素</span><br><span class="line">&#125;</span><br><span class="line">@media (max-width: 768px) &#123;  &#125;</span><br><span class="line">@media (min-width: 1200px) &#123;</span><br><span class="line">  // 显示某些元素 </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure> 恰当的断点很重要，根据<a href="http://reports.quickleft.com/css" target="_blank" rel="noopener">2014 css报告</a>,设置最多的是480，768，990，1200，当然可能和bootstrap用的最多有关</p>
+<h2 id="device-width和width"><a href="#device-width和width" class="headerlink" title="device width和width"></a>device width和width</h2><p>另外可以再看看device width和width这两个值，大部分时候他们实现的效果是一样的，但是还是有一些细小的差别:</p>
 <ul>
 <li>device-wdith 指的是设备的宽度，在pc上你改变拖动浏览器窗口的大小并不会改变这个值</li>
 <li>width:指的是浏览器的宽度</li>
 </ul>
 <p>所以使用width会更好，并且在某些android设备上，使用device-width可能会变成device pixel</p>
-<h1 id="总结">总结</h1><p>设置不同的布局宽度、不同宽度设置不同的样式是实现响应式站点的基础。实际使用中，还是有很多细节，比如文字、表格布局、retina 下的图片处理等，下篇继续</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>设置不同的布局宽度、不同宽度设置不同的样式是实现响应式站点的基础。实际使用中，还是有很多细节，比如文字、表格布局、retina 下的图片处理等，下篇继续</p>
 
         
       </div>
@@ -196,16 +196,16 @@
         
           <div class="post-tags">
             
-              <a href="/tags/media-query/">
-                #media-query
+              <a href="/tags/响应式/">
+                #响应式
               </a>
             
               <a href="/tags/viewport/">
                 #viewport
               </a>
             
-              <a href="/tags/响应式/">
-                #响应式
+              <a href="/tags/media-query/">
+                #media-query
               </a>
             
           </div>
@@ -266,10 +266,10 @@
     
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-          文章目录
+          Table Of Contents
         </li>
         <li class="sidebar-nav-overview" data-target="site-overview">
-          站点概览
+          Overview
         </li>
       </ul>
     
@@ -282,16 +282,16 @@
       <p class="site-description motion-element">学习总结 思考感悟</p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">9</span>
-          <span class="site-state-item-name">日志</span>
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
         </div>
         <div class="site-state-item site-state-tags">
-            <span class="site-state-item-count">14</span>
-            <span class="site-state-item-name">标签</span>
+            <span class="site-state-item-count">15</span>
+            <span class="site-state-item-name">tags</span>
         </div>
         <div class="site-state-item site-state-pages">
             <span class="site-state-item-count">3</span>
-            <span class="site-state-item-name">页面</span>
+            <span class="site-state-item-name">pages</span>
         </div>
       </div>
 
@@ -337,7 +337,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3种viewport"><span class="nav-number">1.</span> <span class="nav-text">3种viewport</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#visual_viewport"><span class="nav-number">1.1.</span> <span class="nav-text">visual viewport</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#layout_viewport"><span class="nav-number">1.2.</span> <span class="nav-text">layout viewport</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改layout_viewport"><span class="nav-number">1.3.</span> <span class="nav-text">修改layout viewport</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ideal_viewport"><span class="nav-number">1.4.</span> <span class="nav-text">ideal viewport</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">1.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#media_query"><span class="nav-number">2.</span> <span class="nav-text">media query</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#device_width和width"><span class="nav-number">2.1.</span> <span class="nav-text">device width和width</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#3种viewport"><span class="nav-number">1.</span> <span class="nav-text">3种viewport</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#visual-viewport"><span class="nav-number">1.1.</span> <span class="nav-text">visual viewport</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#layout-viewport"><span class="nav-number">1.2.</span> <span class="nav-text">layout viewport</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改layout-viewport"><span class="nav-number">1.3.</span> <span class="nav-text">修改layout viewport</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ideal-viewport"><span class="nav-number">1.4.</span> <span class="nav-text">ideal viewport</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">1.5.</span> <span class="nav-text">小结</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#media-query"><span class="nav-number">2.</span> <span class="nav-text">media query</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#device-width和width"><span class="nav-number">2.1.</span> <span class="nav-text">device width和width</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -356,7 +356,7 @@
         <div class="copyright">
   
   &copy; &nbsp; 
-  2015
+  2018
   <span class="with-love">
     <i class="icon-heart"></i>
   </span>
@@ -364,11 +364,11 @@
 </div>
 
 <div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
-  主题 -
+  Theme -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Mist
   </a>

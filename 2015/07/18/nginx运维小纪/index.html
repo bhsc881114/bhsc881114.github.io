@@ -49,7 +49,7 @@
       <li class="menu-item menu-item-home">
         <a href="/">
           <i class="menu-item-icon icon-home"></i> <br />
-          首页
+          Home
         </a>
       </li>
     
@@ -57,7 +57,7 @@
       <li class="menu-item menu-item-categories">
         <a href="/categories">
           <i class="menu-item-icon icon-categories"></i> <br />
-          分类
+          Categories
         </a>
       </li>
     
@@ -65,7 +65,7 @@
       <li class="menu-item menu-item-archives">
         <a href="/archives">
           <i class="menu-item-icon icon-archives"></i> <br />
-          归档
+          Archives
         </a>
       </li>
     
@@ -73,7 +73,7 @@
       <li class="menu-item menu-item-tags">
         <a href="/tags">
           <i class="menu-item-icon icon-tags"></i> <br />
-          标签
+          Tags
         </a>
       </li>
     
@@ -81,7 +81,7 @@
       <li class="menu-item menu-item-about">
         <a href="/about">
           <i class="menu-item-icon icon-about"></i> <br />
-          关于
+          About
         </a>
       </li>
     
@@ -120,14 +120,14 @@
       <div class="post-meta">
         <span class="post-time">
           
-            发表于 2015-07-18
+            Posted on 2015-07-18
           
         </span>
 
         
           
             <span class="post-category">
-              &nbsp; | &nbsp; 分类于
+              &nbsp; | &nbsp; In
               
                 <a href="/categories/服务端运维/">服务端运维</a>
 
@@ -160,33 +160,33 @@
 
         
           <p>最近搭了nginx作为日志服务器来做性能和操作分析，记录一下过程和遇到的一些问题<br><a id="more"></a></p>
-<h1 id="日志">日志</h1><h2 id="按天滚动">按天滚动</h2><p>按天滚动一开始配置了logrotate实现，执行时间配置为0点0分，但实际真正执行时间是0点1分，一开始怀疑是其他cron.daily的其他任务影响，毕竟cron.daily会处理很多东西<br><img src="http://7xijc0.com1.z0.glb.clouddn.com/nginx1.png" alt="cron.daily"></p>
-<p>在cron.daily其他脚本上加了个日志，统计开始时间和结束时间，确实发现logrotate因为freshclam的影响延迟了<br><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">start</span> <span class="tag">freshclam</span> 00<span class="pseudo">:01</span><span class="pseudo">:04</span></span><br><span class="line"><span class="tag">end</span> <span class="tag">freshclam</span> 00<span class="pseudo">:01</span><span class="pseudo">:16</span></span><br><span class="line"><span class="tag">start</span> <span class="tag">logrotate</span> 00<span class="pseudo">:01</span><span class="pseudo">:17</span></span><br></pre></td></tr></table></figure></p>
-<p>但是还是不能解释为什么不是0分开始，最后老老实实配置了一个独立的任务<br><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 0 <span class="keyword">*</span> <span class="keyword">*</span> <span class="keyword">*</span> ~/tengine/logrotate.sh</span><br></pre></td></tr></table></figure></p>
-<h2 id="分隔符">分隔符</h2><p>默认格式的分隔符比较混乱，因此采用了0x01，就是用vim编辑的时候要注意不是0x01，而是ctrl+v,ctrl+a </p>
-<h2 id="响应时间">响应时间</h2><p>日志里面和时间相关的变量主要是2个，$request_time和$upstream_response_time</p>
+<h1 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h1><h2 id="按天滚动"><a href="#按天滚动" class="headerlink" title="按天滚动"></a>按天滚动</h2><p>按天滚动一开始配置了logrotate实现，执行时间配置为0点0分，但实际真正执行时间是0点1分，一开始怀疑是其他cron.daily的其他任务影响，毕竟cron.daily会处理很多东西<br><img src="http://7xijc0.com1.z0.glb.clouddn.com/nginx1.png" alt="cron.daily"></p>
+<p>在cron.daily其他脚本上加了个日志，统计开始时间和结束时间，确实发现logrotate因为freshclam的影响延迟了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">start freshclam 00:01:04</span><br><span class="line">end freshclam 00:01:16</span><br><span class="line">start logrotate 00:01:17</span><br></pre></td></tr></table></figure></p>
+<p>但是还是不能解释为什么不是0分开始，最后老老实实配置了一个独立的任务<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 0 * * * ~/tengine/logrotate.sh</span><br></pre></td></tr></table></figure></p>
+<h2 id="分隔符"><a href="#分隔符" class="headerlink" title="分隔符"></a>分隔符</h2><p>默认格式的分隔符比较混乱，因此采用了0x01，就是用vim编辑的时候要注意不是0x01，而是ctrl+v,ctrl+a </p>
+<h2 id="响应时间"><a href="#响应时间" class="headerlink" title="响应时间"></a>响应时间</h2><p>日志里面和时间相关的变量主要是2个，$request_time和$upstream_response_time</p>
 <blockquote>
 <p>$request_time就是从接请求的第一个字节到发送完响应数据的时间，即包括接收请求数据时间、程序响应时间、输出响应数据时间。<br>$upstream_response_time指从Nginx向后端建立连接开始到接受完数据然后关闭连接为止的时间。</p>
 </blockquote>
 <p>$request_time肯定比$upstream_response_time值大，特别是使用POST方式传递参数时，因为Nginx会把request body缓存住，接受完毕后才会把数据一起发给后端。所以如果用户网络较差，或者传递数据较大时，$request_time会比$upstream_response_time大很多</p>
-<h2 id="日志分析">日志分析</h2><p>我们的模式是将日志定时同步到hadoop集群再进行分析，不过也发现goaccess这个工具，可以比较好的分析日志，唯一的缺点是日志比较大的时间cpu飙高。。所以要分析最好换一台机器<br><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">goaccess -f tengine/logs/a.<span class="keyword">log</span> -a --date-<span class="keyword">format</span>=<span class="variable">%F</span> --<span class="keyword">time</span>-<span class="keyword">format</span>=<span class="variable">%T</span> --<span class="keyword">log</span>-<span class="keyword">format</span>=<span class="string">"<span class="variable">%h</span> <span class="variable">%d</span> <span class="variable">%t</span> <span class="variable">%U</span> <span class="variable">%s</span> <span class="variable">%b</span> <span class="variable">%R</span> <span class="variable">%u</span> <span class="variable">%^</span> <span class="variable">%^</span> <span class="variable">%L</span>"</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="referer_CFNetwork">referer CFNetwork</h2><p>发现很多ua是 CFNetwork/672.X.X Darwin/14.X.X的没有referer，怀疑是某些网络环境下客户端不是webview而是用的CFNetwork库l来请求</p>
+<h2 id="日志分析"><a href="#日志分析" class="headerlink" title="日志分析"></a>日志分析</h2><p>我们的模式是将日志定时同步到hadoop集群再进行分析，不过也发现goaccess这个工具，可以比较好的分析日志，唯一的缺点是日志比较大的时间cpu飙高。。所以要分析最好换一台机器<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">goaccess -f tengine/logs/a.log -a --date-format=%F --time-format=%T --log-format=&quot;%h %d %t %U %s %b %R %u %^ %^ %L&quot;</span><br></pre></td></tr></table></figure></p>
+<h2 id="referer-CFNetwork"><a href="#referer-CFNetwork" class="headerlink" title="referer CFNetwork"></a>referer CFNetwork</h2><p>发现很多ua是 CFNetwork/672.X.X Darwin/14.X.X的没有referer，怀疑是某些网络环境下客户端不是webview而是用的CFNetwork库l来请求</p>
 <hr>
-<h1 id="性能配置">性能配置</h1><h2 id="进程数和连接数配置">进程数和连接数配置</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">worker_processes</span>  <span class="number">3</span>;</span><br><span class="line"><span class="title">events</span> &#123;</span><br><span class="line">    <span class="title">use</span> <span class="built_in">epoll</span>;</span><br><span class="line">    <span class="title">multi_accept</span> <span class="built_in">on</span>;</span><br><span class="line">    <span class="title">worker_connections</span>  <span class="number">4024</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="长连接和超时">长连接和超时</h2><p>我们的服务简单，量还比较大，所以就把这个时间配置的尽量小，实际操作中发现基本维持在400来个连接，连接数基本是请求量的1/2<br><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">keepalive_timeout</span>  <span class="number">12</span>;</span><br></pre></td></tr></table></figure></p>
+<h1 id="性能配置"><a href="#性能配置" class="headerlink" title="性能配置"></a>性能配置</h1><h2 id="进程数和连接数配置"><a href="#进程数和连接数配置" class="headerlink" title="进程数和连接数配置"></a>进程数和连接数配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">worker_processes  3;</span><br><span class="line">events &#123;</span><br><span class="line">    use epoll;</span><br><span class="line">    multi_accept on;</span><br><span class="line">    worker_connections  4024;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="长连接和超时"><a href="#长连接和超时" class="headerlink" title="长连接和超时"></a>长连接和超时</h2><p>我们的服务简单，量还比较大，所以就把这个时间配置的尽量小，实际操作中发现基本维持在400来个连接，连接数基本是请求量的1/2<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keepalive_timeout  12;</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>curl ‘<a href="http://127.0.0.1/nginx-status" target="_blank" rel="external">http://127.0.0.1/nginx-status</a>‘<br>Active connections: 418<br>server accepts  handled  requests request_time<br>        14168862 14168862 25943492 226096881<br>Reading: 1 Writing: 1 Waiting: 416 </p>
+<p>curl ‘<a href="http://127.0.0.1/nginx-status" target="_blank" rel="noopener">http://127.0.0.1/nginx-status</a>‘<br>Active connections: 418<br>server accepts  handled  requests request_time<br>        14168862 14168862 25943492 226096881<br>Reading: 1 Writing: 1 Waiting: 416 </p>
 </blockquote>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 下面的两个timeout一开始配置成10s，发现有部分http状态码是408的日志，就是因为10s超时，1分钟还是会有几条这样的错误，最重要的是错误了以后这个日志会打到根的access.log，后面把这个值调大到30</span></span><br><span class="line"><span class="title">client_header_timeout</span>  <span class="number">30</span>;</span><br><span class="line"><span class="title">client_body_timeout</span>    <span class="number">30</span>;</span><br></pre></td></tr></table></figure>
-<h2 id="sendfile、nopush、nodelay">sendfile、nopush、nodelay</h2><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sendfile        <span class="function_start"><span class="keyword">on</span></span>;</span><br><span class="line">tcp_nopush     <span class="function_start"><span class="keyword">on</span></span>;</span><br><span class="line">tcp_nodelay    <span class="function_start"><span class="keyword">on</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">## 下面的两个timeout一开始配置成10s，发现有部分http状态码是408的日志，就是因为10s超时，1分钟还是会有几条这样的错误，最重要的是错误了以后这个日志会打到根的access.log，后面把这个值调大到30</span><br><span class="line">client_header_timeout  30;</span><br><span class="line">client_body_timeout    30;</span><br></pre></td></tr></table></figure>
+<h2 id="sendfile、nopush、nodelay"><a href="#sendfile、nopush、nodelay" class="headerlink" title="sendfile、nopush、nodelay"></a>sendfile、nopush、nodelay</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">sendfile        on;</span><br><span class="line">tcp_nopush     on;</span><br><span class="line">tcp_nodelay    on;</span><br></pre></td></tr></table></figure>
 <p>TCP 传输的MSS有1460字节，为了提升网络利用率，避免拥塞，Nagle算法在发现要发送的数据太小的时候，会延时超过200ms再发送或者等数据超过MSS再发送，通过tcp_nodelay on可以关闭这个算法。当然这个选项是在长连接的情况下才有效的</p>
 <p>tcp_nopush实际上对应的是linux tcp栈的TCP_CORK选项，他会禁止小包的发送，直到超过MSS。在nginx他，他在sendfile on的情况下才有效。sendfile可以让静态数据在内核态直接发送数据，而不用上下文切换进入用户态再发送。</p>
 <p>tcp_nodelay和tcp_nopush结合的时候，首先tcp_nopush会堆积数据直到MSS才发送，之后移除tcp_nopush，剩下的最后1个包会因为tcp_nodelay马上发送。</p>
-<h2 id="其他">其他</h2><p>gzip压缩、文件缓存等，不过在我们场景下并没有启用</p>
-<h2 id="tcp协议栈">tcp协议栈</h2><p>协议栈主要是调整下滑动窗口大小，端口范围，backlog等<br><figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># accept的队列长度</span></span><br><span class="line">net.core.somaxconn = <span class="number">3240000</span></span><br><span class="line"><span class="preprocessor"># 所有进程打开的文件总数</span></span><br><span class="line"><span class="preprocessor"># 设置echo  6553560 &gt; /proc/sys/fs/file-max</span></span><br><span class="line"><span class="preprocessor"># 或修改 /etc/sysctl.conf, 加入</span></span><br><span class="line"><span class="preprocessor"># fs.file-max = 6553560 重启生效</span></span><br><span class="line">sys.fs.file_max</span><br><span class="line"><span class="preprocessor">#向外连接的端口范围</span></span><br><span class="line">net.ipv4.ip_local_port_range = <span class="number">2000</span> <span class="number">65000</span> </span><br><span class="line"><span class="preprocessor"># 支持更大的TCP窗口. 如果TCP窗口最大超过65535(64KB), 必须设置该数值为1</span></span><br><span class="line">net.ipv4.tcp_window_scaling = <span class="number">1</span></span><br><span class="line"><span class="preprocessor"># 同时所处理的最大timewait数量</span></span><br><span class="line">net.ipv4.tcp_max_tw_buckets = <span class="number">6000</span></span><br><span class="line"><span class="preprocessor"># 接收缓冲区默认值</span></span><br><span class="line">net.core.rmem_default = <span class="number">8388608</span></span><br><span class="line"><span class="preprocessor"># 发送缓冲区默认值</span></span><br><span class="line">net.core.wmem_default = <span class="number">8388608</span></span><br><span class="line"><span class="preprocessor"># 接收缓冲区最大值</span></span><br><span class="line">net.core.rmem_max = <span class="number">16777216</span></span><br><span class="line"><span class="preprocessor"># 发送缓冲区最大值</span></span><br><span class="line">net.core.wmem_max = <span class="number">16777216</span></span><br><span class="line"><span class="preprocessor"># TCP接收缓冲区，min default max</span></span><br><span class="line">net.ipv4.tcp_rmem = <span class="number">4096</span> <span class="number">87380</span> <span class="number">16777216</span></span><br><span class="line">net.ipv4.tcp_wmem = <span class="number">4096</span> <span class="number">65536</span> <span class="number">16777216</span></span><br></pre></td></tr></table></figure></p>
-<h2 id="ulimit">ulimit</h2><p>ulimit 设置当前shell以及由它启动的进程的资源限制，修改/etc/security/limits.conf<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="bullet">* </span>soft nofile 65535 </span><br><span class="line"><span class="bullet">* </span>hard nofile 65535</span><br></pre></td></tr></table></figure></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>gzip压缩、文件缓存等，不过在我们场景下并没有启用</p>
+<h2 id="tcp协议栈"><a href="#tcp协议栈" class="headerlink" title="tcp协议栈"></a>tcp协议栈</h2><p>协议栈主要是调整下滑动窗口大小，端口范围，backlog等<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># accept的队列长度</span><br><span class="line">net.core.somaxconn = 3240000</span><br><span class="line"># 所有进程打开的文件总数</span><br><span class="line"># 设置echo  6553560 &gt; /proc/sys/fs/file-max</span><br><span class="line"># 或修改 /etc/sysctl.conf, 加入</span><br><span class="line"># fs.file-max = 6553560 重启生效</span><br><span class="line">sys.fs.file_max</span><br><span class="line">#向外连接的端口范围</span><br><span class="line">net.ipv4.ip_local_port_range = 2000 65000 </span><br><span class="line"># 支持更大的TCP窗口. 如果TCP窗口最大超过65535(64KB), 必须设置该数值为1</span><br><span class="line">net.ipv4.tcp_window_scaling = 1</span><br><span class="line"># 同时所处理的最大timewait数量</span><br><span class="line">net.ipv4.tcp_max_tw_buckets = 6000</span><br><span class="line"># 接收缓冲区默认值</span><br><span class="line">net.core.rmem_default = 8388608</span><br><span class="line"># 发送缓冲区默认值</span><br><span class="line">net.core.wmem_default = 8388608</span><br><span class="line"># 接收缓冲区最大值</span><br><span class="line">net.core.rmem_max = 16777216</span><br><span class="line"># 发送缓冲区最大值</span><br><span class="line">net.core.wmem_max = 16777216</span><br><span class="line"># TCP接收缓冲区，min default max</span><br><span class="line">net.ipv4.tcp_rmem = 4096 87380 16777216</span><br><span class="line">net.ipv4.tcp_wmem = 4096 65536 16777216</span><br></pre></td></tr></table></figure></p>
+<h2 id="ulimit"><a href="#ulimit" class="headerlink" title="ulimit"></a>ulimit</h2><p>ulimit 设置当前shell以及由它启动的进程的资源限制，修改/etc/security/limits.conf<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">* soft nofile 65535 </span><br><span class="line">* hard nofile 65535</span><br></pre></td></tr></table></figure></p>
 <hr>
-<h1 id="参考">参考</h1><p>1.<a href="http://huoding.com/2013/04/21/246" target="_blank" rel="external">被遗忘的Logrotate</a><br>2.<a href="http://blog.linezing.com/?p=950" target="_blank" rel="external">使用nginx记日志</a><br>3.<a href="https://www.nginx.com/blog/tuning-nginx/" target="_blank" rel="external">Tuning NGINX for Performance</a><br>4.<a href="http://jerrypeng.me/2013/08/mythical-40ms-delay-and-tcp-nodelay/" target="_blank" rel="external">神秘的40毫秒延迟与 TCP_NODELAY</a><br>5.<a href="http://imququ.com/post/my-nginx-conf-for-wpo.html" target="_blank" rel="external">Nginx 配置之性能篇</a><br>6.<a href="https://t37.net/nginx-optimization-understanding-sendfile-tcp_nodelay-and-tcp_nopush.html" target="_blank" rel="external">UNDERSTANDING SENDFILE, TCP_NODELAY AND TCP_NOPUSH</a><br>7.<a href="http://blog.jobbole.com/87531/" target="_blank" rel="external">为最佳性能调优 Nginx</a></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>1.<a href="http://huoding.com/2013/04/21/246" target="_blank" rel="noopener">被遗忘的Logrotate</a><br>2.<a href="http://blog.linezing.com/?p=950" target="_blank" rel="noopener">使用nginx记日志</a><br>3.<a href="https://www.nginx.com/blog/tuning-nginx/" target="_blank" rel="noopener">Tuning NGINX for Performance</a><br>4.<a href="http://jerrypeng.me/2013/08/mythical-40ms-delay-and-tcp-nodelay/" target="_blank" rel="noopener">神秘的40毫秒延迟与 TCP_NODELAY</a><br>5.<a href="http://imququ.com/post/my-nginx-conf-for-wpo.html" target="_blank" rel="noopener">Nginx 配置之性能篇</a><br>6.<a href="https://t37.net/nginx-optimization-understanding-sendfile-tcp_nodelay-and-tcp_nopush.html" target="_blank" rel="noopener">UNDERSTANDING SENDFILE, TCP_NODELAY AND TCP_NOPUSH</a><br>7.<a href="http://blog.jobbole.com/87531/" target="_blank" rel="noopener">为最佳性能调优 Nginx</a></p>
 
         
       </div>
@@ -207,6 +207,8 @@
         
           <div class="post-nav">
             <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2018/02/15/redis-client使用总结/">redis client使用总结</a>
               
             </div>
 
@@ -257,10 +259,10 @@
     
       <ul class="sidebar-nav motion-element">
         <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-          文章目录
+          Table Of Contents
         </li>
         <li class="sidebar-nav-overview" data-target="site-overview">
-          站点概览
+          Overview
         </li>
       </ul>
     
@@ -273,16 +275,16 @@
       <p class="site-description motion-element">学习总结 思考感悟</p>
       <div class="site-state motion-element">
         <div class="site-state-item site-state-posts">
-          <span class="site-state-item-count">9</span>
-          <span class="site-state-item-name">日志</span>
+          <span class="site-state-item-count">10</span>
+          <span class="site-state-item-name">posts</span>
         </div>
         <div class="site-state-item site-state-tags">
-            <span class="site-state-item-count">14</span>
-            <span class="site-state-item-name">标签</span>
+            <span class="site-state-item-count">15</span>
+            <span class="site-state-item-name">tags</span>
         </div>
         <div class="site-state-item site-state-pages">
             <span class="site-state-item-count">3</span>
-            <span class="site-state-item-name">页面</span>
+            <span class="site-state-item-name">pages</span>
         </div>
       </div>
 
@@ -328,7 +330,7 @@
         <div class="post-toc">
           
           
-            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#日志"><span class="nav-number">1.</span> <span class="nav-text">日志</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#按天滚动"><span class="nav-number">1.1.</span> <span class="nav-text">按天滚动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分隔符"><span class="nav-number">1.2.</span> <span class="nav-text">分隔符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#响应时间"><span class="nav-number">1.3.</span> <span class="nav-text">响应时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志分析"><span class="nav-number">1.4.</span> <span class="nav-text">日志分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#referer_CFNetwork"><span class="nav-number">1.5.</span> <span class="nav-text">referer CFNetwork</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能配置"><span class="nav-number">2.</span> <span class="nav-text">性能配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程数和连接数配置"><span class="nav-number">2.1.</span> <span class="nav-text">进程数和连接数配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#长连接和超时"><span class="nav-number">2.2.</span> <span class="nav-text">长连接和超时</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sendfile、nopush、nodelay"><span class="nav-number">2.3.</span> <span class="nav-text">sendfile、nopush、nodelay</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">2.4.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp协议栈"><span class="nav-number">2.5.</span> <span class="nav-text">tcp协议栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ulimit"><span class="nav-number">2.6.</span> <span class="nav-text">ulimit</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#日志"><span class="nav-number">1.</span> <span class="nav-text">日志</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#按天滚动"><span class="nav-number">1.1.</span> <span class="nav-text">按天滚动</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分隔符"><span class="nav-number">1.2.</span> <span class="nav-text">分隔符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#响应时间"><span class="nav-number">1.3.</span> <span class="nav-text">响应时间</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日志分析"><span class="nav-number">1.4.</span> <span class="nav-text">日志分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#referer-CFNetwork"><span class="nav-number">1.5.</span> <span class="nav-text">referer CFNetwork</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#性能配置"><span class="nav-number">2.</span> <span class="nav-text">性能配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#进程数和连接数配置"><span class="nav-number">2.1.</span> <span class="nav-text">进程数和连接数配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#长连接和超时"><span class="nav-number">2.2.</span> <span class="nav-text">长连接和超时</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#sendfile、nopush、nodelay"><span class="nav-number">2.3.</span> <span class="nav-text">sendfile、nopush、nodelay</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他"><span class="nav-number">2.4.</span> <span class="nav-text">其他</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tcp协议栈"><span class="nav-number">2.5.</span> <span class="nav-text">tcp协议栈</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ulimit"><span class="nav-number">2.6.</span> <span class="nav-text">ulimit</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
           
         </div>
         <div class="post-toc-indicator-bottom post-toc-indicator"></div>
@@ -347,7 +349,7 @@
         <div class="copyright">
   
   &copy; &nbsp; 
-  2015
+  2018
   <span class="with-love">
     <i class="icon-heart"></i>
   </span>
@@ -355,11 +357,11 @@
 </div>
 
 <div class="powered-by">
-  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+  Powered by <a class="theme-link" href="http://hexo.io">Hexo</a>
 </div>
 
 <div class="theme-info">
-  主题 -
+  Theme -
   <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
     NexT.Mist
   </a>
