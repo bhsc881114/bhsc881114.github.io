@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="eureka 微服务 springcloud," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="灰主流创业者" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="eureka作为spring cloud微服务架构里的注册中心，是非常核心的一个组件，它避免了复杂的选主算法，架构比较简单，搭个demo也确实很快，但是如果要用于生产环境，还是得注意很多东西，尤其是下线延迟…">
+<meta name="keywords" content="eureka 微服务 springcloud">
+<meta property="og:type" content="article">
+<meta property="og:title" content="eureka缓存细节以及生产环境的最佳配置">
+<meta property="og:url" content="http://bhsc881114.github.io/2018/04/01/eureka缓存细节以及生产环境的最佳配置/index.html">
+<meta property="og:site_name" content="灰主流创业者">
+<meta property="og:description" content="eureka作为spring cloud微服务架构里的注册中心，是非常核心的一个组件，它避免了复杂的选主算法，架构比较简单，搭个demo也确实很快，但是如果要用于生产环境，还是得注意很多东西，尤其是下线延迟…">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7xijc0.com1.z0.glb.clouddn.com/eureka-self.png">
+<meta property="og:updated_time" content="2018-04-01T04:16:20.923Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="eureka缓存细节以及生产环境的最佳配置">
+<meta name="twitter:description" content="eureka作为spring cloud微服务架构里的注册中心，是非常核心的一个组件，它避免了复杂的选主算法，架构比较简单，搭个demo也确实很快，但是如果要用于生产环境，还是得注意很多东西，尤其是下线延迟…">
+<meta name="twitter:image" content="http://7xijc0.com1.z0.glb.clouddn.com/eureka-self.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://bhsc881114.github.io/2018/04/01/eureka缓存细节以及生产环境的最佳配置/"/>
+
+
+
+
+
+  <title>eureka缓存细节以及生产环境的最佳配置 | 灰主流创业者</title>
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-61553578-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">灰主流创业者</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://bhsc881114.github.io/2018/04/01/eureka缓存细节以及生产环境的最佳配置/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="chentao">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="灰主流创业者">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">eureka缓存细节以及生产环境的最佳配置</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-01T00:23:37+08:00">
+                2018-04-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/eureka-微服务-springcloud/" itemprop="url" rel="index">
+                    <span itemprop="name">eureka 微服务 springcloud</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>eureka作为spring cloud微服务架构里的注册中心，是非常核心的一个组件，它避免了复杂的选主算法，架构比较简单，搭个demo也确实很快，但是如果要用于生产环境，还是得注意很多东西，尤其是下线延迟…<br><a id="more"></a></p>
+<h3 id="服务获取中的缓存问题"><a href="#服务获取中的缓存问题" class="headerlink" title="服务获取中的缓存问题"></a>服务获取中的缓存问题</h3><p>本节的内容都是从这个issue翻译的：<a href="https://github.com/spring-cloud/spring-cloud-netflix/issues/373" target="_blank" rel="noopener">Documentation: changing Eureka renewal frequency <em>WILL</em> break the self-preservation feature of the server</a></p>
+<h4 id="为什么修改client的默认心跳时间，会导致自我保护模式失效？"><a href="#为什么修改client的默认心跳时间，会导致自我保护模式失效？" class="headerlink" title="为什么修改client的默认心跳时间，会导致自我保护模式失效？"></a>为什么修改client的默认心跳时间，会导致自我保护模式失效？</h4><p>Eureka Service会认为客户端是以30s的频率来发送心跳的。服务端期望收到的最大心跳时间是：<br>n instances x 2(60s/30s) x threshold</p>
+<p>如果是2个实例，Eureka会期望每分钟有：2 instances x 2 x 85% =3.4个心跳,也就是说需要3个心跳。<br>如果client的心跳改成15s，挂掉一个，另一个在1min内会发出4个心跳，而这时候的阈值还是3.4个，自我保护模式就失效了。<br>核心原因就是在Eureka Server计算期望心跳数的时候写死了每分钟的心跳间隔，即30秒，所以他永远会是*2(感觉像是新手写的代码啊啊啊 -_-)</p>
+<p><center><img src="http://7xijc0.com1.z0.glb.clouddn.com/eureka-self.png" alt="viewport-index"></center><br>还有一个参数可以调整，eureka.server.renewalThresholdUpdateIntervalMs，心跳阈值重新计算的周期，默认15分钟，可以改短一点，2min</p>
+<h4 id="客户端首次注册时间为什么要30s？如何改进？"><a href="#客户端首次注册时间为什么要30s？如何改进？" class="headerlink" title="客户端首次注册时间为什么要30s？如何改进？"></a>客户端首次注册时间为什么要30s？如何改进？</h4><p>首次注册行为是和首次心跳绑定在一起的，首次心跳发送以后会收到not found的响应,client就知道还没注册过，client就会马上注册。首次心跳由参数<br>eureka.instance.leaseRenewalIntervalInSeconds控制的，默认30</p>
+<p>可以通过eureka.client.initialInstanceInfoReplicationIntervalSeconds参数来加快首次注册的速度。他是控制首次改变实例状态（UP/DOWN ）的时间，启动的时候状态肯定是需要改变的，所以他可以用来加快首次注册速度，并且改变这个值不会影响到保护模式</p>
+<p>另外如果你使用的是spring cloud eureka的话没首次注册延迟的问题，他会马上注册</p>
+<h4 id="其他影响快速获取服务信息的因素"><a href="#其他影响快速获取服务信息的因素" class="headerlink" title="其他影响快速获取服务信息的因素"></a>其他影响快速获取服务信息的因素</h4><p> <strong>【服务端缓存】</strong><br>因为服务端默认会有个read only response cache（下面会细说），每30秒更新一次(eureka.server.response-cache-update-interval-ms),所以可能注册了不是马上能看到（虽然通过rest api不能看到，但是你可以在web ui上看到，因为ui没有缓存）</p>
+<p> <strong>【客户端缓存】</strong><br>Eureka Client缓存的定期更新周期，他由eureka.client.registryFetchIntervalSeconds控制，默认30秒， 改成5秒 </p>
+<p> <strong>【Ribbon缓存】</strong><br>如果你采用Ribbon来访问服务，那么这里会有个缓存（他的数据来源是本地Eureka Client缓存），他由ribbon. ServerListRefreshInterval控制，默认30秒， 改成2秒</p>
+<h4 id="怎么更快的踢掉没有心跳的机器"><a href="#怎么更快的踢掉没有心跳的机器" class="headerlink" title="怎么更快的踢掉没有心跳的机器"></a>怎么更快的踢掉没有心跳的机器</h4><p>eureka.instance.leaseExpirationDurationInSeconds，这个值用来控制多久踢掉机器，默认是3个心跳周期，有点久，可以考虑改成2个，他不会影响到保护模式（如果开启自我保护模式，心跳间隔以为上面的bug不能改，只能改这个了 -_-）</p>
+<hr>
+<h3 id="服务端缓存细节"><a href="#服务端缓存细节" class="headerlink" title="服务端缓存细节"></a>服务端缓存细节</h3><p>Eureka内部的缓存分很多级，主要有registry、readWriterCacheMap、readOnlyCacheMap；另外还有一个维护最近180s增量的队列recentlyChangedQueue</p>
+<h4 id="写操作"><a href="#写操作" class="headerlink" title="写操作"></a>写操作</h4><p>包括注册、取消注册等，都直接操作在registry上，同时也会更新recentlyChangedQueue和readWriterCacheMap</p>
+<h4 id="读操作"><a href="#读操作" class="headerlink" title="读操作"></a>读操作</h4><p>读默认是从readOnlyCacheMap读取，读不到的话再从readWriterCacheMap，还没有再从registry</p>
+<h4 id="滥用缓存的读操作"><a href="#滥用缓存的读操作" class="headerlink" title="滥用缓存的读操作"></a>滥用缓存的读操作</h4><p>这个读操作的三级缓存结构，非常让人困惑，registry已经是ConcurrentHashMap，纯内存操作，性能非常高了，为什么前面还要加两级缓存；readWriterCacheMap的数据是在写入以后responseCacheAutoExpirationInSeconds(默认180)秒内失效，readOnlyCacheMap则是一个定时任务，每responseCacheUpdateIntervalMs(默认30)秒从readWriterCacheMap获取最新数据</p>
+<h4 id="去掉readOnlyCacheMap"><a href="#去掉readOnlyCacheMap" class="headerlink" title="去掉readOnlyCacheMap"></a>去掉readOnlyCacheMap</h4><p>从CAP理论上看，Eureka是一个AP系统，但是在C层面这么弱，就是因为各种无谓的缓存造成的，看了下readWriterCacheMap去掉比较难，但是readOnlyCacheMap有一个开关useReadOnlyResponseCache，果断关掉！！</p>
+<hr>
+<h3 id="Time-Lag"><a href="#Time-Lag" class="headerlink" title="Time Lag"></a>Time Lag</h3><p>最后再来看下Eureka wiki中提到的2min time lag问题，其实分多个角度看，不一定是2min</p>
+<h4 id="服务正常上线-修改，最大可能会有120s滞后"><a href="#服务正常上线-修改，最大可能会有120s滞后" class="headerlink" title="服务正常上线/修改，最大可能会有120s滞后"></a>服务正常上线/修改，最大可能会有120s滞后</h4><pre><code>- 30(首次注册 init registe) + 30(readOnlyCacheMap)+30(client fetch interval)+30(ribbon)=120
+- 如果是在Spring Cloud环境下使用这些组件(Eureka, Ribbon)，不会有首次注册30秒延迟的问题，服务启动后会马上注册,所以从注册到发现，最多可能是90s。
+</code></pre><h4 id="服务异常下线：最大可能会有270s滞后"><a href="#服务异常下线：最大可能会有270s滞后" class="headerlink" title="服务异常下线：最大可能会有270s滞后"></a>服务异常下线：最大可能会有270s滞后</h4><pre><code>- 定时清理任务每eureka.server. evictionIntervalTimerInMs(默认60)执行一次清理任务
+- 每次清理任务会把90秒(3个心跳周期，eureka.instance.leaseExpirationDurationInSeconds)没收到心跳的踢除，但是根据官方的说法 ，因为代码实现的bug，这个时间其实是两倍，即180秒，也就是说如果一个客户端因为网络问题或者主机问题异常下线，可能会在180秒后才剔除
+- 读取端，因为readOnlyCacheMap以及客户端缓存的存在，可能会在30(readOnlyCacheMap)+30(client fetch interval)+30(ribbon)=90
+- 所以极端情况最终可能会是180+90=270
+</code></pre><h3 id="生产环境最佳配置"><a href="#生产环境最佳配置" class="headerlink" title="生产环境最佳配置"></a>生产环境最佳配置</h3><p>总结前面3点，经过梳理后，推荐的生产环境最佳配置如下：（可用于中小规模环境）：</p>
+<h4 id="Eureka-Server端配置"><a href="#Eureka-Server端配置" class="headerlink" title="Eureka Server端配置"></a>Eureka Server端配置</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">## 中小规模下，自我保护模式坑比好处多，所以关闭它</span><br><span class="line">eureka.server.enableSelfPreservation=false</span><br><span class="line">## 心跳阈值计算周期，如果开启自我保护模式，可以改一下这个配置</span><br><span class="line">## eureka.server.renewalThresholdUpdateIntervalMs=120000</span><br><span class="line"></span><br><span class="line">## 主动失效检测间隔,配置成5秒</span><br><span class="line">eureka.server.evictionIntervalTimerInMs=5000</span><br><span class="line"></span><br><span class="line">## 心跳间隔，5秒</span><br><span class="line">eureka.instance.leaseRenewalIntervalInSeconds=5</span><br><span class="line">## 没有心跳的淘汰时间，10秒</span><br><span class="line">eureka.instance.leaseExpirationDurationInSeconds=10</span><br><span class="line"></span><br><span class="line">## 禁用readOnlyCacheMap</span><br><span class="line">eureka.server. useReadOnlyResponseCache=false</span><br></pre></td></tr></table></figure>
+<h4 id="服务提供者和clinet配置"><a href="#服务提供者和clinet配置" class="headerlink" title="服务提供者和clinet配置"></a>服务提供者和clinet配置</h4><pre><code>## 心跳间隔，5秒
+eureka.instance.leaseRenewalIntervalInSeconds=5
+## 没有心跳的淘汰时间，10秒
+eureka.instance.leaseExpirationDurationInSeconds=10
+
+# 定时刷新本地缓存时间
+eureka.client.registryFetchIntervalSeconds=5
+# ribbon缓存时间
+ribbon.ServerListRefreshInterval=2000
+</code></pre><p>改成上面配置后:</p>
+<ul>
+<li><p>正常上线下线客户端最大感知时间：eureka.client.registryFetchIntervalSeconds+ribbon. ServerListRefreshInterval = 7秒</p>
+</li>
+<li><p>异常下线客户端最大感知时间：<br>2*eureka.instance.leaseExpirationDurationInSeconds+<br>eureka.server.evictionIntervalTimerInMs+<br>eureka.client.registryFetchIntervalSeconds+<br>ribbon. ServerListRefreshInterval = 32</p>
+</li>
+</ul>
+<hr>
+<p>一些参考：</p>
+<ul>
+<li><a href="https://my.oschina.net/u/3747772/blog/1588956" target="_blank" rel="noopener">Spring Cloud Eureka源代码解析（2） EurekaServer 重要缓存解析</a></li>
+<li><a href="http://www.iocoder.cn/Eureka/instance-registry-evict/" target="_blank" rel="noopener">Eureka 源码解析 —— 应用实例注册发现（五）之过期</a></li>
+<li><a href="https://my.oschina.net/u/3747772/blog/1588958" target="_blank" rel="noopener">Spring Cloud Eureka解析（3） EurekaClient 重要缓存解析</a></li>
+<li><a href="http://www.voidcn.com/article/p-kkulkxgd-bps.html" target="_blank" rel="noopener">Spring Cloud Netflix Eureka - 揭秘手册</a></li>
+<li><a href="https://home1-oss.github.io/home1-oss-gitbook/release/docs/oss-eureka/GRACEFUL_SHUTDOWN.html" target="_blank" rel="noopener">Spring Boot环境下Eureka的暴力Shutdown本地服务</a></li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>坚持原创技术分享，您的支持将鼓励我继续创作！</div>
+  
+  <div id="QR">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img style="width:220px;margin-right:20px" id="wechat_qr" src="http://7xijc0.com1.z0.glb.clouddn.com/wx_qr.png" alt="chentao WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img style="width:180px;" id="alipay_qr" src="http://7xijc0.com1.z0.glb.clouddn.com/alipay_qr.png" alt="chentao Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/eureka-微服务-springcloud/" rel="tag"># eureka 微服务 springcloud</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/15/redis-client使用总结/" rel="next" title="redis client使用总结">
+                <i class="fa fa-chevron-left"></i> redis client使用总结
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="chentao" />
+          <p class="site-author-name" itemprop="name">chentao</p>
+           
+              <p class="site-description motion-element" itemprop="description">学习总结 思考感悟</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/bhsc881114" target="_blank" title="github">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      github
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://twitter.com/bhsc881114" target="_blank" title="twitter">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      twitter
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.weibo.com/u/1747810310" target="_blank" title="weibo">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      weibo
+                    
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://www.zhihu.com/people/chen-tao-97-49" target="_blank" title="zhihu">
+                  
+                    <i class="fa fa-fw fa-globe"></i>
+                  
+                    
+                      zhihu
+                    
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#服务获取中的缓存问题"><span class="nav-number">1.</span> <span class="nav-text">服务获取中的缓存问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么修改client的默认心跳时间，会导致自我保护模式失效？"><span class="nav-number">1.1.</span> <span class="nav-text">为什么修改client的默认心跳时间，会导致自我保护模式失效？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#客户端首次注册时间为什么要30s？如何改进？"><span class="nav-number">1.2.</span> <span class="nav-text">客户端首次注册时间为什么要30s？如何改进？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#其他影响快速获取服务信息的因素"><span class="nav-number">1.3.</span> <span class="nav-text">其他影响快速获取服务信息的因素</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#怎么更快的踢掉没有心跳的机器"><span class="nav-number">1.4.</span> <span class="nav-text">怎么更快的踢掉没有心跳的机器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#服务端缓存细节"><span class="nav-number">2.</span> <span class="nav-text">服务端缓存细节</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#写操作"><span class="nav-number">2.1.</span> <span class="nav-text">写操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#读操作"><span class="nav-number">2.2.</span> <span class="nav-text">读操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#滥用缓存的读操作"><span class="nav-number">2.3.</span> <span class="nav-text">滥用缓存的读操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#去掉readOnlyCacheMap"><span class="nav-number">2.4.</span> <span class="nav-text">去掉readOnlyCacheMap</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Time-Lag"><span class="nav-number">3.</span> <span class="nav-text">Time Lag</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#服务正常上线-修改，最大可能会有120s滞后"><span class="nav-number">3.1.</span> <span class="nav-text">服务正常上线/修改，最大可能会有120s滞后</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务异常下线：最大可能会有270s滞后"><span class="nav-number">3.2.</span> <span class="nav-text">服务异常下线：最大可能会有270s滞后</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生产环境最佳配置"><span class="nav-number">4.</span> <span class="nav-text">生产环境最佳配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Eureka-Server端配置"><span class="nav-number">4.1.</span> <span class="nav-text">Eureka Server端配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#服务提供者和clinet配置"><span class="nav-number">4.2.</span> <span class="nav-text">服务提供者和clinet配置</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">chentao</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
