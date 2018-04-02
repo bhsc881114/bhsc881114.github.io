@@ -105,7 +105,7 @@
 <meta property="og:description" content="eureka作为spring cloud微服务架构里的注册中心，是非常核心的一个组件，它避免了复杂的选主算法，架构比较简单，搭个demo也确实很快，但是如果要用于生产环境，还是得注意很多东西，尤其是下线延迟…">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://7xijc0.com1.z0.glb.clouddn.com/eureka-self.png">
-<meta property="og:updated_time" content="2018-04-01T04:16:20.923Z">
+<meta property="og:updated_time" content="2018-04-02T04:13:28.520Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="eureka缓存细节以及生产环境的最佳配置">
 <meta name="twitter:description" content="eureka作为spring cloud微服务架构里的注册中心，是非常核心的一个组件，它避免了复杂的选主算法，架构比较简单，搭个demo也确实很快，但是如果要用于生产环境，还是得注意很多东西，尤其是下线延迟…">
@@ -376,7 +376,7 @@
 <h4 id="其他影响快速获取服务信息的因素"><a href="#其他影响快速获取服务信息的因素" class="headerlink" title="其他影响快速获取服务信息的因素"></a>其他影响快速获取服务信息的因素</h4><p> <strong>【服务端缓存】</strong><br>因为服务端默认会有个read only response cache（下面会细说），每30秒更新一次(eureka.server.response-cache-update-interval-ms),所以可能注册了不是马上能看到（虽然通过rest api不能看到，但是你可以在web ui上看到，因为ui没有缓存）</p>
 <p> <strong>【客户端缓存】</strong><br>Eureka Client缓存的定期更新周期，他由eureka.client.registryFetchIntervalSeconds控制，默认30秒， 改成5秒 </p>
 <p> <strong>【Ribbon缓存】</strong><br>如果你采用Ribbon来访问服务，那么这里会有个缓存（他的数据来源是本地Eureka Client缓存），他由ribbon. ServerListRefreshInterval控制，默认30秒， 改成2秒</p>
-<h4 id="怎么更快的踢掉没有心跳的机器"><a href="#怎么更快的踢掉没有心跳的机器" class="headerlink" title="怎么更快的踢掉没有心跳的机器"></a>怎么更快的踢掉没有心跳的机器</h4><p>eureka.instance.leaseExpirationDurationInSeconds，这个值用来控制多久踢掉机器，默认是3个心跳周期，有点久，可以考虑改成2个，他不会影响到保护模式（如果开启自我保护模式，心跳间隔以为上面的bug不能改，只能改这个了 -_-）</p>
+<h4 id="怎么更快的踢掉没有心跳的机器"><a href="#怎么更快的踢掉没有心跳的机器" class="headerlink" title="怎么更快的踢掉没有心跳的机器"></a>怎么更快的踢掉没有心跳的机器</h4><p>eureka.instance.leaseExpirationDurationInSeconds，这个值用来控制多久踢掉机器，默认是3个心跳周期，有点久，可以考虑改成2个，他不会影响到保护模式（如果开启自我保护模式，心跳间隔因为上面的bug不能改，只能改这个了 -_-）</p>
 <hr>
 <h3 id="服务端缓存细节"><a href="#服务端缓存细节" class="headerlink" title="服务端缓存细节"></a>服务端缓存细节</h3><p>Eureka内部的缓存分很多级，主要有registry、readWriterCacheMap、readOnlyCacheMap；另外还有一个维护最近180s增量的队列recentlyChangedQueue</p>
 <h4 id="写操作"><a href="#写操作" class="headerlink" title="写操作"></a>写操作</h4><p>包括注册、取消注册等，都直接操作在registry上，同时也会更新recentlyChangedQueue和readWriterCacheMap</p>
