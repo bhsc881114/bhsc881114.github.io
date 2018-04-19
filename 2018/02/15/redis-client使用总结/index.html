@@ -104,7 +104,7 @@
 <meta property="og:site_name" content="灰主流创业者">
 <meta property="og:description" content="本文记录了使用redis client的基本配置和连接超限的问题">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-31T15:25:53.042Z">
+<meta property="og:updated_time" content="2018-04-19T07:03:51.994Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis client使用总结">
 <meta name="twitter:description" content="本文记录了使用redis client的基本配置和连接超限的问题">
@@ -390,7 +390,7 @@
 <p>配置上这个参数之后，对于一些客户端没有正常关闭的场景也能及时的关闭</p>
 <h4 id="4-正确关闭客户端连接"><a href="#4-正确关闭客户端连接" class="headerlink" title="4.正确关闭客户端连接"></a>4.正确关闭客户端连接</h4><p>另外说到客户端的正确配置，如果是使用Spring的话，只要配置下bean的destroy-method，在这里关闭连接池即可，如果没有用Spring，则要自己注册一个ShutdownHook</p>
 <hr>
-<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>1.<a href="http://coolnull.com/2842.html" target="_blank" rel="noopener">redis报-ERR max number of clients reached错误</a><br>2.<a href="http://coryklein.com/tcp/2015/11/25/custom-configuration-of-tcp-socket-keep-alive-timeouts.html" target="_blank" rel="noopener">Custom Configuration of TCP Socket Keep-Alive Timeouts</a><br>3.<a href="https://redis.io/topics/clients" target="_blank" rel="noopener">Redis Clients Handling</a></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>1.<a href="http://coolnull.com/2842.html" target="_blank" rel="noopener">redis报-ERR max number of clients reached错误</a><br>2.<a href="http://coryklein.com/tcp/2015/11/25/custom-configuration-of-tcp-socket-keep-alive-timeouts.html" target="_blank" rel="noopener">Custom Configuration of TCP Socket Keep-Alive Timeouts</a><br>3.<a href="https://redis.io/topics/clients" target="_blank" rel="noopener">Redis Clients Handling</a><br>4.<a href="https://gnuhpc.gitbooks.io/redis-all-about/HAClusterArchPractice/ms/sentinel-maxconn.html" target="_blank" rel="noopener">Sentinel最大连接数</a></p>
 
       
     </div>
